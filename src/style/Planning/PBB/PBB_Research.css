@@ -1,0 +1,35 @@
+table,tr, td{
+    border-collapse: collapse;
+  
+}
+td{
+    padding:10px 0 ;
+}
+td:first-child{
+    width:5%;
+
+}
+td:nth-child(2){
+    width:70%;
+    padding-left: 2%;
+  
+}
+
+td:last-child{
+   
+    width:15%;
+    text-align: center;
+   
+}
+#HE_OCI_1 > tr >td >span{
+        display: flex;
+         width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-left: 50%;
+        background-color: red;
+}
+
+#HE_OCI_1 tr:nth-child(even){
+    background-color: #f2f2f2;
+}
