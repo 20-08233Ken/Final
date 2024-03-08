@@ -1,8 +1,6 @@
 <script src="../../Scripts/Dean/HE_OCI_1.js">
 </script>
 
-
-
 <template>
     <div v-if="isAdd" role="alert" class="alert alert-success w-5/12 text-white fixed top-20 z-50 transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
@@ -147,8 +145,6 @@
                         <button class="btn btn-accent  w-2/12 text-white border-0">Add</button>
                     </span>
                 </Form>
-
-
             </div>
 
             <input type="radio" name="my_tabs_2" role="tab" class="tab font-Subheader text-base text-Red-Rose"
@@ -168,8 +164,6 @@
                             <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Number of Takers</th>
                             <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Approval Status</th>
                             <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Action</th>
-
-
                         </tr>
                     </thead>
                     <tbody>
@@ -296,32 +290,29 @@
 
                                         
                                         <table class="w-full mt-4">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="border-2 "></th>
-                                                                    <th class="border-2 text-center text-0.9 text-Subheader text-gray-700">
-                                                                        Required Files</th>
-                                                                    <th class="border-2 text-center text-0.9 text-Subheader text-gray-700">
-                                                                        Upload Files</th>
-                                                                </tr>
-                                                            </thead>
+                                            <thead>
+                                                <tr>
+                                                    <th class="border-2 "></th>
+                                                    <th class="border-2 text-center text-0.9 text-Subheader text-gray-700">
+                                                        Required Files</th>
+                                                    <th class="border-2 text-center text-0.9 text-Subheader text-gray-700">
+                                                        Upload Files</th>
+                                                </tr>
+                                            </thead>
 
-                                                            <tbody>
-                                                                <tr>
-                                                                    <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
-                                                                    </td>
-                                                                    <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                                                        PRC Official Results</td>
-                                                                    <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                                        <input type="file" class="ml-5" accept=".pdf">
-                                                                    </td>
-                                                                </tr>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
+                                                    </td>
+                                                    <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                                        PRC Official Results</td>
+                                                    <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                        <input type="file" class="ml-5" accept=".pdf" @change="handleFileChange" required>
+                                                    </td>
+                                                </tr>
 
-                                                            </tbody>
-                                                        </table>
-
-                                     
-
+                                            </tbody>
+                                        </table>
 
                                         <span class="w-full flex items-center justify-end gap-2 mt-5">
                                             <button class="btn btn-accent  w-2/12 text-white border-0">Update</button>
