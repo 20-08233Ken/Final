@@ -64,21 +64,10 @@ export default{
         // Sample Data Entry that will display in table
         async addData(){
             let userCookies = this.cookies.get('userCookies');
-            // this.sampleData.push(
-            //     {
-            //         tb_id:this.id,
-            //         tb_campus:this.data[0].in_campus,
-            //         tb_department:this.data[0].in_department,
-            //         tb_program:this.in_program,
-            //         tb_exam_date:this.in_examDate,
-            //         tb_takers:this.in_takers,
-            //         tb_passers:this.in_passers
-            //     }
-            // );
-            // console.log(this.in_id);
-            console.log("campus:", this.data[0].in_campus);
-            console.log("department:",this.data[0].in_department);
-            console.log("program:",this.in_program);
+           
+            console.log("campus_id:", this.data[0].in_campus);
+            console.log("college_id:",this.data[0].in_department);
+            console.log("program_id:",this.in_program);
             console.log("exam_date:", this.in_examDate);
             console.log("takers:", this.in_takers);
             console.log("passers:",this.in_passers);
@@ -86,19 +75,17 @@ export default{
             console.log("campus_id:",userCookies['campus_id']);
             console.log("college_id:", userCookies['college_id']);
           
-
-            // console.log(this.sampleData[0]);
-
-            // this.in_program="";
-            // this.in_examDate="";
-            // this.in_takers="";
-            // this.in_passers="";
+        
             // try {
             //     const response = await axios.post('http://127.0.0.1:8000/api/create_hep',{
-            //         "college_id": college_id,
-            //         "campus_id": campus,
-            //         "exam_date": this.in_program,
-            //         "supported_file": ""
+                    // "campus_id": this.data[0].in_campus,
+                    // "college_id":this.data[0].in_department,
+                    // "program_id":this.in_program,
+                    // "exam_date": this.in_examDate,
+                    // "number_of_takers": this.in_takers,
+                    // "number_of_passers":this.in_passers,
+                    // "user_id":userCookies['id'],
+                    // "supported_file:":this.file
             //     })
             //     .then(response => {
             //         this.collegeProgram = response.data;
@@ -110,14 +97,6 @@ export default{
             // } catch (error) {
                 
             // }
-      
-           
-                // this.id++;
-
-                // this.isAdd = true;
-                // setTimeout(() =>{
-                //     this.isAdd = false;
-                // }, 2000)
         },
         // Validate if the input field is empty
         validateInput(value){
