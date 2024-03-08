@@ -58,55 +58,83 @@ export default{
         }
     },
     methods:{
+        handleFileChange(event) {
+            this.file = event.target.files[0];
+        },
         // Sample Data Entry that will display in table
-        addData(){
- 
-                this.sampleData.push(
-                    {
-                        tb_id:this.id,
-                        tb_campus:this.data[0].in_campus,
-                        tb_department:this.data[0].in_department,
-                        tb_program:this.in_program,
-                        tb_exam_date:this.in_examDate,
-                        tb_takers:this.in_takers,
-                        tb_passers:this.in_passers
-                    }
-                )
+        async addData(){
+            let userCookies = this.cookies.get('userCookies');
+            // this.sampleData.push(
+            //     {
+            //         tb_id:this.id,
+            //         tb_campus:this.data[0].in_campus,
+            //         tb_department:this.data[0].in_department,
+            //         tb_program:this.in_program,
+            //         tb_exam_date:this.in_examDate,
+            //         tb_takers:this.in_takers,
+            //         tb_passers:this.in_passers
+            //     }
+            // );
+            // console.log(this.in_id);
+            console.log("campus:", this.data[0].in_campus);
+            console.log("department:",this.data[0].in_department);
+            console.log("program:",this.in_program);
+            console.log("exam_date:", this.in_examDate);
+            console.log("takers:", this.in_takers);
+            console.log("passers:",this.in_passers);
+            console.log("file:" ,this.file);
+            console.log("campus_id:",userCookies['campus_id']);
+            console.log("college_id:", userCookies['college_id']);
+          
 
-                console.log(this.sampleData[0])
+            // console.log(this.sampleData[0]);
 
-                this.in_program=""
-                this.in_examDate=""
-                this.in_takers=""
-                this.in_passers=""
+            // this.in_program="";
+            // this.in_examDate="";
+            // this.in_takers="";
+            // this.in_passers="";
+            // try {
+            //     const response = await axios.post('http://127.0.0.1:8000/api/create_hep',{
+            //         "college_id": college_id,
+            //         "campus_id": campus,
+            //         "exam_date": this.in_program,
+            //         "supported_file": ""
+            //     })
+            //     .then(response => {
+            //         this.collegeProgram = response.data;
+            //     })
+            //     .catch(error => {
+            //         console.error('Error fetching campus', error);
+            //     });
 
-                this.id++;
+            // } catch (error) {
+                
+            // }
+      
+           
+                // this.id++;
 
-                this.isAdd = true;
-                setTimeout(() =>{
-                    this.isAdd = false;
-                }, 2000)
+                // this.isAdd = true;
+                // setTimeout(() =>{
+                //     this.isAdd = false;
+                // }, 2000)
         },
         // Validate if the input field is empty
         validateInput(value){
             if (!value) {
                  return 'This field is required';
              }
-
-             return true
-             
-           
+            return true
         },
         submitData(){
-                console.log(this.in_takers)
-                if(this.count === true ){
-                    this.isActive = true
-                    this.count = false
-                    this.isIcon = true
-                }else{
-                    this.isActive = false
-                }
-               
+            console.log(this.in_takers)
+            if(this.count === true ){
+                this.isActive = true
+                this.count = false
+                this.isIcon = true
+            }else{
+                this.isActive = false
+            }
         },
         onClose(){
             this.isActive = false
@@ -133,9 +161,10 @@ export default{
                     "college_id": college_id
                 })
                 .then(response => {
+                    console.log("program response: ", response.data);
                     this.collegeProgram = response.data;
                 })
-                    .catch(error => {
+                .catch(error => {
                     console.error('Error fetching campus', error);
                 });
 
@@ -157,7 +186,7 @@ export default{
         let userCollege = this.cookies.get('userCollege');
         let userCampus = this.cookies.get('userCampus');
         // console.log("userCampus:",userCampus);
-        // console.log("userCookies:",);
+        // console.log("userCookies:", userCookies);
         // console.log("userCollege:", userCollege);
         this.user = userPosition;
         this.userCookies = userCookies;
