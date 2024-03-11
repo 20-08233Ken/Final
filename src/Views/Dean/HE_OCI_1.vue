@@ -1,6 +1,8 @@
 <script src="../../Scripts/Dean/HE_OCI_1.js">
 </script>
 
+
+
 <template>
     <div v-if="isAdd" role="alert" class="alert alert-success w-5/12 text-white fixed top-20 z-50 transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
@@ -91,7 +93,43 @@
                         </i>
                     </span>
 
-                    <v-dialog max-width="1000">
+                    <span clas="w-full flex">
+                        <table class="w-full mt-4">
+                                        <thead>
+                                            <tr class="bg-gray-700 text-white">
+                                                <th class="border-2 text-white"></th>
+                                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                                    Required Files</th>
+                                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                                    Upload Files
+                                                </th>
+                                                <th>
+
+                                                </th>
+                                            </tr>
+                                        </thead>
+
+                                        <tbody>
+                                            <tr>
+                                                <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
+                                                </td>
+                                                <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                                    PRC Official Results</td>
+                                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                    <input type="file" class="ml-5" accept=".pdf" @change="handleFileUpload">
+                                                    <!-- <p v-if="selectedFile">Selected File: {{ selectedFile.name }}</p> -->
+                                                </td>
+                                                <td>
+                                                   
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                        </table>
+                        
+                    </span>
+
+                    <!-- <v-dialog max-width="1000">
                         <template v-slot:activator="{ props: activatorProps }">
                             <v-btn v-bind="activatorProps" color="surface-variant" text="Upload File" variant="flat"
                                 class="w-full mt-2 font-Subheader" size="large"></v-btn>
@@ -123,7 +161,8 @@
                                                 <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
                                                     PRC Official Results</td>
                                                 <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                    <input type="file" class="ml-5" accept=".pdf">
+                                                    <input type="file" class="ml-5" accept=".pdf" @change="saveFileValue">
+                                                    <p v-if="selectedFile">Selected File: {{ selectedFile.name }}</p>
                                                 </td>
                                             </tr>
 
@@ -138,13 +177,15 @@
                                 </v-card-actions>
                             </v-card>
                         </template>
-                    </v-dialog>
+                    </v-dialog> -->
 
 
                     <span class="w-full flex items-center justify-end gap-2 mt-5">
-                        <button class="btn btn-accent  w-2/12 text-white border-0">Add</button>
+                        <button class="btn bg-emerald-600 text-white w-2/12 " @click="showFile()">Add</button>
                     </span>
                 </Form>
+
+
             </div>
 
             <input type="radio" name="my_tabs_2" role="tab" class="tab font-Subheader text-base text-Red-Rose"
@@ -164,6 +205,8 @@
                             <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Number of Takers</th>
                             <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Approval Status</th>
                             <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Action</th>
+
+
                         </tr>
                     </thead>
                     <tbody>
@@ -239,22 +282,22 @@
                                     <Form class="mt-4">
 
                                         <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
-                                        <Field type="text" name="campus" placeholder="Type here" disabled class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;" v-model="data[0].in_campus" :rules="validateInput" />
+                                        <Field type="text" name="campus" placeholder="Type here" disabled
+                                            class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
+                                            v-model="data[0].in_campus" :rules="validateInput" />
 
                                         <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
-                                        <Field type="text" placeholder="Type here" name="department" aria-disabled="" class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;" v-model="data[0].in_department" :rules="validateInput" />
+                                        <Field type="text" placeholder="Type here" name="department" disabled
+                                            class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
+                                            v-model="data[0].in_department" :rules="validateInput" />
 
 
                                         <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
-                                        <Field as="select" class="select select-bordered w-full mt-2" style="border:  1px solid #d2d2d2;" v-model="in_program" name="program" :rules="validateInput">
+                                        <Field as="select" class="select select-bordered w-full mt-2" style="border:  1px solid #d2d2d2;"
+                                            v-model="in_program" name="program" :rules="validateInput">
                                             <option disabled selected>Select Program ...</option>
-                                            <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}</option>
+                                            <option v-for="x in collegeProgram" :value="x.program">{{ x.program }}</option>
                                         </Field>
-                                        <!-- <Field  as="select" class="select select-bordered w-full mt-2" style="border:  1px solid #d2d2d2;" v-model="collegeProgram">
-                                            <option value="">Select Category</option>
-                                            <option v-for="campus_list in campus" :key="campus_list.id" :value="campus_list.id">{{ campus_list.name }}</option>
-                                        </Field> -->
-                                      
                                         <ErrorMessage name="program" class="error_message" />
 
                                         <p class="text-0.9 font-Subheader text-gray-500 mt-6">Exam Date</p>
@@ -290,29 +333,32 @@
 
                                         
                                         <table class="w-full mt-4">
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-2 "></th>
-                                                    <th class="border-2 text-center text-0.9 text-Subheader text-gray-700">
-                                                        Required Files</th>
-                                                    <th class="border-2 text-center text-0.9 text-Subheader text-gray-700">
-                                                        Upload Files</th>
-                                                </tr>
-                                            </thead>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="border-2 "></th>
+                                                                    <th class="border-2 text-center text-0.9 text-Subheader text-gray-700">
+                                                                        Required Files</th>
+                                                                    <th class="border-2 text-center text-0.9 text-Subheader text-gray-700">
+                                                                        Upload Files</th>
+                                                                </tr>
+                                                            </thead>
 
-                                            <tbody>
-                                                <tr>
-                                                    <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
-                                                    </td>
-                                                    <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                                        PRC Official Results</td>
-                                                    <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                        <input type="file" class="ml-5" accept=".pdf" @change="handleFileChange" required>
-                                                    </td>
-                                                </tr>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
+                                                                    </td>
+                                                                    <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                                                        PRC Official Results</td>
+                                                                    <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                                        <input type="file" class="ml-5" accept=".pdf">
+                                                                    </td>
+                                                                </tr>
 
-                                            </tbody>
-                                        </table>
+                                                            </tbody>
+                                                        </table>
+
+                                     
+
 
                                         <span class="w-full flex items-center justify-end gap-2 mt-5">
                                             <button class="btn btn-accent  w-2/12 text-white border-0">Update</button>

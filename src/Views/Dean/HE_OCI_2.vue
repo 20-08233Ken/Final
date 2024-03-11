@@ -122,7 +122,44 @@
 
                     <p class="text-0.9 font-Subheader text-gray-500 mt-6">Upload Supported File</p>
 
-                    <v-dialog max-width="1000">
+                    <table class="w-full mt-4">
+                        <thead>
+                            <tr class="bg-gray-700 text-white">
+                                <th class="border-2 text-white"></th>
+                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                    Required Files</th>
+                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                    Upload Files
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
+                                </td>
+                                <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                    Graduate Tracer Study</td>
+                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                    <input type="file" class="ml-5" @change="handleFileUpload">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">2
+                                </td>
+                                <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                    Official list of FY 2021 Graduates</td>
+                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                    <input type="file" class="ml-5" @change="handleFileUpload2">
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <!-- <v-dialog max-width="1000">
                         <template v-slot:activator="{ props: activatorProps }">
                             <v-btn v-bind="activatorProps" color="surface-variant" text="Upload File" variant="flat"
                                 class="w-full mt-2 font-Subheader" size="large"></v-btn>
@@ -177,10 +214,10 @@
                                 </v-card-actions>
                             </v-card>
                         </template>
-                    </v-dialog>
+                    </v-dialog> -->
 
                     <span class="w-full flex items-center justify-end gap-2 mt-5">
-                        <button class="btn w-2/12 bg-white border-0">Add</button>
+                        <button class="btn bg-emerald-600 text-white w-2/12" @click="showFile()">Add</button>
                     </span>
                 </Form>
 
@@ -439,6 +476,64 @@
 
             </div>
 
+            <input type="radio" name="my_tabs_2" role="tab" class="tab font-Subheader text-base text-Red-Rose"
+                aria-label="Registrar" />
+            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
+
+                <h1 class="font-Subheader ">PRC: List of Graduates by Institution, Program, and Sex</h1>
+                <table class="table-zebra table-md mt-4">
+                    <thead>
+                        <tr class="bg-gray-700 ">
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-b-1" colspan="7">Student
+                                Profile</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-b-1" rowspan="2">Program
+                                Name</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-b-1" rowspan="2">Program
+                                Major</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-b-1" colspan="2">Program
+                                Authority to Operate / Graduate</th>
+                        </tr>
+                        <tr class="bg-gray-700 ">
+                            <th></th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Student ID</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Date of Birth
+                                (mm/dd/yyyy)</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Last Name</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-white">First Name</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Sex (M/F)</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Date Graduated</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Authority Number</th>
+                            <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Year Granted</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in sampleData">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="flex flex-col items-center gap-2 ">
+                                <button
+                                    class="btn btn-xs btn-ghost font-Subheader w-full text-green-700 shadow-0 ">Edit</button>
+                                <button
+                                    class="btn btn-xs btn-ghost font-Subheader w-full text-Red-Rose shadow-0 ">Delete</button>
+                                <button
+                                    class="btn btn-xs btn-ghost font-Subheader w-full text-blue-700 shadow-0 ">View</button>
+
+
+
+
+                            </td>
+                        </tr>
+
+
+                    </tbody>
+                </table>
+
+
+            </div>
 
         </div>
 

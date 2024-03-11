@@ -1,41 +1,4 @@
-<script>
-
-    import QAM_nav from '../../components/Others/Navigation/QAM_nav.vue';
-    import HE_OPI_2 from './HE_OPI_2.vue';
-    import AE_OPI_2 from './AE_OPI_2.vue';
-
-    import activityList from '../../components/Others/activityList.vue'
-    import { useCookies } from 'vue3-cookies';
-    import { markRaw } from "vue"
-    import { userPosition } from '../../Scripts/cookies';
-
-    const hold_oc_1 = markRaw(HE_OPI_2);
-
-    export default{
-
-        components:{
-            QAM_nav,
-            HE_OPI_2,
-            AE_OPI_2,
-            activityList
-            
-        },
-
-        data(){
-            return{
-                currentComponent:HE_OPI_2,
-                activeBtn:1,
-                user:userPosition
-            }
-        },
-        methods:{
-        showComponent(componentName, btnNumber){
-            this.currentComponent = componentName
-            this.activeBtn = btnNumber
-        }
-    },
-
-    }
+<script src="../../Scripts/QAM/QAM.js">
 
 </script>
 
@@ -46,7 +9,7 @@
     
     <QAM_nav v-if="user == 'QAM'"/>
 
-    <section class="w-full flex gap-8" v-if="user == 'QAM'">
+    <section class="w-full flex justify-between gap-8" v-if="user == 'QAM'">
         <div class="flex flex-col w-3/12  pl-8 h-dvh">
 
             <h3 class="w-full flex  py-3 font-Subheader mt-8" >Performace Indicator</h3>

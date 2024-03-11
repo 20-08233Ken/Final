@@ -64,12 +64,9 @@ export default {
     },  
     methods: {
         logout() {
-            this.cookies.remove('userCookies');
-            this.cookies.remove('userCampus');
-            this.cookies.remove('userCollege');
-            this.cookies.remove('userAccessToken');
-            this.cookies.remove('userPosition');
-            this.$router.push('/');
+            this.cookies.remove('userCookies')
+            this.cookies.remove('userPosition')
+            this.$router.push('/')
         },
 
         validateData(value){

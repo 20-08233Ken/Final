@@ -45,15 +45,28 @@
                     date:"June 14, 2023",
                     status:"Completed"
                 },
-            ]
+            ],
+
+            isHide:true
+            }
+        },
+
+        methods:{
+            hideSide(){
+
+                if(this.isHide === true){
+                    this.isHide = false
+                }else{
+                    this.isHide = true
+                }
             }
         }
     }
 </script>
 
 <template>
-            <div class="flex w-20% shadow-card2" >
-            <span class="flex flex-col w-full px-4 py-4 ">
+        <div class="flex justify-end w-auto shadow-card2 relative overflow-x-auto" >
+            <span class="flex flex-col w-full px-4 py-4 " :class="{'isShow':isHide === true, 'notShow':isHide === false}">
                 <calendar/>
                 <h4 class="mt-6 font-Header text-Red-Rose" >Activities</h4>
 
@@ -111,5 +124,37 @@
 
 
             </span>
+            <span class="flex bg-gray-700 relative left-0">
+                <button class="text-white" @click="hideSide()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                    </svg>
+                </button>
+            </span>
         </div>
 </template>
+
+<style scoped>
+
+.isShow{
+    display: flex;
+    animation: myAnim 1s ease 0s 1 normal forwards;
+}
+@keyframes myAnim {
+	0% {
+		opacity: 0;
+		transform: translateX(250px);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+.notShow{
+    display: none;
+
+}
+
+
+</style>

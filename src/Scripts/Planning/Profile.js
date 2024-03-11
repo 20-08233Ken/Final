@@ -6,6 +6,7 @@ import MainProfile from '../../Views/Planning/Profile/main.vue'
 import user_management from '../../Views/Planning/Profile/user_management.vue'
 import { ref,markRaw } from 'vue';
 import { useCookies } from 'vue3-cookies';
+
 import {userPosition} from '../cookies.js'
 
 
@@ -20,10 +21,6 @@ const markRaw_MainProfile= markRaw(MainProfile)
 export default{
     
 
-    setup(){
-        const {cookies} =useCookies();
-        return {cookies}
-    },
     data(){
         return{
             user:userPosition,
@@ -38,29 +35,11 @@ export default{
             currentComponent:MainProfile
         }
     },
-    mounted(){
-        let userCookies = this.cookies.get('userCookies');
-        let accesstoken = this.cookies.get('userAccessToken');
-        let userPosition = this.cookies.get('userPosition');
-        let userCollege = this.cookies.get('userCollege');
-        let userCampus = this.cookies.get('userCampus');
-        // console.log(userCookies);
-        // console.log(userPosition);
-        this.user = userPosition;
-        this.userCookies = userCookies;
-  
-        if (this.user == null && this.userCookies == null){
-            this.$router.push('/');
-        }
-       
-    },
     methods:{
         showComponent(getComponent){
             this.currentComponent =getComponent
         }
     },
-
-    
     components:{
         Navigation,
         Planning_nav,

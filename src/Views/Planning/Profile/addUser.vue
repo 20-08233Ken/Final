@@ -95,29 +95,13 @@
                     <ErrorMessage name="postion" class="error_message"/>
 
 
-                    <!-- <span class="flex w-full mt-4">
-                        <div class="badge bg-Red-Darken text-white gap-2 text-0.8 py-3 px-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                            Planning Officer II
-                        </div>
-
-                        <div class="badge bg-Red-Darken text-white gap-2 text-0.8 py-3 px-4">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-4 h-4 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-                           Instructor II
-                        </div>
-
-                    </span> -->
-
+    
 
                     <span class="w-full flex justify-end mt-4">
                         <button class="btn btn-success text-white w-3/12">Add</button>
                     </span>
     
             </Form>
-
-
-
-
             
         </div>
     </dialog>

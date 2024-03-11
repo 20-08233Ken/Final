@@ -207,8 +207,8 @@
 
 <template>
             <h1 class="font-Header text-3xl text-Red-Rose">Higher Education Program</h1>
-            <h2 class="font-Subheader text-lg text-Red-Rose">Output Indicator 2: </h2>
-            <h2 class="font-Subheader text-1gray-700">Percentage of undergraduate programs with accreditation</h2>
+            <h2 class="font-Subheader text-lg text-Red-Rose">Outcome Indicator 2</h2>
+            <h2 class="font-Subheader text-1gray-700"> Percentage of graduates (2 years prior) that are employed</h2>
 
             <span>
                 <div class="text-sm breadcrumbs w-full mt-4">

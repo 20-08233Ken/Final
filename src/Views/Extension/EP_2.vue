@@ -66,7 +66,7 @@
                         <input type="file" class="file-input file-input-bordered w-full mt-2" /> -->
 
                         <span class="w-full flex items-center justify-end gap-2 mt-5">
-                            <button class="btn w-2/12 bg-white border-0" >Add</button>
+                            <button class="btn bg-emerald-600 text-white w-2/12">Add </button>
 
                         </span>
 

@@ -7,20 +7,22 @@ import Navigation from '../../components/Others/Navigation.vue';
 import Dean_nav from '../../components/Others/Navigation/Dean_nav.vue';
 import { markRaw } from "vue"
 import { useCookies } from 'vue3-cookies';
+
 import {userPosition} from '../cookies.js'
 
 const hold_oc_1 = markRaw(HE_OCI_1);
 
 export default{
-    setup(){
-        const {cookies} =useCookies();
-        return {cookies}
+
+    mounted(){
+        const holdCookies = userPosition();
+        this.user = holdCookies();
     },
     data(){
         return{
             currentComponent:HE_OCI_1,
             activeBtn:1,
-            user:userPosition, 
+            user:null, 
             sampleData:[
                 {
                     id:1,
@@ -61,7 +63,6 @@ export default{
             ]
         }
     },
-    
     components:{
         HE_OCI_1,
         HE_OCI_2,
@@ -76,20 +77,6 @@ export default{
         calendar,
         activityList
         
-    },
-    mounted(){
-        let userCookies = this.cookies.get('userCookies');
-        let accesstoken = this.cookies.get('userAccessToken');
-        let userPosition = this.cookies.get('userPosition');
-        let userCollege = this.cookies.get('userCollege');
-        let userCampus = this.cookies.get('userCampus');
-        this.user = userPosition;
-        this.userCookies = userCookies;
-  
-        if (this.user == null && this.userCookies == null){
-            this.$router.push('/');
-        }
-       
     },
     methods:{
         showComponent(componentName, btnNumber){

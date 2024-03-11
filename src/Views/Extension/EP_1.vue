@@ -146,7 +146,7 @@
                         style="border:1px solid #d2d2d2" /> -->
 
                     <span class="w-full flex items-center justify-end gap-2 mt-5">
-                        <v-btn class="bg-teal-darken-4">Add </v-btn>
+                        <button class="btn bg-emerald-600 text-white w-2/12">Add </button>
                     </span>
                 </Form>
 

@@ -106,9 +106,69 @@
                             </svg>
                         </i>
                     </span>
+
+                    <table class="w-full mt-4">
+                        <thead>
+                            <tr class="bg-gray-700 text-white">
+                                <th class="border-2 text-white"></th>
+                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                    Required Files</th>
+                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                    Upload Files
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
+                                </td>
+                                <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                    Scanned copy of enrollment form</td>
+                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                    <input type="file" class="ml-5" @change="handleFileUpload1">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-2 text-0.9 text-Subheader text-gray-700">2</td>
+                                <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">Scanned
+                                    copy of latest research conducted</td>
+                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                    <input type="file" class="ml-5" @change="handleFileUpload2">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-2 text-0.9 text-Subheader text-gray-700">3</td>
+                                <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                    Documentation of utilized technlogy</td>
+                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                    <input type="file" class="ml-5" @change="handleFileUpload3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-2 text-0.9 text-Subheader text-gray-700">4</td>
+                                <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">Activity
+                                    report of extension program</td>
+                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                    <input type="file" class="ml-5" @change="handleFileUpload4">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="border-2 text-0.9 text-Subheader text-gray-700">5</td>
+                                <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">Scanned
+                                    copy of enrollment form</td>
+                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                    <input type="file" class="ml-5" @change="handleFileUpload5">
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                     <!-- <input type="file" class="file-input file-input-bordered w-full mt-2" /> -->
 
-                    <v-dialog max-width="1000">
+                    <!-- <v-dialog max-width="1000">
                         <template v-slot:activator="{ props: activatorProps }">
                             <v-btn v-bind="activatorProps" color="surface-variant" text="Upload File" variant="flat"
                                 class="w-full mt-2 font-Subheader" size="large"></v-btn>
@@ -185,10 +245,10 @@
                                 </v-card-actions>
                             </v-card>
                         </template>
-                    </v-dialog>
+                    </v-dialog> -->
 
                     <span class="w-full flex items-center justify-end gap-2 mt-5">
-                        <button class="btn w-2/12 bg-white border-0">Add</button>
+                        <button class="btn  bg-emerald-600 w-2/12 text-white border-0" @click="showFiles()">Add</button>
                     </span>
                 </Form>
             </div>

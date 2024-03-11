@@ -148,6 +148,10 @@
 
                 headers:[
                     {
+                        title:'Details of Research Outputs',
+                        align:'center'
+                    },
+                    {
                         title:'Campus',
                         value:'campus',
                         class:'table_header',

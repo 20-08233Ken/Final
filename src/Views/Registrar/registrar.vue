@@ -7,7 +7,7 @@
 
         <Registrar_nav v-if="user == 'Registrar'" />
 
-        <section class="w-full flex gap-8" v-if="user == 'Registrar'">
+        <section class="w-full flex  justify-between  gap-8" v-if="user == 'Registrar'">
             <div class="flex flex-col w-3/12  pl-8 h-dvh">
 
                 <h3 class="w-full flex  py-3 font-Subheader mt-8">Performace Indicator</h3>

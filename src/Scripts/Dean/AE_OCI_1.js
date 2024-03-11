@@ -67,8 +67,13 @@ export default{
                 },
             ],
             sampleData:[
+            ],
 
-            ]
+            selectedFile1:null,
+            selectedFile2:null,
+            selectedFile3:null,
+            selectedFile4:null,
+            selectedFile5:null,
         }
     },
 
@@ -131,8 +136,34 @@ export default{
             }catch (error){
                 // add actions here
             }
+        },
+
+
+        handleFileUpload1(event){
+            this.selectedFile1 = event.target.files[0]
+        },
+        handleFileUpload2(event){
+            this.selectedFile2 = event.target.files[0]
+        },
+        handleFileUpload3(event){
+            this.selectedFile3 = event.target.files[0]
+        },
+        handleFileUpload4(event){
+            this.selectedFile4 = event.target.files[0]
+        },
+        handleFileUpload5(event){
+            this.selectedFile5 = event.target.files[0]
+        },
+
+        showFiles(){
+            console.log(this.selectedFile1)
+            console.log(this.selectedFile2)
+            console.log(this.selectedFile3)
+            console.log(this.selectedFile4)
+            console.log(this.selectedFile5)
+
         }
-    },
+        },
     mount(){
         // call here
         // this.fetchProgram_Data()
