@@ -32,7 +32,9 @@
             
                 <img src="../assets/img/school.png" alt="" style="width: 40%;margin: -20% 0 1rem 0;">
             
-                <Form class="flex flex-col w-full items-center"  >
+                <!-- <form class="flex flex-col w-full items-center"  v-on:submit.prevent="submitData"> -->
+                    
+                <Form class="flex flex-col w-full items-center"   @submit="submitData()">
 
                     <p class ="text-gray-500" style="width: 80%; font-size: 15px;">Username</p>
                     <Field type="text" name="username" id="username" v-model="form.username"  :rules="validateData"></Field>
@@ -42,6 +44,9 @@
                     <Field type="password"  name="password" id="password" v-model="form.password" :rules="validateData"></Field>
                     <ErrorMessage name="password" class="error_message"></ErrorMessage>
 
+                    <button class="bg-Red-Rose text-white w-2/12 py-3 rounded mt-4 " style="width: 80%;font-size: 15px;">  
+                        Login     
+                    </button>
           
                 <!-- <button class="bg-Red-Rose text-white w-2/12 py-3 rounded mt-4 " style="width: 80%;font-size: 15px; " @click="getLoginData">  
                     Login as Dean         
@@ -53,11 +58,9 @@
              
 
                 
-                <router-link to="/home"  class=" w-full flex justify-center">
-                <button class="bg-Red-Rose text-white w-2/12 py-3 rounded mt-4 " style="width: 80%;font-size: 15px;">  
-                    Login     
-                </button>
-                </router-link>
+                <!-- <router-link to="/home"  class=" w-full flex justify-center">
+                
+                </router-link> -->
             
         </section>
     </main>
