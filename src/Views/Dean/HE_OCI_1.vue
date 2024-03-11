@@ -135,7 +135,7 @@
 
 
                 <span class="w-full flex items-center justify-end gap-2 mt-5">
-                    <button class="btn bg-emerald-600 text-white w-2/12 " @click="showFile()">Add</button>
+                    <button class="btn bg-emerald-600 text-white w-2/12 ">Add</button>
                 </span>
             </Form>
         </div>
@@ -159,15 +159,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="(item, index) in sampleData">
-                        <th class="text-0.8">{{ item.tb_id }}</th>
-                        <td class="text-0.8">{{ item.tb_campus }}</td>
-                        <td class="text-0.8">{{ item.tb_department }}</td>
-                        <td class="text-0.8">{{ item.tb_program }}</td>
-                        <td class="text-0.8">{{ item.tb_exam_date }}</td>
-                        <td class="text-0.8">{{ item.tb_passers }}</td>
-                        <td class="text-0.8">{{ item.tb_takers }}</td>
-                        <td class="text-0.8">{{ item.tb_approval }}</td>
+                    <tr v-for="(item, index) in hepData">
+                        <th class="text-0.8">{{ item.id }}</th>
+                        <td class="text-0.8">{{ item.campus }}</td>
+                        <td class="text-0.8">{{ item.department }}</td>
+                        <td class="text-0.8">{{ item.program }}</td>
+                        <td class="text-0.8">{{ item.exam_date }}</td>
+                        <td class="text-0.8">{{ item.number_of_passers }}</td>
+                        <td class="text-0.8">{{ item.number_of_takers }}</td>
+                        <td class="text-0.8">{{ item.approval }}</td>
                         <td class="flex flex-col items-center gap-2 ">
                             <button :disabled='disableBttn' class="btn btn-xs btn-ghost font-Subheader w-full text-green-700 shadow-0 "
                                 onclick="openEdit.showModal()">Edit</button>
@@ -253,7 +253,7 @@
                                             style="border:  1px solid #d2d2d2;" v-model="in_program" name="program"
                                             :rules="validateInput">
                                             <option disabled selected>Select Program ...</option>
-                                            <option v-for="x in collegeProgram" :value="x.program">{{ x.program }}
+                                            <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}
                                             </option>
                                         </Field>
                                         <ErrorMessage name="program" class="error_message" />
