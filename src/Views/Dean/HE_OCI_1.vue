@@ -296,7 +296,7 @@
                                         <Field as="select" class="select select-bordered w-full mt-2" style="border:  1px solid #d2d2d2;"
                                             v-model="in_program" name="program" :rules="validateInput">
                                             <option disabled selected>Select Program ...</option>
-                                            <option v-for="x in collegeProgram" :value="x.program">{{ x.program }}</option>
+                                            <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}</option>
                                         </Field>
                                         <ErrorMessage name="program" class="error_message" />
 
