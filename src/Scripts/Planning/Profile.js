@@ -48,5 +48,21 @@ export default{
         MainProfile,
         user_management
     },
+    mounted(){
+        let userCookies = this.cookies.get('userCookies');
+        let accesstoken = this.cookies.get('userAccessToken');
+        let userPosition = this.cookies.get('userPosition');
+        let userCollege = this.cookies.get('userCollege');
+        let userCampus = this.cookies.get('userCampus');
+        // console.log(userCookies);
+        // console.log(userPosition);
+        this.user = userPosition;
+        this.userCookies = userCookies;
+  
+        if (this.user == null && this.userCookies == null){
+            this.$router.push('/');
+        }
+       
+    }
 
 }
