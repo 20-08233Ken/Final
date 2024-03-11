@@ -19,3 +19,14 @@
     color: red;
     font-size: .9rem;
 }
+
+.isDataNotActive{
+    background-color: #94080D;
+    color: white;
+}
+
+
+.isDataActive{
+    background-color: #94080D;
+    color: white;
+}

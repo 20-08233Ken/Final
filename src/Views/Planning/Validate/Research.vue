@@ -149,56 +149,77 @@
                 headers:[
                     {
                         title:'Details of Research Outputs',
-                        align:'center'
-                    },
-                    {
-                        title:'Campus',
-                        value:'campus',
-                        class:'table_header',
-                    },
-                    {
-                        title:'Department',
-                        value:'department',
-                    },
-                    {
-                        title:'Program',
-                        value:'program',
-                    },
-                    {
-                        title:'Year of Initial Operation',
-                        value:'year_io',
-                    },
-                    {
-                        title:'Program Accredittation Status',
-                        value:'accr_status',
-                    },
-                    {
-                        title:'Validity of Accredittation',
                         align:'center',
-
                         children:[
                             {
-                                title:'Started Date',
-                                value:'pov_from',
-                            },
+                                title:'Research Title'
+                            },{
+                                title:'Name of Faculty Researcher / Author'
+                            },{
+                                title:'Status of Research'
+                            },{
+                                title:'Duration of Research',
+                                children:[
+                                    {
+                                        title:'Date Started'
+                                    },{
+                                        title:'Date of Completion'
+                                    }
+                                ]
+                            }
+                        ],
+                    },{
+
+                        title:'Details of Presentation',
+                        align:'center',
+                        children:[
                             {
-                                title:'End Date',
-                                value:'pov_to',
+                                title:'Title of Forum'
+                            },{
+                                title:'Venue'
+                            },{
+                                title:'Forum Type'
+                            },{
+                                title:'Date of Presentation'
+                            },{
+                                title:'Published Title'
+                            },{
+                                title:'Date of Publication'
+                            },{
+                                title:'Title of Journal / Publication'
+                            },{
+                                title:'Volume & Issue'
+                            },{
+                                title:'ISSN / ISBN'
+                            },{
+                                title:'Index'
                             }
                         ]
-                    },
-                    {
-                        title:'Supported Documents',
-                        value:'sup_doc',
-                        align:'center'
+                    },{
+                        title:'Details of Utilized Output',
+                        align:'center',
+                        children:[
+                            {
+                                title:'Product Name / Methods / Process / Technology'
+                            },
+                            {
+                                title:'Patent Number / Product Description'
+                            },
+                            {
+                                title:'Benefiting Industry / Community'
+                            },
+                        ]
                     },
                     {
                         title:'Validation Status',
                         value:'v_status',
                     },{
-                        title:"Actions",
+                        title:'Actions',
+                        align:'center',
                         value:'actions'
                     }
+
+
                     
                 ],
                 reasonOpt:[
@@ -220,9 +241,9 @@
 </script>
 
 <template>
-            <h1 class="font-Header text-3xl text-Red-Rose">Higher Education Program</h1>
-            <h2 class="font-Subheader text-lg text-Red-Rose">Output Indicator 2</h2>
-            <h2 class="font-Subheader text-1gray-700"> Percentage of undergraduate programs with accreditation</h2>
+            <h1 class="font-Header text-3xl text-Red-Rose">Research Program</h1>
+ 
+            <h2 class="font-Subheader gray-700"> Percentage of undergraduate programs with accreditation</h2>
 
             <span>
                 <div class="text-sm breadcrumbs w-full mt-4">

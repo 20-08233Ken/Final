@@ -48,7 +48,8 @@ export default {
 
             ],
             selectedFile1:null,
-            selectedFile2:null
+            selectedFile2:null,
+            isDataActive:1,
 
         }
     },
@@ -128,7 +129,13 @@ export default {
         showFile(){
             console.log(this.selectedFile1)
             console.log(this.selectedFile2)
-        }
+        },
+
+        changeData(isActive ){
+            this.isDataActive = isActive
+            console.log(this.isDataActive)
+        },
+
     },
 
     mount(){

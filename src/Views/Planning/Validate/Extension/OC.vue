@@ -148,41 +148,23 @@
 
                 headers:[
                     {
-                        title:'Campus',
+                        title:'Partner LGU /Community/ Industry / SMEs / Private or Public Agencies / NGOs',
                         value:'campus',
                         class:'table_header',
                     },
                     {
-                        title:'Department',
+                        title:'Extension Program / Activities',
                         value:'department',
                     },
                     {
-                        title:'Program',
+                        title:'Start Date',
                         value:'program',
                     },
                     {
-                        title:'Year of Initial Operation',
+                        title:'End Date',
                         value:'year_io',
                     },
-                    {
-                        title:'Program Accredittation Status',
-                        value:'accr_status',
-                    },
-                    {
-                        title:'Validity of Accredittation',
-                        align:'center',
-
-                        children:[
-                            {
-                                title:'Started Date',
-                                value:'pov_from',
-                            },
-                            {
-                                title:'End Date',
-                                value:'pov_to',
-                            }
-                        ]
-                    },
+           
                     {
                         title:'Supported Documents',
                         value:'sup_doc',

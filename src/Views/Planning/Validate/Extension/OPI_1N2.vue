@@ -148,39 +148,75 @@
 
                 headers:[
                     {
-                        title:'Campus',
+                        title:'Title of Training',
                         value:'campus',
                         class:'table_header',
                     },
                     {
-                        title:'Department',
+                        title:'Inclusive Dates',
                         value:'department',
+                        children:[
+                            {
+                                title:"Start Date"
+                            },{
+                                title:"End Date"
+                            }
+                        ]
                     },
                     {
-                        title:'Program',
+                        title:'Duration in Terms of Number of Hours',
                         value:'program',
                     },
                     {
-                        title:'Year of Initial Operation',
+                        title:'Weight per Duration',
                         value:'year_io',
                     },
                     {
-                        title:'Program Accredittation Status',
+                        title:'Number of Trainees',
                         value:'accr_status',
                     },
                     {
-                        title:'Validity of Accredittation',
+                        title:'Number of Trainees x Wight per Duration',
                         align:'center',
-
+                    },
+                    {
+                        title:'Number of Trainees Surveyed',
+                        align:'center',
+                    },
+                    {
+                        title:'Quality and Relevance Rating',
+                        align:'center',
                         children:[
                             {
-                                title:'Started Date',
-                                value:'pov_from',
+                                title:'1',
+                                children:[{
+                                    title:'P'
+                                }]
                             },
                             {
-                                title:'End Date',
-                                value:'pov_to',
-                            }
+                                title:'2',
+                                children:[{
+                                    title:'F'
+                                }]
+                            },
+                            {
+                                title:'3',
+                                children:[{
+                                    title:'S'
+                                }]
+                            },
+                            {
+                                title:'4',
+                                children:[{
+                                    title:'VS'
+                                }]
+                            },
+                            {
+                                title:'5',
+                                children:[{
+                                    title:'E'
+                                }]
+                            },
                         ]
                     },
                     {
@@ -193,6 +229,7 @@
                         value:'v_status',
                     },{
                         title:"Actions",
+                        align:'center',
                         value:'actions'
                     }
                     

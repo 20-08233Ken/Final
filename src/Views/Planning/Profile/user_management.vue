@@ -221,7 +221,10 @@
                     <ErrorMessage name="postion" class="error_message"/>
 
                     <span class="w-full flex justify-end mt-4 gap-4">
-                        <button class="btn w-3/12 text-black">Cancel</button>
+                        <form method="dialog" >
+
+                            <button class="btn bg-white w-3/12 text-black">Cancel</button>
+                        </form>
                         <button class="btn btn-success text-white w-3/12">Update</button>
                     </span>
     

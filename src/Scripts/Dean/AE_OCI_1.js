@@ -74,6 +74,8 @@ export default{
             selectedFile3:null,
             selectedFile4:null,
             selectedFile5:null,
+            isDataActive:1,
+
         }
     },
 
@@ -162,7 +164,11 @@ export default{
             console.log(this.selectedFile4)
             console.log(this.selectedFile5)
 
-        }
+        },
+        changeData(isActive ){
+            this.isDataActive = isActive
+            console.log(this.isDataActive)
+        },
         },
     mount(){
         // call here
