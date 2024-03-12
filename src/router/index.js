@@ -35,7 +35,7 @@ import Advanced from '../Views/Planning/Indicators/AdvanceEd.vue'
 import Higher from '../Views/Planning/Indicators/HigherEd.vue'
 import ResearchServices from '../Views/Planning/Indicators/ResearchServices.vue'
 
-import validateMain from '../Views/Planning/Validate/validate_main.vue'
+import validateMain from '../Views/Validate/validate_main.vue'
 
 const router = createRouter ({
 

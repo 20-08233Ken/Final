@@ -172,7 +172,7 @@
         </div>
 
         <div class="w-full flex flex-col mt-8 overflow-x-auto" v-if="isDataActive === 2">
-            <table class="table-zebra table-md">
+            <table class="table-zebra table-sm">
                 <thead>
                     <tr class="bg-gray-700 ">
                         <th></th>
@@ -183,273 +183,266 @@
                         <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Status</th>
                         <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Company's Business /
                             Type of Business</th>
-                            <th class="text-0.8 text-center  text-white font-Subheader border-r-1 border-white">Supported Documents</th>
+                        <th class="text-0.8 text-center  text-white font-Subheader border-r-1 border-white">Supported
+                            Documents</th>
 
-                            <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Approval Status</th>
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Approval Status</th>
                         <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in sampleData">
                         <td class="text-0.8">{{ item.tb_id}}</td>
-                        <td  class="text-0.8">{{ item.tb_campus}}</td>
-                        <td  class="text-0.8">{{ item.tb_apartment}}</td>
-                        <td  class="text-0.8">{{ item.tb_program}}</td>
-                        <td  class="text-0.8">{{ item.tb_name}}</td>
-                        <td  class="text-0.8">{{ item.tb_status}}</td>
-                        <td  class="text-0.8">{{ item.tb_company}}</td>
+                        <td class="text-0.8">{{ item.tb_campus}}</td>
+                        <td class="text-0.8">{{ item.tb_apartment}}</td>
+                        <td class="text-0.8">{{ item.tb_program}}</td>
+                        <td class="text-0.8">{{ item.tb_name}}</td>
+                        <td class="text-0.8">{{ item.tb_status}}</td>
+                        <td class="text-0.8">{{ item.tb_company}}</td>
                         <td></td>
-                        <td  class="text-0.8">{{ item.tb_approval }}</td>
+                        <td class="text-0.8">{{ item.tb_approval }}</td>
                         <td class="flex flex-col items-center gap-2 ">
+
+                            <!-- Edit -->
                             <v-dialog max-width="700">
-                            <template v-slot:activator="{ props: activatorProps }">
-                                <v-btn
-                               
-                                size="x-small"
-                                block
-                                v-bind="activatorProps"
-                                color="surface-variant"
-                                text="Edit"
-                                variant="flat"
-                                :disabled='item.tb_approval === `Approved`'
-                                ></v-btn>
-                            </template>
+                                <template v-slot:activator="{ props: activatorProps }">
+                                    <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
+                                        text="Edit" variant="flat" :disabled='item.tb_approval === `Approved`'></v-btn>
+                                </template>
 
-                            <template v-slot:default="{ isActive }">
-                                <v-card class="px-8 py-8">
-                                    <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
+                                <template v-slot:default="{ isActive }">
+                                    <v-card class="px-8 py-8">
+                                        <h3
+                                            class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
 
-                                        Edit Record</h3>
-                                <Form class="mt-4">
+                                            Edit Record</h3>
+                                        <Form class="mt-4">
 
-                                    <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
-                                    <Field type="text" name='campus' placeholder="Type here" disabled
-                                        class="input mt-2 input-bordered w-full " v-model="data[0].in_campus" :rules="validateData" />
+                                            <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
+                                            <Field type="text" name='campus' placeholder="Type here" disabled
+                                                class="input mt-2 input-bordered w-full " v-model="data[0].in_campus"
+                                                :rules="validateData" />
 
-                                    <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
-                                    <Field type="text" name='department' placeholder="Type here" disabled
-                                        class="input mt-2 input-bordered w-full " v-model="data[0].in_department" :rules="validateData" />
+                                            <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
+                                            <Field type="text" name='department' placeholder="Type here" disabled
+                                                class="input mt-2 input-bordered w-full "
+                                                v-model="data[0].in_department" :rules="validateData" />
 
-                                    <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
-                                    <Field as="select" name="program" class="select select-bordered w-full mt-2"
-                                        style="border:  1px solid #d2d2d2;" v-model="in_program" :rules="validateData">
-                                        <option disabled selected>Select Program ...</option>
-                                        <option v-for="x in collegeProgram" :value="x.program">{{ x.program }}</option>
-                                    </Field>
-                                    <ErrorMessage name="program" class="error_message" />
+                                            <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
+                                            <Field as="select" name="program" class="select select-bordered w-full mt-2"
+                                                style="border:  1px solid #d2d2d2;" v-model="in_program"
+                                                :rules="validateData">
+                                                <option disabled selected>Select Program ...</option>
+                                                <option v-for="x in collegeProgram" :value="x.program">{{ x.program }}
+                                                </option>
+                                            </Field>
+                                            <ErrorMessage name="program" class="error_message" />
 
 
-                                    <p class="text-0.9 font-Subheader text-gray-500 mt-6">Firstname</p>
-                                    <Field type="text" name="firstname" placeholder="Type here" class="input mt-2 input-bordered w-full "
-                                        style="border:  1px solid #d2d2d2;" v-model="in_fname" :rules="validateData" />
-                                    <ErrorMessage name="firstname" class="error_message" />
+                                            <p class="text-0.9 font-Subheader text-gray-500 mt-6">Firstname</p>
+                                            <Field type="text" name="firstname" placeholder="Type here"
+                                                class="input mt-2 input-bordered w-full "
+                                                style="border:  1px solid #d2d2d2;" v-model="in_fname"
+                                                :rules="validateData" />
+                                            <ErrorMessage name="firstname" class="error_message" />
 
-                                    <p class="text-0.9 font-Subheader text-gray-500 mt-6">Lastname</p>
-                                    <Field type="text" name="lastname" placeholder="Type here" class="input mt-2 input-bordered w-full "
-                                        style="border:  1px solid #d2d2d2;" v-model="in_lname" :rules="validateData" />
-                                    <ErrorMessage name="lastname" class="error_message" />
+                                            <p class="text-0.9 font-Subheader text-gray-500 mt-6">Lastname</p>
+                                            <Field type="text" name="lastname" placeholder="Type here"
+                                                class="input mt-2 input-bordered w-full "
+                                                style="border:  1px solid #d2d2d2;" v-model="in_lname"
+                                                :rules="validateData" />
+                                            <ErrorMessage name="lastname" class="error_message" />
 
-                                    <p class="text-0.9 font-Subheader text-gray-500 mt-6">Middle Initial</p>
-                                    <Field type="text" name="m_initial" placeholder="Type here" class="input mt-2 input-bordered w-full "
-                                        style="border:  1px solid #d2d2d2;" v-model="in_mname" :rules="validateData" />
-                                    <ErrorMessage name="m_initial" class="error_message" />
-
-
-                                    <span class="flex items-center mt-6 gap-2">
-                                        <p class="text-0.9 font-Subheader text-gray-500 ">Graduate Tracer Status</p>
-                                        <i class="tooltip tooltip-right"
-                                            data-tip="List down all the 1st semester FY 2021-2022 graduates per degree program and then provide the status for each graduate.">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                                            </svg>
-                                        </i>
-                                    </span>
-
-                                    <Field as="select" name="statuses" class="select select-bordered w-full mt-2"
-                                        style="border:  1px solid #d2d2d2;" v-model="in_status" :rules="validateData">
-                                        <option disabled selected> ...</option>
-                                        <option value="Employed">Employed</option>
-                                        <option value="Unemployed">Unemployed</option>
-                                        <option value="Not Tracked">Not Tracked</option>
-                                    </Field>
-                                    <ErrorMessage name="statuses" class="error_message" />
+                                            <p class="text-0.9 font-Subheader text-gray-500 mt-6">Middle Initial</p>
+                                            <Field type="text" name="m_initial" placeholder="Type here"
+                                                class="input mt-2 input-bordered w-full "
+                                                style="border:  1px solid #d2d2d2;" v-model="in_mname"
+                                                :rules="validateData" />
+                                            <ErrorMessage name="m_initial" class="error_message" />
 
 
-                                    <span class="flex items-center mt-6 gap-2">
-                                        <p class="text-0.9 font-Subheader text-gray-500 ">Company's Business / Type of Business</p>
-                                        <i class="tooltip tooltip-right"
-                                            data-tip="Input the employment, business, or company of the graduate. For this purpose, Employment refers to any mode or form of employment regardless of status, including self-employment">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                                stroke="currentColor" class="w-5 h-5">
-                                                <path stroke-linecap="round" stroke-linejoin="round"
-                                                    d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                                            </svg>
-                                        </i>
-                                    </span>
-                                    <Field type="text" name="business" placeholder="Type here" class="input mt-2 input-bordered w-full "
-                                        style="border:  1px solid #d2d2d2;" v-model="in_business" :rules="validateData" />
-                                    <ErrorMessage name="business" class="error_message" />
+                                            <span class="flex items-center mt-6 gap-2">
+                                                <p class="text-0.9 font-Subheader text-gray-500 ">Graduate Tracer Status
+                                                </p>
+                                                <i class="tooltip tooltip-right"
+                                                    data-tip="List down all the 1st semester FY 2021-2022 graduates per degree program and then provide the status for each graduate.">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="w-5 h-5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                                    </svg>
+                                                </i>
+                                            </span>
+
+                                            <Field as="select" name="statuses"
+                                                class="select select-bordered w-full mt-2"
+                                                style="border:  1px solid #d2d2d2;" v-model="in_status"
+                                                :rules="validateData">
+                                                <option disabled selected> ...</option>
+                                                <option value="Employed">Employed</option>
+                                                <option value="Unemployed">Unemployed</option>
+                                                <option value="Not Tracked">Not Tracked</option>
+                                            </Field>
+                                            <ErrorMessage name="statuses" class="error_message" />
 
 
-                                    <p class="text-0.9 font-Subheader text-gray-500 mt-6">Upload Supported File</p>
+                                            <span class="flex items-center mt-6 gap-2">
+                                                <p class="text-0.9 font-Subheader text-gray-500 ">Company's Business /
+                                                    Type of Business</p>
+                                                <i class="tooltip tooltip-right"
+                                                    data-tip="Input the employment, business, or company of the graduate. For this purpose, Employment refers to any mode or form of employment regardless of status, including self-employment">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+                                                        class="w-5 h-5">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                                                    </svg>
+                                                </i>
+                                            </span>
+                                            <Field type="text" name="business" placeholder="Type here"
+                                                class="input mt-2 input-bordered w-full "
+                                                style="border:  1px solid #d2d2d2;" v-model="in_business"
+                                                :rules="validateData" />
+                                            <ErrorMessage name="business" class="error_message" />
 
-                                    <table class="w-full mt-4">
-                                        <thead>
-                                            <tr class="bg-gray-700 text-white">
-                                                <th class="border-2 text-white"></th>
-                                                <th class="border-2 text-white text-center text-0.9 font-Subheader">
-                                                    Required Files</th>
-                                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
-                                                    Upload Files
-                                                </th>
-                                                <th>
 
-                                                </th>
-                                            </tr>
-                                        </thead>
+                                            <p class="text-0.9 font-Subheader text-gray-500 mt-6">Upload Supported File
+                                            </p>
 
-                                        <tbody>
-                                            <tr>
-                                                <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
-                                                </td>
-                                                <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                                    Graduate Tracer Study</td>
-                                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                    <input type="file" class="ml-5" @change="handleFileUpload">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">2
-                                                </td>
-                                                <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                                    Official list of FY 2021 Graduates</td>
-                                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                    <input type="file" class="ml-5" @change="handleFileUpload2">
-                                                </td>
-                                            </tr>
+                                            <table class="w-full mt-4">
+                                                <thead>
+                                                    <tr class="bg-gray-700 text-white">
+                                                        <th class="border-2 text-white"></th>
+                                                        <th
+                                                            class="border-2 text-white text-center text-0.9 font-Subheader">
+                                                            Required Files</th>
+                                                        <th
+                                                            class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                                            Upload Files
+                                                        </th>
+                                                        <th>
 
-                                        </tbody>
-                                    </table>
+                                                        </th>
+                                                    </tr>
+                                                </thead>
 
-                                    <span class="w-full flex items-center justify-end gap-2 mt-5">
-                                        <button class="btn bg-emerald-600 text-white w-2/12" @click="showFile()">Add</button>
-                                    </span>
-                                </Form>
+                                                <tbody>
+                                                    <tr>
+                                                        <td
+                                                            class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                            1
+                                                        </td>
+                                                        <td
+                                                            class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                                            Graduate Tracer Study</td>
+                                                        <td
+                                                            class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                            <input type="file" class="ml-5" @change="handleFileUpload">
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td
+                                                            class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                            2
+                                                        </td>
+                                                        <td
+                                                            class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                                            Official list of FY 2021 Graduates</td>
+                                                        <td
+                                                            class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                            <input type="file" class="ml-5" @change="handleFileUpload2">
+                                                        </td>
+                                                    </tr>
 
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
+                                                </tbody>
+                                            </table>
 
-                                    <v-btn
-                                    text="Close"
-                                    @click="isActive.value = false"
-                                    ></v-btn>
-                                </v-card-actions>
-                                </v-card>
-                            </template>
+                                            <span class="w-full flex items-center justify-end gap-2 mt-5">
+                                                <button class="btn bg-emerald-600 text-white w-2/12"
+                                                    @click="showFile()">Add</button>
+                                            </span>
+                                        </Form>
+
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+
+                                            <v-btn text="Close" @click="isActive.value = false"></v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </template>
                             </v-dialog>
 
+
+                            <!-- Delete -->
                             <v-dialog max-width="700">
-                            <template v-slot:activator="{ props: activatorProps }">
-                                <v-btn
-                                block
-                                size="x-small"
-                                v-bind="activatorProps"
-                                color="surface-variant"
-                                text="Delete"
-                                variant="flat"
-                                :disabled='item.tb_approval === `Approved`'
-                                ></v-btn>
-                            </template>
+                                <template v-slot:activator="{ props: activatorProps }">
+                                    <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
+                                        text="Delete" variant="flat"
+                                        :disabled='item.tb_approval === `Approved`'></v-btn>
+                                </template>
 
-                            <template v-slot:default="{ isActive }">
-                                <v-card title="Dialog">
-                                <v-card-text>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                </v-card-text>
+                                <template v-slot:default="{ isActive }">
 
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
+                                    <v-card class="px-4">
+                                        <form>
+                                            <v-card-title class=" bg-Red-Darken flex text-white font-Subheader mt-4 ">
 
-                                    <v-btn
-                                    text="Close Dialog"
-                                    @click="isActive.value = false"
-                                    ></v-btn>
-                                </v-card-actions>
-                                </v-card>
-                            </template>
+                                                Confirm Delete
+                                            </v-card-title>
+                                            <v-card-text class="mt-4">
+                                                Do you want to delete this record?
+                                            </v-card-text>
+
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
+
+                                                <v-btn class="bg-red-darken-4" @click="deleteData(item.tb_id)"> Confirm</v-btn>
+                                            </v-card-actions>
+                                        </form>
+                                    </v-card>
+                                </template>
                             </v-dialog>
 
+                            <!-- View -->
                             <v-dialog max-width="700">
-                            <template v-slot:activator="{ props: activatorProps }">
-                                <v-btn
-                                block
-                                size="x-small"
-                                v-bind="activatorProps"
-                                color="surface-variant"
-                                text="View"
-                                variant="flat"
-                                :disabled='item.tb_approval === `Approved`'
-                                ></v-btn>
-                            </template>
+                                <template v-slot:activator="{ props: activatorProps }">
+                                    <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
+                                        text="View" variant="flat" :disabled='item.tb_approval === `Approved`'></v-btn>
+                                </template>
 
-                            <template v-slot:default="{ isActive }" class="w-full">
-                                <v-card>
-                                    <div class="w-full px-4 py-4">
-                                    <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
-                                        Approval History</h3>
+                                <template v-slot:default="{ isActive }" class="w-full">
+                                    <v-card>
+                                        <div class="w-full px-4 py-4">
+                                            <h3
+                                                class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
+                                                Approval History</h3>
 
-                                    <table class="mt-4 w-full border-0" id="notifTable">
+                                            <table class="mt-4 w-full border-0" id="notifTable">
 
-                                        <tr>
-                                            <td class="w-1/12">
-                                                <v-icon class="text-green-700">mdi-history</v-icon>
-                                            </td>
-                                            <td>
-                                                <h1>Approved by VPAA</h1>
-                                            </td>
-                                            <td>
-                                                <p><i>No Comment</i></p>
-                                            </td>
-                                        </tr>
+                                                <tr v-for="(items, index) in approvedLogs">
+                                                    <td class="w-1/12">
+                                                        <v-icon class="text-green-700">mdi-history</v-icon>
+                                                    </td>
+                                                    <td>
+                                                        <h1>{{ items.approvedBy }}</h1>
+                                                    </td>
+                                                    <td>
+                                                        <p><i>{{ items.comment }}</i></p>
+                                                    </td>
+                                                </tr>
 
-                                        <tr>
-                                            <td class="w-1/12">
-                                                <v-icon class="text-green-700">mdi-history</v-icon>
-                                            </td>
-                                            <td>
-                                                <h1>Approved by VPAA</h1>
-                                            </td>
-                                            <td>
-                                                <p><i>No Comment</i></p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="w-1/12">
-                                                <v-icon class="text-green-700">mdi-history</v-icon>
-                                            </td>
-                                            <td>
-                                                <h1>Approved by VPAA</h1>
-                                            </td>
-                                            <td>
-                                                <p><i>No Comment</i></p>
-                                            </td>
-                                        </tr>
+                                            </table>
 
-                                    </table>
-        
-                                </div>
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
+                                        </div>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
 
-                                    <v-btn
-                                    text="Close"
-                                    @click="isActive.value = false"
-                                    ></v-btn>
-                                </v-card-actions>
-                                </v-card>
-                            </template>
+                                            <v-btn text="Close" @click="isActive.value = false"></v-btn>
+                                        </v-card-actions>
+                                    </v-card>
+                                </template>
                             </v-dialog>
                         </td>
                     </tr>
@@ -460,29 +453,31 @@
         </div>
         <div class="w-full flex flex-col mt-8 overflow-x-auto" v-if="isDataActive === 3">
             <h1 class="font-Subheader ">PRC: List of Graduates by Institution, Program, and Sex</h1>
-            <table class="table-zebra table-md mt-4">
+            <table class="table-zebra table-sm mt-4">
                 <thead>
                     <tr class="bg-gray-700 ">
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-b-1" colspan="7">Student
+                        <th class="text-0.8 text-white text-center font-Subheader border-r-1 border-b-1" colspan="7">Student
                             Profile</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-b-1" rowspan="2">Program
+                        <th class="text-0.8 text-white text-center font-Subheader border-r-1 border-b-1" rowspan="2">Program
                             Name</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-b-1" rowspan="2">Program
+                        <th class="text-0.8 text-white text-center font-Subheader border-r-1 border-b-1" rowspan="2">Program
                             Major</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-b-1" colspan="2">Program
+                        <th class="text-0.8 text-white text-center font-Subheader border-r-1 border-b-1" colspan="2">Program
                             Authority to Operate / Graduate</th>
+
+                        <!-- <th class="text-0.8 text-white font-Subheader text-center border-r-1 border-b-1" rowspan="3">Action</th> -->
                     </tr>
                     <tr class="bg-gray-700 ">
                         <th></th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Student ID</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Date of Birth
+                        <th class="text-0.8 text-white font-Subheader text-center border-r-1 border-white">Student ID</th>
+                        <th class="text-0.8 text-white font-Subheader text-center border-r-1 border-white">Date of Birth
                             (mm/dd/yyyy)</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Last Name</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">First Name</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Sex (M/F)</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Date Graduated</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Authority Number</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Year Granted</th>
+                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Last Name</th>
+                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">First Name</th>
+                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Sex (M/F)</th>
+                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Date Graduated</th>
+                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Authority Number</th>
+                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Year Granted</th>
 
                     </tr>
                 </thead>
@@ -496,18 +491,10 @@
                         <td></td>
                         <td></td>
                         <td></td>
-                        <td class="flex flex-col items-center ">
-                            <button 
-                                class="btn btn-xs btn-ghost font-Subheader w-full text-green-700 shadow-0 ">Edit</button>
-                            <button 
-                                class="btn btn-xs btn-ghost font-Subheader w-full text-Red-Rose shadow-0 ">Delete</button>
-                            <button
-                                class="btn btn-xs btn-ghost font-Subheader w-full text-blue-700 shadow-0 ">View</button>
+                        <td></td>
+                        <td></td>
+                        <td></td>
 
-
-
-
-                        </td>
                     </tr>
 
 
@@ -516,42 +503,7 @@
         </div>
     </div>
 
-    <!-- <div class="w-full overflow-x-auto shadow-card2 mt-4 px-4 py-4 rounded-lg">
-        <p class="w-full text-center text-gray-400">Higher Education Program: Outcome Indicator 2</p>
-        <p class="w-full text-center text-gray-400">College of Engineering</p>
 
-        <div role="tablist" class="tabs tabs-lifted mt-8">
-            <input type="radio" name="my_tabs_2" role="tab" class="tab font-Subheader text-base text-Red-Rose"
-                aria-label="Form" checked />
-            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-
-                
-
-
-
-            </div>
-
-            <input type="radio" name="my_tabs_2" role="tab" class="tab font-Subheader text-base text-Red-Rose"
-                aria-label="Table" />
-            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-
-
-
-
-            </div>
-
-            <input type="radio" name="my_tabs_2" role="tab" class="tab font-Subheader text-base text-Red-Rose"
-                aria-label="Registrar" />
-            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
-
-               
-
-
-            </div>
-
-        </div>
-
-    </div> -->
 </template>
 
 <style scoped>

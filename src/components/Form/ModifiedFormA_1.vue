@@ -17,19 +17,19 @@
 
         <table>
 
-            <tr class="bg-Red-Rose text-white " sty>
-                <th>FY 2022 PREXC Performace Indicators</th>
-                <th>Responsible Bureaus / Delivery Units</th>
-                <th>FY 2023 Target</th>
-                <th>FY 2023 Actual Accomplishment</th>
-                <th style="padding: 0 1em;">Remarks</th>
+            <tr class="bg-Red-Rose" >
+                <th class=" text-white text-center font-Subheader text-sm">FY 2022 PREXC Performace Indicators</th>
+                <th class=" text-white text-center font-Subheader text-sm">Responsible Bureaus / Delivery Units</th>
+                <th class=" text-white text-center font-Subheader text-sm">FY 2023 Target</th>
+                <th class=" text-white text-center font-Subheader text-sm">FY 2023 Actual Accomplishment</th>
+                <th class=" text-white text-center font-Subheader text-sm" style="padding: 0 1em;">Remarks</th>
             </tr>
 
             <tr>
-                <td colspan="5" class="title"> 1.HIGHER EDUCATION PROGRAM</td>
+                <td colspan="5" class="title text-left"> 1.HIGHER EDUCATION PROGRAM</td>
             </tr>
             <tr>
-                <td colspan="5">OO : Relevant and quality tertiary education ensured to </td>
+                <td colspan="5" class="text-left">OO : Relevant and quality tertiary education ensured to </td>
             </tr>
             <tr>
                 <td colspan="5" class="title"  >Outcome Indicators</td>
@@ -610,7 +610,7 @@
 
 <style scoped>
     table, tr, td ,th{
-        border: 1px solid black;
+        /* border: 1px solid black; */
     }
 
     th{
@@ -620,6 +620,8 @@
     }
     td{
         padding: 1rem 0;
+        text-align: left;
+        font-size: 0.9em;
     }
 
     td:first-child{

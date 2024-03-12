@@ -70,6 +70,18 @@ export default {
             selectedFile2:null,
             isDataActive:1,
 
+            // For view
+            approvedLogs:[
+                {
+                    approvedBy:'Approved By ',
+                    comment:"Comment"
+                },
+                {
+                    approvedBy:'Approved By ',
+                    comment:"Comment"
+                },
+            ],
+
         }
     },
     methods: {
@@ -173,6 +185,10 @@ export default {
             }
             
         },
+        
+        deleteData(id){
+            console.log(id)
+        }
 
     },
 

@@ -98,6 +98,18 @@ export default{
             selectedFile5:null,
             isDataActive:1,
 
+            // For View
+            approvedLogs:[
+                {
+                    approvedBy:'Approved By ',
+                    comment:"Comment"
+                },
+                {
+                    approvedBy:'Approved By ',
+                    comment:"Comment"
+                },
+            ],
+
         }
     },
 
@@ -191,6 +203,10 @@ export default{
             this.isDataActive = isActive
             console.log(this.isDataActive)
         },
+
+        deleteData(id){
+            console.log(id)
+        }
         },
     mount(){
         // call here

@@ -16,7 +16,7 @@ import Planning_nav from '../components/Others/Navigation/Planning_nav.vue'
 import Registrar_nav from '../components/Others/Navigation/Registrar_nav.vue'
 import QAM_nav from '../components/Others/Navigation/QAM_nav.vue'
 import Extension_nav from '../components/Others/Navigation/Extension_nav.vue'
-
+import VCAA_navVue from '../components/Others/Navigation/VCAA_nav.vue'
 import Research_nav from '../components/Others/Navigation/Research_nav.vue'
 
 
@@ -58,7 +58,8 @@ export default{
         Registrar_nav,
         QAM_nav,
         Extension_nav,
-        Research_nav
+        Research_nav,
+        VCAA_navVue
     },  
       methods:{
         showActive(componentName,tabNumber){
@@ -84,6 +85,9 @@ export default{
         if (this.user == null && this.userCookies == null){
             this.$router.push('/');
         }
+
+        // console.log(import.meta.env.VITE_SOME_KEY) // "123"
+        // console.log(import.meta.env.VITE_API_TEST) // "123"
        
     },
 

@@ -163,7 +163,7 @@ export default {
                     </svg>
 
                     </i>
-                    {{ ph_fullDate  }}
+                    {{ ph_fullDate }}
                     {{ ph_time }}
                 </span>
 
