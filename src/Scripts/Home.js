@@ -20,6 +20,7 @@ import Extension_nav from '../components/Others/Navigation/Extension_nav.vue'
 import Research_nav from '../components/Others/Navigation/Research_nav.vue'
 
 
+
 import { useCookies } from 'vue3-cookies';
 import { ref } from 'vue'
 
@@ -66,6 +67,9 @@ export default{
         },
 
     },
+
+
+
     mounted(){
         let userCookies = this.cookies.get('userCookies');
         let accesstoken = this.cookies.get('userAccessToken');
@@ -80,7 +84,7 @@ export default{
         if (this.user == null && this.userCookies == null){
             this.$router.push('/');
         }
+       
     },
-
 
 }

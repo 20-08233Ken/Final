@@ -1,4 +1,4 @@
-<script src="../../Scripts/Dean/AE_OCI_1.js" >
+    <script src="../../Scripts/Dean/AE_OCI_1.js" >
 
 </script>
 
@@ -181,40 +181,236 @@
                 <thead>
                     <tr class="bg-gray-700 ">
                         <th></th>
-                        <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Campus</th>
-                        <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Department</th>
-                        <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Program</th>
-                        <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Name</th>
-                        <th class="text-0.9 text-white font-Subheader border-r-1 border-white">PLANTILLA Position
-                        </th>
-                        <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Faculty Engagement
-                        </th>
-                        <th class="text-0.9 text-white font-Subheader border-r-1 border-white">Duration</th>
-                        <th class="text-0.9 text-white font-Subheader border-r-1 border-white"> Action</th>
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white ">Campus</th>
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white ">Department</th>
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white ">Program</th>
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white ">Name</th>
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white ">PLANTILLA Position</th>
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white ">Faculty Engagement</th>
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white ">Duration</th>
+                        <th class="text-0.8 text-center  text-white font-Subheader border-r-1 border-white">Supported Documents</th>
+
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white "> Approval Status</th>
+                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white "> Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in sampleData">
 
-                        <th>{{ item.tb_id }}</th>
-                        <td>{{ item.tb_campus }}</td>
-                        <td>{{ item.tb_department }}</td>
-                        <td>{{ item.tb_program }}</td>
-                        <td>{{ item.tb_fname }} {{ item.tb_mname }} {{ item.tb_lname }}</td>
-                        <td>{{ item.tb_position }}</td>
-                        <td>{{ item.tb_engagement }}</td>
-                        <td>{{ item.tb_duration }}</td>
+                        <th  class="text-0.8">{{ item.tb_id }}</th>
+                        <td  class="text-0.8">{{ item.tb_campus }}</td>
+                        <td  class="text-0.8">{{ item.tb_department }}</td>
+                        <td  class="text-0.8">{{ item.tb_program }}</td>
+                        <td  class="text-0.8">{{ item.tb_fname }} {{ item.tb_mname }} {{ item.tb_lname }}</td>
+                        <td  class="text-0.8">{{ item.tb_position }}</td>
+                        <td  class="text-0.8">{{ item.tb_engagement }}</td>
+                        <td  class="text-0.8">{{ item.tb_duration }}</td>
+                        <td></td>
+                        <td  class="text-0.8">{{ item.tb_approval}}</td>
+                        <td class="flex flex-col items-center gap-2">
+                            <v-dialog max-width="700">
+                            <template v-slot:activator="{ props: activatorProps }">
+                                <v-btn
+                               
+                                size="x-small"
+                                block
+                                v-bind="activatorProps"
+                                color="surface-variant"
+                                text="Edit"
+                                variant="flat"
+                                :disabled='item.tb_approval === `Approved`'
+                                ></v-btn>
+                            </template>
 
-                        <td class="flex flex-col items-center ">
-                            <button class="btn btn-xs btn-ghost font-Subheader w-full text-green-700 shadow-0 "
-                                onclick="openEdit.showModal()">Edit</button>
-                            <button
-                                class="btn btn-xs btn-ghost font-Subheader w-full text-Red-Rose shadow-0 ">Delete</button>
-                            <button class="btn btn-xs btn-ghost font-Subheader w-full text-blue-700 shadow-0 "
-                                onclick="openHistory.showModal()">View</button>
-                                
-                            <dialog id="openHistory" class="modal">
-                                <div class="modal-box w-11/12 max-w-3xl">
+                            <template v-slot:default="{ isActive }">
+                                <v-card class="px-8 py-8">
+                                    <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
+                                        Edit Record</h3>
+
+                                        <Form @submit="addData">
+                <p class="text-0.9 font-Subheader text-gray-500 mt-4">Campus</p>
+                <Field type="text" name="campus" placeholder="Type here" disabled
+                    class="input mt-2 input-bordered w-full " v-model="data[0].in_campus" :rules="validateData" />
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
+                <Field type="text" name="department" placeholder="Type here" disabled
+                    class="input mt-2 input-bordered w-full " v-model="data[0].in_department" :rules="validateData" />
+
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Firstname</p>
+                <Field type="text" name="fname" placeholder="Type here" class="input mt-2 input-bordered w-full "
+                    style="border:  1px solid #d2d2d2;" v-model="in_fname" :rules="validateData" />
+                <ErrorMessage name="fname" class="error_message" />
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Lastname</p>
+                <Field type="text" name="lname" placeholder="Type here" class="input mt-2 input-bordered w-full "
+                    style="border:  1px solid #d2d2d2;" v-model="in_lname" :rules="validateData" />
+                <ErrorMessage name="lname" class="error_message" />
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Middle Initial</p>
+                <Field type="text" name="m_initial" placeholder="Type here" class="input mt-2 input-bordered w-full "
+                    style="border:  1px solid #d2d2d2;" v-model="in_mname" :rules="validateData" />
+                <ErrorMessage name="m_initial" class="error_message" />
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6"> Position</p>
+                <Field type="text" name="position" placeholder="Type here" class="input mt-2 input-bordered w-full "
+                    style="border:  1px solid #d2d2d2;" v-model="in_position" :rules="validateData" />
+                <ErrorMessage name="position" class="error_message" />
+
+                <span class="flex items-center mt-6 gap-2">
+                    <p class="text-0.9 font-Subheader text-gray-500 ">Category</p>
+                    <i class="tooltip tooltip-right" data-tip="Category of engagement of each listed faculty member">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                        </svg>
+                    </i>
+                </span>
+                <Field as='select' name="engagement" class="select select-bordered w-full mt-2"
+                    style="border:  1px solid #d2d2d2;" v-model="in_engagement" :rules="validateData">
+                    <option disabled selected>Select Engagement ...</option>
+                    <option v-for="x in facultyEngagement" :value="x.key"> {{ x.engagement }}</option>
+
+                </Field>
+                <ErrorMessage name="engagement" class="error_message" />
+
+                <span class="flex items-center mt-6 gap-2">
+                    <p class="text-0.9 font-Subheader text-gray-500 ">Upload Supported File</p>
+                    <i class="tooltip tooltip-right"
+                        data-tip="Submit relevant documents to verify the information provided">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                        </svg>
+                    </i>
+                </span>
+
+                <table class="w-full mt-4">
+                    <thead>
+                        <tr class="bg-gray-700 text-white">
+                            <th class="border-2 text-white"></th>
+                            <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                Required Files</th>
+                            <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                Upload Files
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
+                            </td>
+                            <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                Scanned copy of enrollment form</td>
+                            <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                <input type="file" class="ml-5" @change="handleFileUpload1">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-2 text-0.9 text-Subheader text-gray-700">2</td>
+                            <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">Scanned
+                                copy of latest research conducted</td>
+                            <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                <input type="file" class="ml-5" @change="handleFileUpload2">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-2 text-0.9 text-Subheader text-gray-700">3</td>
+                            <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                Documentation of utilized technlogy</td>
+                            <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                <input type="file" class="ml-5" @change="handleFileUpload3">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-2 text-0.9 text-Subheader text-gray-700">4</td>
+                            <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">Activity
+                                report of extension program</td>
+                            <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                <input type="file" class="ml-5" @change="handleFileUpload4">
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="border-2 text-0.9 text-Subheader text-gray-700">5</td>
+                            <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">Scanned
+                                copy of enrollment form</td>
+                            <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                <input type="file" class="ml-5" @change="handleFileUpload5">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <span class="w-full flex items-center justify-end gap-2 mt-5">
+                    <button class="btn  bg-emerald-600 w-2/12 text-white border-0" @click="showFiles()">Add</button>
+                </span>
+            </Form>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    text="Close"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
+
+                            <v-dialog max-width="700">
+                            <template v-slot:activator="{ props: activatorProps }">
+                                <v-btn
+                                block
+                                size="x-small"
+                                v-bind="activatorProps"
+                                color="surface-variant"
+                                text="Delete"
+                                variant="flat"
+                                :disabled='item.tb_approval === `Approved`'
+                                ></v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }">
+                                <v-card title="Dialog">
+                                <v-card-text>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    text="Close Dialog"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
+
+                            <v-dialog max-width="700">
+                            <template v-slot:activator="{ props: activatorProps }">
+                                <v-btn
+                                block
+                                size="x-small"
+                                v-bind="activatorProps"
+                                color="surface-variant"
+                                text="View"
+                                variant="flat"
+                               
+                                ></v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }" class="w-full">
+                                <v-card>
+                                    <div class="w-full px-4 py-4">
                                     <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
                                         Approval History</h3>
 
@@ -256,166 +452,19 @@
                                         </tr>
 
                                     </table>
-                                    <div class="modal-action">
-                                        <form method="dialog">
-                                            <button class="btn">Close</button>
-                                        </form>
-                                    </div>
+        
                                 </div>
-                            </dialog>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
 
-
-                            <dialog id="openEdit" class="modal">
-                                <div class="modal-box w-11/12 max-w-3xl px-8">
-                                    <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
-                                        Edit Record</h3>
-
-                                    <Form class="mt-4">
-                                        <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
-                                        <Field type="text" name="campus" placeholder="Type here" disabled
-                                            class="input mt-2 input-bordered w-full " v-model="data[0].in_campus"
-                                            :rules="validateData" />
-
-                                        <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
-                                        <Field type="text" name="department" placeholder="Type here" disabled
-                                            class="input mt-2 input-bordered w-full " v-model="data[0].in_department"
-                                            :rules="validateData" />
-
-
-                                        <p class="text-0.9 font-Subheader text-gray-500 mt-6">Firstname</p>
-                                        <Field type="text" name="fname" placeholder="Type here"
-                                            class="input mt-2 input-bordered w-full "
-                                            style="border:  1px solid #d2d2d2;" v-model="in_fname"
-                                            :rules="validateData" />
-                                        <ErrorMessage name="fname" class="error_message" />
-
-                                        <p class="text-0.9 font-Subheader text-gray-500 mt-6">Lastname</p>
-                                        <Field type="text" name="lname" placeholder="Type here"
-                                            class="input mt-2 input-bordered w-full "
-                                            style="border:  1px solid #d2d2d2;" v-model="in_lname"
-                                            :rules="validateData" />
-                                        <ErrorMessage name="lname" class="error_message" />
-
-                                        <p class="text-0.9 font-Subheader text-gray-500 mt-6">Middle Initial</p>
-                                        <Field type="text" name="m_initial" placeholder="Type here"
-                                            class="input mt-2 input-bordered w-full "
-                                            style="border:  1px solid #d2d2d2;" v-model="in_mname"
-                                            :rules="validateData" />
-                                        <ErrorMessage name="m_initial" class="error_message" />
-
-                                        <p class="text-0.9 font-Subheader text-gray-500 mt-6"> Position</p>
-                                        <Field type="text" name="position" placeholder="Type here"
-                                            class="input mt-2 input-bordered w-full "
-                                            style="border:  1px solid #d2d2d2;" v-model="in_position"
-                                            :rules="validateData" />
-                                        <ErrorMessage name="position" class="error_message" />
-
-                                        <span class="flex items-center mt-6 gap-2">
-                                            <p class="text-0.9 font-Subheader text-gray-500 ">Category</p>
-                                            <i class="tooltip tooltip-right"
-                                                data-tip="Category of engagement of each listed faculty member">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                                                </svg>
-                                            </i>
-                                        </span>
-                                        <Field as='select' name="engagement" class="select select-bordered w-full mt-2"
-                                            style="border:  1px solid #d2d2d2;" v-model="in_engagement"
-                                            :rules="validateData">
-                                            <option disabled selected>Select Engagement ...</option>
-                                            <option v-for="x in facultyEngagement" :value="x.key"> {{ x.engagement
-                                                }}</option>
-
-                                        </Field>
-                                        <ErrorMessage name="engagement" class="error_message" />
-
-                                        <span class="flex items-center mt-6 gap-2">
-                                            <p class="text-0.9 font-Subheader text-gray-500 ">Upload Supported File
-                                            </p>
-                                            <i class="tooltip tooltip-right"
-                                                data-tip="Submit relevant documents to verify the information provided">
-                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
-                                                    stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                                                </svg>
-                                            </i>
-                                        </span>
-
-
-                                        <table class="w-full mt-4">
-                                            <thead>
-                                                <tr>
-                                                    <th class="border-2 "></th>
-                                                    <th
-                                                        class="border-2 text-center text-0.9 text-Subheader text-gray-700">
-                                                        Required Files</th>
-                                                    <th
-                                                        class="border-2 text-center text-0.9 text-Subheader text-gray-700">
-                                                        Upload Files</th>
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-                                                <tr>
-                                                    <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                        1</td>
-                                                    <td
-                                                        class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                                        Scanned copy of enrollment form</td>
-                                                    <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                        <input type="file" class="ml-5">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="border-2 text-0.9 text-Subheader text-gray-700">
-                                                        2</td>
-                                                    <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                                        Scanned copy of latest research conducted
-                                                    </td>
-                                                    <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                        <input type="file" class="ml-5">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="border-2 text-0.9 text-Subheader text-gray-700">
-                                                        3</td>
-                                                    <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                                        Documentation of utilized technlogy</td>
-                                                    <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                        <input type="file" class="ml-5">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="border-2 text-0.9 text-Subheader text-gray-700">
-                                                        4</td>
-                                                    <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                                        Activity report of extension program</td>
-                                                    <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                        <input type="file" class="ml-5">
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="border-2 text-0.9 text-Subheader text-gray-700">
-                                                        5</td>
-                                                    <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                                        Scanned copy of enrollment form</td>
-                                                    <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                        <input type="file" class="ml-5">
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-
-
-                                        <span class="w-full flex items-center justify-end gap-2 mt-5">
-                                            <button class="btn btn-accent  w-2/12 text-white border-0">Add</button>
-                                        </span>
-                                    </Form>
-                                </div>
-                            </dialog>
+                                    <v-btn
+                                    text="Close"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
                         </td>
                     </tr>
 

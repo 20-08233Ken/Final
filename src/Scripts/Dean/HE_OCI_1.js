@@ -37,38 +37,24 @@ export default{
                 }
             ],
             hepData:[
-             
+              
             ],
 
             // Options of Select Program Input
             // Based from API callback
             collegeProgram:[
-                // {
-                //     id:1312,
-                //     program:"Bachelor of Science in Computer Engineer",
-                    
-                // },{
-                //     id:1312,
-                //     program:"Bachelor of Science in Civil Engineer",
-                // },{
-                //     id:1312,
-                //     program:"Bachelor of Science in Chemical Engineer",
-                // },{
-                //     id:1312,
-                //     program:"Bachelor of Science in Electrical Engineer",
-                // }
+              
             ],
 
-            approvalStatus1:'Approved',
-            approvalStatus2:'Reject',
             selectedFile:null,
             isDataActive:true,
+    
         }
     },
     methods:{
-        // added Data
+        // fetch data
         async FetchData(office,campus,user_id){
-             
+            
             try {
                 const response = await axios.post('http://127.0.0.1:8000/api/hep_list', { 
                     "office" : office,
@@ -93,6 +79,7 @@ export default{
             }
 
         },
+        // Add Data
         async addData(){
             const headers = { 'Content-Type': 'multipart/form-data' };
             let userCookies = this.cookies.get('userCookies');
@@ -134,24 +121,26 @@ export default{
         // Validate if the input field is empty
         validateInput(value){
             if (!value) {
-                return 'This field is required';
-            }
-            return true;
+                 return 'This field is required';
+             }
+
+             return true
+             
+           
         },
         submitData(){
-            // console.log(this.in_takers)
+            console.log(this.in_takers)
             if(this.count === true ){
-                this.isActive = true;
-                this.count = false;
-                this.isIcon = true;
+                this.isActive = true
+                this.count = false
+                this.isIcon = true
             }else{
-                this.isActive = false;
-                // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
+                this.isActive = false
             }
                
         },
         onClose(){
-            this.isActive = false;
+            this.isActive = false
         },
 
         checkNegative(value){
@@ -166,16 +155,7 @@ export default{
             
         },
 
-        async fetchProgram_Data(){
-            try{
-                const response = await axios.get('');
-                // remove first the data from college program 
-                this.collegeProgram = response.data
-            }catch (error){
-                // add actions here
-            }
-        },
-
+    
         handleFileUpload(event){
             this.selectedFile = event.target.files[0]
 
@@ -183,30 +163,13 @@ export default{
 
         // showFile(){
         //     console.log(this.selectedFile)
+        //     this.isDataActive= false;
         // },
         changeData(isActive ){
+
             this.isDataActive = isActive
         },
 
-     
-        async fetchProgram_Data(college_id,campus,college){
-            try{
-                this.data[0].in_campus = campus;
-                this.data[0].in_department = college;
-
-                const response = await axios.post('http://127.0.0.1:8000/api/get_program',{
-                    "college_id": college_id
-                })
-                .then(response => {
-                    this.collegeProgram = response.data;
-                })
-                .catch(error => {
-                    console.error('Error fetching campus', error);
-                });
-            }catch (error){
-                // add actions here
-            }
-        },
 
         
 
@@ -232,21 +195,8 @@ export default{
         this.FetchData(userCookies["office"],userCookies['campus_id'],userCookies['id']);
     },
 
-    computed:{
-        disableBttn(){
 
-            for (let row of this.hepData){
-                if(row.tb_approval === 'Approved'){
-                    return false
-                }else{
-                    return false
-                }
-            }
-
-          
-        }
-
-    }
+ 
 
 
 }

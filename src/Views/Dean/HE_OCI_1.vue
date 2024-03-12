@@ -152,6 +152,7 @@
                         <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Number of Passers
                         </th>
                         <th class="text-0.8 text-center  text-white font-Subheader border-r-1 border-white">Number of Takers</th>
+                        <th class="text-0.8 text-center  text-white font-Subheader border-r-1 border-white">Supported Documents</th>
                         <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Approval Status</th>
                         <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Action</th>
 
@@ -160,7 +161,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in hepData">
-                        <th class="text-0.8">{{ item.id }}</th>
+                         <th class="text-0.8">{{ item.id }}</th>    
                         <td class="text-0.8">{{ item.campus }}</td>
                         <td class="text-0.8">{{ item.department }}</td>
                         <td class="text-0.8">{{ item.program }}</td>
@@ -168,68 +169,26 @@
                         <td class="text-0.8">{{ item.number_of_passers }}</td>
                         <td class="text-0.8">{{ item.number_of_takers }}</td>
                         <td class="text-0.8">{{ item.approval }}</td>
-                        <td class="flex flex-col items-center gap-2 ">
-                            <button :disabled='disableBttn' class="btn btn-xs btn-ghost font-Subheader w-full text-green-700 shadow-0 "
-                                onclick="openEdit.showModal()">Edit</button>
-                            <button
-                                :disabled='disableBttn' class="btn btn-xs btn-ghost font-Subheader w-full text-Red-Rose shadow-0 ">Delete</button>
-                            <button class="btn btn-xs btn-ghost font-Subheader w-full text-blue-700 shadow-0 "
-                                onclick="openHistory.showModal()">View</button>
-                            <dialog id="openHistory" class="modal">
-                                <div class="modal-box w-11/12 max-w-3xl">
-                                    <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
-                                        Approval History</h3>
+                        <td></td>
+                        <td class="text-0.8">{{ item.tb_approval }}</td>
+                        <td class="flex flex-col items-center gap-2 px-2">
+                            
+                            <v-dialog max-width="700">
+                            <template v-slot:activator="{ props: activatorProps }">
+                                <v-btn
+                               
+                                size="x-small"
+                                block
+                                v-bind="activatorProps"
+                                color="surface-variant"
+                                text="Edit"
+                                variant="flat"
+                                :disabled='item.tb_approval === `Approved`'
+                                ></v-btn>
+                            </template>
 
-                                    <table class="mt-4 w-full border-0" id="notifTable">
-
-                                        <tr>
-                                            <td class="w-1/12">
-                                                <v-icon class="text-green-700">mdi-history</v-icon>
-                                            </td>
-                                            <td>
-                                                <h1>Approved by VPAA</h1>
-                                            </td>
-                                            <td>
-                                                <p><i>No Comment</i></p>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class="w-1/12">
-                                                <v-icon class="text-green-700">mdi-history</v-icon>
-                                            </td>
-                                            <td>
-                                                <h1>Approved by VPAA</h1>
-                                            </td>
-                                            <td>
-                                                <p><i>No Comment</i></p>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="w-1/12">
-                                                <v-icon class="text-green-700">mdi-history</v-icon>
-                                            </td>
-                                            <td>
-                                                <h1>Approved by VPAA</h1>
-                                            </td>
-                                            <td>
-                                                <p><i>No Comment</i></p>
-                                            </td>
-                                        </tr>
-
-                                    </table>
-                                    <div class="modal-action">
-                                        <form method="dialog">
-
-                                            <button class="btn">Close</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </dialog>
-
-
-                            <dialog id="openEdit" class="modal">
-                                <div class="modal-box w-11/12 max-w-3xl px-8">
+                            <template v-slot:default="{ isActive }">
+                                <v-card class="px-8 py-8">
                                     <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
                                         Edit Record</h3>
 
@@ -331,8 +290,120 @@
                                         </span>
                                     </Form>
 
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    text="Close"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
+
+                            <v-dialog max-width="700">
+                            <template v-slot:activator="{ props: activatorProps }">
+                                <v-btn
+                                block
+                                size="x-small"
+                                v-bind="activatorProps"
+                                color="surface-variant"
+                                text="Delete"
+                                variant="flat"
+                                :disabled='item.tb_approval === `Approved`'
+                                ></v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }">
+                                <v-card title="Dialog">
+                                <v-card-text>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    text="Close Dialog"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
+
+                            <v-dialog max-width="700">
+                            <template v-slot:activator="{ props: activatorProps }">
+                                <v-btn
+                                block
+                                size="x-small"
+                                v-bind="activatorProps"
+                                color="surface-variant"
+                                text="View"
+                                variant="flat"
+                            
+                                ></v-btn>
+                            </template>
+
+                            <template v-slot:default="{ isActive }" class="w-full">
+                                <v-card>
+                                    <div class="w-full px-4 py-4">
+                                    <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
+                                        Approval History</h3>
+
+                                    <table class="mt-4 w-full border-0" id="notifTable">
+
+                                        <tr>
+                                            <td class="w-1/12">
+                                                <v-icon class="text-green-700">mdi-history</v-icon>
+                                            </td>
+                                            <td>
+                                                <h1>Approved by VPAA</h1>
+                                            </td>
+                                            <td>
+                                                <p><i>No Comment</i></p>
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="w-1/12">
+                                                <v-icon class="text-green-700">mdi-history</v-icon>
+                                            </td>
+                                            <td>
+                                                <h1>Approved by VPAA</h1>
+                                            </td>
+                                            <td>
+                                                <p><i>No Comment</i></p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="w-1/12">
+                                                <v-icon class="text-green-700">mdi-history</v-icon>
+                                            </td>
+                                            <td>
+                                                <h1>Approved by VPAA</h1>
+                                            </td>
+                                            <td>
+                                                <p><i>No Comment</i></p>
+                                            </td>
+                                        </tr>
+
+                                    </table>
+        
                                 </div>
-                            </dialog>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn
+                                    text="Close"
+                                    @click="isActive.value = false"
+                                    ></v-btn>
+                                </v-card-actions>
+                                </v-card>
+                            </template>
+                            </v-dialog>
+
                         </td>
                     </tr>
 

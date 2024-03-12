@@ -67,6 +67,28 @@ export default{
                 },
             ],
             sampleData:[
+                {
+                    tb_id:'1',
+                    tb_campus:'campus',
+                    tb_department:'department',
+                    tb_program:'program',
+                    tb_fname:'exam date',
+                    tb_positiom:'passers',
+                    tb_engagement:'takers',
+                    tb_duration:'23',
+                    tb_approval:'Approved'
+                },
+                {
+                    tb_id:'2',
+                    tb_campus:'campus',
+                    tb_department:'department',
+                    tb_program:'program',
+                    tb_fname:'exam date',
+                    tb_positiom:'passers',
+                    tb_engagement:'takers',
+                    tb_duration:'23',
+                    tb_approval:'Reject'
+                },
             ],
 
             selectedFile1:null,

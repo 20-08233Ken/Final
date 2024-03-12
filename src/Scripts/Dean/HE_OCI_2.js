@@ -45,7 +45,26 @@ export default {
                 }
             ],
             sampleData: [
-
+                {
+                    tb_id:1,  
+                    tb_campus:'Alangilan Campus',
+                    tb_department:'College of Engineering',
+                    tb_program:'BS civil engineering',
+                    tb_name:'Name',
+                    tb_status:'Status',
+                    tb_company:'Company',
+                    tb_approval:'Approved'
+                },
+                {
+                    tb_id:1,  
+                    tb_campus:'Alangilan Campus',
+                    tb_department:'College of Engineering',
+                    tb_program:'BS civil engineering',
+                    tb_name:'Name',
+                    tb_status:'Status',
+                    tb_company:'Company',
+                    tb_approval:'Reject'
+                },
             ],
             selectedFile1:null,
             selectedFile2:null,
@@ -134,6 +153,25 @@ export default {
         changeData(isActive ){
             this.isDataActive = isActive
             console.log(this.isDataActive)
+        },
+        validateInput(value){
+            if (!value) {
+                 return 'This field is required';
+             }
+
+             return true
+             
+           
+        },  checkNegative(value){
+            if(value < 0){
+                return 'Negative numbers is not allowed'
+            }
+            else if(value > -1){
+                return true
+            }else if(!value){
+                return 'This field is required'
+            }
+            
         },
 
     },
