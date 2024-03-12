@@ -56,10 +56,7 @@
         color: white;
         border: 1px solid white;
     }
-    ::v-deep td{
-        color: white;
-     
-    }
+
     .isActive{
         background-color:rgb(255, 240, 221);
     }

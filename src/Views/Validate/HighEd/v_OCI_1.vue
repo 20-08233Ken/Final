@@ -61,19 +61,13 @@
 
             <span class=" w-full">
 
-                <v-data-table
-                        
-                        :headers="headers"
-                        :items="sampleData"
-                        class="elevation-1"
-                        items-per-page="10"   
-                >
+                <v-data-table :headers="headers" :items="sampleData" class="elevation-1" items-per-page="10">
 
                 <template v-slot:item.actions="{item}">
-                
                     <span class="flex w-full  gap-2 py-4">
-                    <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"> Approved</v-btn>
-                    <v-btn size="x-small" class="bg-red-darken-3"  onclick="showRejection.showModal()"> Reject</v-btn>
+                    <p>{{item.id}}</p>
+                    <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()" @click="approvedHEP(item.id)"> Approved</v-btn>
+                    <v-btn size="x-small" class="bg-red-darken-3"  onclick="showRejection.showModal()" @click="rejectedHEP(item.id)"> Reject</v-btn>
                     </span>
                 </template>
 
@@ -94,7 +88,7 @@
                         Cancel
                     </button>
 
-                    <button class="btn btn-success text-white">
+                    <button class="btn btn-success text-white" @click="Approved()">
                         Confirm
                     </button>
                 </span>
