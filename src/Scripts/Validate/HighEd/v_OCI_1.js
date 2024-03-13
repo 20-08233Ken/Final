@@ -41,7 +41,8 @@ export default{
                 },
                 {
                     title:'Supporting Documents',
-                    value:'supported_file',
+                    // value:'supported_file',
+                    value:'file',
                     align:'center'
                 },
                 {
@@ -61,17 +62,20 @@ export default{
                     reason:'Inconsistent Data'
                 }
             ],
-            selectedID: ""
+            selectedID: "",
+            remarks: "",
+            reasons: "",
         }
     },
 
     methods: {
-        async FetchData(campus,office) {
+        async FetchData(campus,office,user) {
         
             try {
                 const response = await axios.post('http://127.0.0.1:8000/api/hep_list', {
                         "office": office,
-                        "campus_id": campus
+                        "campus_id": campus,
+                        "user_id": user
                     })
                     .then(response => {
                         // console.log("hep List:",response.data);
@@ -94,29 +98,53 @@ export default{
         approvedHEP(id){
           this.selectedID = id;
         },
+
         rejectedHEP(id){
            this.selectedID = id
         },
 
-        Approved(){
-            console.log("approveds");
+        async ApprovedRequest(){
             try{
-                let users = this.cookies.get('userCookies');
-                console.log(users);
-                console.log(users[office]);
-                console.log(users[id]);
-                const response = axios.post('http://127.0.0.1:8000/api/approve_hep',{
-                    "office": users['office'],
-                    "id": id,
-                    "user_id": users['id'],
-                    "remarks": ""
+                let users_list = this.cookies.get('userCookies');
+                const response = await axios.post('http://127.0.0.1:8000/api/approve_hep', {
+                    "office": users_list.office,
+                    "campus_id": users_list.campus_id,
+                    "user_id": users_list.id,
+                    "id":   this.selectedID
                 })
                 .then(response => {
-                    console.log("response: ", response.data);
-                    this.$router.push('/validateMain');
+
+                    console.log("response:",response);
                 })
                 .catch(error => {
-                    console.error('Error fetching campus', error);
+                    console.error('Error fetching hep data', error);
+                });
+
+            }catch (error){
+                // add actions here
+            }
+        },
+
+        async RejectRequest(){
+            try{
+                console.log("REJECTED");
+                console.log(this.remarks);
+                console.log(this.reasons);
+                let users_list = this.cookies.get('userCookies');
+                const response = await axios.post('http://127.0.0.1:8000/api/disapprove_hep', {
+                    "office": users_list.office,
+                    "campus_id": users_list.campus_id,
+                    "user_id": users_list.id,
+                    "id":   this.selectedID,
+                    "reasons": this.reasons,
+                    "remarks":this.remarks
+                })
+                .then(response => {
+
+                    console.log("response:",response);
+                })
+                .catch(error => {
+                    console.error('Error fetching hep data', error);
                 });
 
             }catch (error){
@@ -142,7 +170,7 @@ export default{
         if (this.user == null && this.userCookies == null){
             this.$router.push('/');
         }
-        this.FetchData(userCookies['campus_id'],userCookies['office']);
+        this.FetchData(userCookies['campus_id'],userCookies['office'],userCookies['id']);
         // this.approved(userCookies);
     },
     

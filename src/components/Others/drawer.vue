@@ -1,8 +1,7 @@
 <script >
 import {Form, Field, ErrorMessage} from 'vee-validate'
 import { ref } from 'vue';
-
-
+import axios from 'axios';
 import { useCookies } from 'vue3-cookies';
 
 
@@ -64,9 +63,29 @@ export default {
     },  
     methods: {
         logout() {
-            this.cookies.remove('userCookies')
-            this.cookies.remove('userPosition')
-            this.$router.push('/')
+
+            axios.post('http://127.0.0.1:8000/api/logout', null, {
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(response => {
+                // console.log(response.data.message);
+                // Perform any additional actions after successful logout
+                localStorage.removeItem('token');
+                this.cookies.remove('userCookies');
+                this.cookies.remove('userPosition');
+                this.cookies.remove('userAccessToken');
+                this.cookies.remove('userCampus');
+                this.$router.push('/');
+                // Redirect to login page or perform other actions
+            })
+            .catch(error => {
+                console.error('Logout error:', error);
+                // Handle logout error
+            });
+
+
         },
 
         validateData(value){

@@ -88,7 +88,7 @@
                         Cancel
                     </button>
 
-                    <button class="btn btn-success text-white" @click="Approved()">
+                    <button class="btn btn-success text-white" @click="ApprovedRequest">
                         Confirm
                     </button>
                 </span>
@@ -106,13 +106,13 @@
 
                 <Form>
                     <p class="py-4 text-0.9">Reasons </p>
-                    <Field as="select" placeholder="Type here" name="reason" class="select w-full" style="border:  1px solid #d2d2d2;">
+                    <Field as="select" placeholder="Type here" name="reason" class="select w-full" style="border:  1px solid #d2d2d2;" v-model="reasons">
                         <option v-for=" x in reasonOpt" :value="x.reason" >{{ x.reason }}</option>
                     </Field>
                     <ErrorMessage name="reason" class="error_message"/>
 
                     <p class="py-4 text-0.9">If others, please specify </p>
-                    <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"  style="border:  1px solid #d2d2d2;"/>
+                    <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"  style="border:  1px solid #d2d2d2;"  v-model="remarks"/>
                     <ErrorMessage name="otherReason" class="error_message"/>
                 </Form>
 
@@ -123,7 +123,7 @@
                         Cancel
                     </button>
 
-                    <button class="btn btn-success text-white">
+                    <button class="btn btn-success text-white" @click="RejectRequest">
                         Submit
                     </button>
                 </span>

@@ -4,6 +4,7 @@ import {Form, Field, ErrorMessage} from 'vee-validate'
 import axios from 'axios';
 import { useCookies } from 'vue3-cookies';
 // import {userPosition} from '../cookies.js'
+import { ToolboxComponent } from 'echarts/components';
 
 export default{
     setup(){
@@ -50,7 +51,8 @@ export default{
                 // Handle the response data and cookies from the server
                 // console.log(response.data);
                 this.cookies.set('userCookies',response.data.user,'1hr');
-                this.cookies.set('userAccessToken',response.data.access_token,'1hr');
+                // this.cookies.set('userAccessToken',response.data.access_token,'1hr');
+                localStorage.setItem('token', response.data.access_token);
                 this.cookies.set('userPosition',response.data.position[0].role,'1hr');
                 this.cookies.set('userCampus',response.data.campus[0].campus,'1hr');
                 if (response.data.college.length !== 0){

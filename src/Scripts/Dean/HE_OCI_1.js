@@ -66,8 +66,6 @@ export default {
         async FetchData(office, campus, user_id,) {
         
             try {
-                console.log("FETCH DATA!");
-                console.log(office, campus, user_id);
                 const response = await axios.post('http://127.0.0.1:8000/api/hep_list', {
                         "office": office,
                         "campus_id": campus,
