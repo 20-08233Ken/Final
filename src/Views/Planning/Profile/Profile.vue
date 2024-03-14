@@ -7,7 +7,7 @@
 <template>
     <main class="w-full flex flex-col bg-grey-2 pb-6vw">
 
-        <Planning_nav v-if="user === 'Planning'"/>
+        <Planning_nav v-if="user === 'IPDO'"/>
      
 
         <section class="w-full flex " >

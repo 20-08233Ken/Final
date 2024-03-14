@@ -76,6 +76,7 @@ export default{
                     tb_positiom:'passers',
                     tb_engagement:'takers',
                     tb_duration:'23',
+                    tb_docs:'https://code.visualstudio.com/docs/languages/html',
                     tb_approval:'Approved'
                 },
                 {
@@ -87,7 +88,8 @@ export default{
                     tb_positiom:'passers',
                     tb_engagement:'takers',
                     tb_duration:'23',
-                    tb_approval:'Reject'
+                    tb_docs:'https://code.visualstudio.com/docs/languages/html',
+                    tb_approval:'Rejected'
                 },
             ],
 
@@ -101,12 +103,17 @@ export default{
             // For View
             approvedLogs:[
                 {
-                    approvedBy:'Approved By ',
-                    comment:"Comment"
+                    status:'Approved ',
+                    role:'VCAA',
+                    remarks:'remarks',
+                    reason:"Comment"
                 },
                 {
-                    approvedBy:'Approved By ',
-                    comment:"Comment"
+                    status:'Approved ',
+                    role:'VCAA',
+                    remarks:'remarks',
+                    reason:"Comment"
+                    
                 },
             ],
 

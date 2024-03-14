@@ -13,13 +13,14 @@ import {userPosition} from '../cookies.js'
 const hold_oc_1 = markRaw(HE_OCI_1);
 
 export default{
-    setup(){
-        const {cookies} =useCookies();
-        return {cookies}
-    },
+
     mounted(){
         const holdCookies = userPosition();
         this.user = holdCookies();
+
+        if (this.user == null && this.userCookies == null){
+            this.$router.push('/');
+        }
     },
     data(){
         return{

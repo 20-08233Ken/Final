@@ -5,7 +5,7 @@
 <template>
 
     <main class="w-flex flex flex-col w-full">
-        <Planning_nav/>
+        <Planning_nav />
 
         <section class="w-full flex  px-6vw pt-6vw">
             <div class="w-2/4">
@@ -36,12 +36,33 @@
 
         <section class="w-full flex px-6vw py-3vw">
             <div class="flex flex-col w-4/12">
-                <PBB_sideNav/>
+                <PBB_sideNav />
             </div>
 
 
             <div class="flex w-8/12 flex-col">
-                <div class="text-sm breadcrumbs w-full">
+
+                <div class="w-full flex gap-2  py-4 ">
+                    <v-btn :class="{ 'isActive': myBtn === 1 }" @click="showComponent(1, 'Logs')" class="flex-1"
+                        size="large">
+                        <p class="font-Subheader normal-case ">Logs</p>
+                    </v-btn>
+                    <v-btn :class="{ 'isActive': myBtn === 2 }" @click="showComponent(2, 'Target')" class="flex-1 "
+                        size="large">
+                        <p class="font-Subheader normal-case">Targets</p>
+                    </v-btn>
+                    <v-btn :class="{ 'isActive': myBtn === 3 }" @click="showComponent(3, 'Indicators')" class="flex-1 "
+                        size="large">
+                        <p class="font-Subheader normal-case">Indicators </p>
+                    </v-btn>
+                </div>
+
+                <div class="w-full flex flex-col shadow-card2 rounded-lg pt-4 ">
+
+                    <component :is="currentComponent"></component>
+
+                </div>
+                <!-- <div class="text-sm breadcrumbs w-full">
                     <ul>
                         <li class="text-gray-500">
                             <router-link to="/pbb">
@@ -55,8 +76,8 @@
 
                     
                     </ul>
-                </div>
-                <h3 class="font-Header text-Red-Rose text-xl">Research Services</h3>
+                </div> -->
+                <!-- <h3 class="font-Header text-Red-Rose text-xl">Research Services</h3>
 
                 <div class="w-full flex-col overflow-x-auto">
 
@@ -158,7 +179,7 @@
                         </router-link>
                     </span>
 
-                </div>
+                </div> -->
             </div>
         </section>
 

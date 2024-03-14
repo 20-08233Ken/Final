@@ -48,18 +48,18 @@
         <div class="w-full flex flex-col mt-8" v-if="isDataActive === true">
             <Form @submit="addData">
 
-                <p class="text-0.9 font-Subheader text-gray-500 ">Campus 1</p>
+                <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
                 <Field type="text" name="campus" placeholder="Type here" disabled
                     class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
                     v-model="data[0].in_campus" :rules="validateInput" />
 
-                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department 1</p>
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
                 <Field type="text" placeholder="Type here" name="department" disabled
                     class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
                     v-model="data[0].in_department" :rules="validateInput" />
 
 
-                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program 1</p>
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
                 <Field as="select" class="select select-bordered w-full mt-2" style="border:  1px solid #d2d2d2;"
                     v-model="in_program" name="program" :rules="validateInput">
                     <option disabled selected>Select Program ...</option>
@@ -134,13 +134,13 @@
 
 
                 <span class="w-full flex items-center justify-end gap-2 mt-5">
-                    <button class="btn bg-emerald-600 text-white w-2/12 " @click="showFile()">Add</button>
+                    <button class="btn bg-emerald-600 text-white w-2/12 " type="submit">Add</button>
                 </span>
             </Form>
         </div>
 
-        <div class="w-full flex flex-col mt-8 overflow-x-auto">
-            <table class="table-zebra table-sm" v-if="isDataActive === false">
+        <div class="w-full flex flex-col mt-8 overflow-x-auto " v-if="isDataActive === false">
+            <table class="table-zebra table-sm" >
                 <thead>
                     <tr class="bg-gray-700 ">
                         <th></th>
@@ -166,22 +166,22 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in hepData">
-                        <th class="text-0.8">{{ item.id }}</th>
+                        <th class="text-0.8"></th>
                         <td class="text-0.8">{{ item.campus }}</td>
-                        <td class="text-0.8">{{ item.department }}</td>
+                        <td class="text-0.8">{{ item.college }}</td>
                         <td class="text-0.8">{{ item.program }}</td>
                         <td class="text-0.8">{{ item.exam_date }}</td>
                         <td class="text-0.8">{{ item.number_of_passers }}</td>
                         <td class="text-0.8">{{ item.number_of_takers }}</td>
-                        <td class="text-0.8"><button class="btn btn-accent">View Pdf</button></td>
-                        <td class="text-0.8">{{ item.approval }}</td>
+                        <td> <v-btn size="small" class="bg-teal-darken-1">  <a :href=item.docs target="_blank">View PDF</a></v-btn></td>
+                        <td class="text-0.8">{{ item.status }}</td>
                         <td class="flex flex-col items-center gap-2 px-2">
 
                             <!-- Edit -->
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" :disabled='item.approval === `Deans`'></v-btn>
+                                        text="Edit" variant="flat" :disabled='item.approval != ``'></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
@@ -189,7 +189,7 @@
                                         <h3
                                             class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
                                             Edit Record</h3>
-                                        <p>{{ item.id }}</p>
+                                        <p>{{ item.tb_id }}</p>
                                         
                                         <Form class="mt-4">
 
@@ -311,7 +311,7 @@
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
                                         text="Delete" variant="flat"
-                                        :disabled='item.approval === `Approved`'></v-btn>
+                                        :disabled='item.approval != ``'></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
@@ -330,7 +330,7 @@
                                                 <v-spacer></v-spacer>
                                                 <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
 
-                                                <v-btn class="bg-red-darken-4" @click="deleteData(item.id)"> Confirm</v-btn>
+                                                <v-btn class="bg-red-darken-4" @click="deleteData(item.hep_one_id)"> Confirm</v-btn>
                                             </v-card-actions>
                                         </form>
                                     </v-card>
@@ -358,10 +358,10 @@
                                                         <v-icon class="text-green-700">mdi-history</v-icon>
                                                     </td>
                                                     <td>
-                                                        <h1>{{ items.approvedBy }}</h1>
+                                                        <h1>{{ items.status }} by {{ items.role }}</h1>
                                                     </td>
                                                     <td>
-                                                        <p><i>{{ items.comment }}</i></p>
+                                                        <p>{{ items.reasons }}<br><i>{{ items.remarks }}</i> </p>
                                                     </td>
                                                 </tr>
 

@@ -72,7 +72,7 @@ export default{
         async FetchData(campus,office,user) {
         
             try {
-                const response = await axios.post('http://127.0.0.1:8000/api/hep_list', {
+                const response = await axios.post('http://172.21.131.228:8080/api/hep_list', {
                         "office": office,
                         "campus_id": campus,
                         "user_id": user
@@ -106,7 +106,7 @@ export default{
         async ApprovedRequest(){
             try{
                 let users_list = this.cookies.get('userCookies');
-                const response = await axios.post('http://127.0.0.1:8000/api/approve_hep', {
+                const response = await axios.post('http://172.21.131.228:8080/api/approve_hep', {
                     "office": users_list.office,
                     "campus_id": users_list.campus_id,
                     "user_id": users_list.id,
@@ -131,7 +131,7 @@ export default{
                 console.log(this.remarks);
                 console.log(this.reasons);
                 let users_list = this.cookies.get('userCookies');
-                const response = await axios.post('http://127.0.0.1:8000/api/disapprove_hep', {
+                const response = await axios.post('http://172.21.131.228:8080/api/disapprove_hep', {
                     "office": users_list.office,
                     "campus_id": users_list.campus_id,
                     "user_id": users_list.id,

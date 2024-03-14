@@ -1,0 +1,3 @@
+<template>
+    indicators
+</template>

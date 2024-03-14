@@ -24,6 +24,8 @@ export default{
             isIcon:false,
             isAdd:false,
             id:0,
+            isDataActive:true,
+            selectedFile:null,
 
             // Data base from the Account Info of Dean
             data:[
@@ -46,8 +48,27 @@ export default{
                 }
             ],
             sampleData:[
-
-            ]
+                {
+                    tb_id:1,
+                    tb_campus:'Campus',
+                    tb_department:'Department',
+                    tb_program:'Program',
+                    tb_yearOperation:'Year',
+                    tb_status:'Status',
+                    tb_from:'From',
+                    tb_to:'To'
+                }
+            ],
+            approvedLogs:[
+                {
+                    approvedBy:'Approved By ',
+                    comment:"Comment"
+                },
+                {
+                    approvedBy:'Approved By ',
+                    comment:"Comment"
+                },
+            ],
         }
     },
     methods:{
@@ -100,6 +121,19 @@ export default{
         },
         onClose(){
             this.isActive = false
+        },
+        changeData(isActive ){
+            this.isDataActive = isActive
+        },
+        handleFileUpload(event){
+            this.selectedFile = event.target.files[0]
+            console.log(this.selectedFile)
+        },
+        deleteData(id,isActive){
+            console.log(id)
+
+            return isActive.value = false
+          
         }
     }
 }

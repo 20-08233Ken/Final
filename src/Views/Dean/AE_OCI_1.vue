@@ -46,8 +46,6 @@
             <button class="btn   w-6/12" :class="{'isDataNotActive':isDataActive===2}" @click="changeData(2)">
                 Table
             </button>
-
-
         </div>
         <div class="w-full flex flex-col mt-8" v-if="isDataActive === 1">
             <Form @submit="addData">
@@ -198,7 +196,7 @@
                 <tbody>
                     <tr v-for="(item, index) in sampleData">
 
-                        <th class="text-0.8">{{ item.tb_id }}</th>
+                        <th class="text-0.8"></th>
                         <td class="text-0.8">{{ item.tb_campus }}</td>
                         <td class="text-0.8">{{ item.tb_department }}</td>
                         <td class="text-0.8">{{ item.tb_program }}</td>
@@ -206,7 +204,7 @@
                         <td class="text-0.8">{{ item.tb_position }}</td>
                         <td class="text-0.8">{{ item.tb_engagement }}</td>
                         <td class="text-0.8">{{ item.tb_duration }}</td>
-                        <td></td>
+                        <td> <v-btn size="small" class="bg-teal-darken-1">  <a :href=item.tb_docs target="_blank">View PDF</a></v-btn></td>
                         <td class="text-0.8">{{ item.tb_approval}}</td>
                         <td class="flex flex-col items-center gap-2">
 
@@ -214,7 +212,7 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" :disabled='item.tb_approval === `Approved`'></v-btn>
+                                        text="Edit" variant="flat" :disabled='item.tb_approval == ``'></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
@@ -397,7 +395,7 @@
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
                                         text="Delete" variant="flat"
-                                        :disabled='item.tb_approval === `Approved`'></v-btn>
+                                        :disabled='item.tb_approval == ``'></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
@@ -445,10 +443,10 @@
                                                         <v-icon class="text-green-700">mdi-history</v-icon>
                                                     </td>
                                                     <td>
-                                                        <h1>{{ items.approvedBy }}</h1>
+                                                        <h1>{{ items.status }} by {{ items.role }}</h1>
                                                     </td>
                                                     <td>
-                                                        <p><i>{{ items.comment }}</i></p>
+                                                        <p>{{ items.reason }}<br><i>{{ items.remarks }}</i> </p>
                                                     </td>
                                                 </tr>
 
