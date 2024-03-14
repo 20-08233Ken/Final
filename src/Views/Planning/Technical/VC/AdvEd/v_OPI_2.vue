@@ -1,16 +1,13 @@
-<script src="../../../Scripts/Chancellor/HighEd/v_OPI_1.js">
-
+<script src="../../../Scripts/VCs/AdvEd/v_OPI_2.js">
 
 </script>
 
 <template>
             <h1 class="font-Header text-3xl text-Red-Rose">Higher Education Program</h1>
-            <h2 class="font-Subheader text-lg text-Red-Rose">Output Indicator 1</h2>
-            <h2 class="font-Subheader text-1gray-700">Percentage of undergraduate students enrolled in CHED-identified and RDC-identified priority programs</h2>
+            <h2 class="font-Subheader text-lg text-Red-Rose">Output Indicator 2 </h2>
+            <h2 class="font-Subheader text-1gray-700">Percentage of accredited graduate programs</h2>
 
-            <span>
 
-            </span>
 
             <span class=" w-full">
 
@@ -56,13 +53,14 @@
             </div>
             </dialog>
 
+
             <dialog id="showRejection" class="modal">
             <div class="modal-box">
            
                 <h3 class="font-bold text-lg bg-gray-700 text-white px-4 py-3 font-Header">Reason of Rejection</h3>
               
 
-                <Form >
+                <!-- <Form>
                     <p class="py-4 text-0.9">Reasons </p>
                     <Field as="select" placeholder="Type here" name="reason" class="select w-full" style="border:  1px solid #d2d2d2;">
                         <option v-for=" x in reasonOpt" :value="x.reason" >{{ x.reason }}</option>
@@ -72,11 +70,6 @@
                     <p class="py-4 text-0.9">If others, please specify </p>
                     <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"  style="border:  1px solid #d2d2d2;"/>
                     <ErrorMessage name="otherReason" class="error_message"/>
-
-                    
-                    <button class="btn btn-success text-white">
-                        Submit
-                    </button>
                 </Form>
 
 
@@ -90,7 +83,7 @@
                         Submit
                     </button>
                 </span>
-                </form>
+                </form> -->
 
             </div>
             </dialog>

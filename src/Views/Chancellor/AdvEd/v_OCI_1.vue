@@ -1,4 +1,4 @@
-<script src="../../../Scripts/VCs/AdvEd/v_OCI_1.js">
+<script src="../../../Scripts/Chancellor/AdvEd/v_OCI_1.js">
 
 </script>
 

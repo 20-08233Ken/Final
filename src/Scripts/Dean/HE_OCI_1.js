@@ -1,7 +1,7 @@
-import { Form, Field,ErrorMessage } from 'vee-validate';
-import notification from '../../components/Others/notification.vue';
-import axios from 'axios';
-import { useCookies } from 'vue3-cookies';
+import { Form, Field, ErrorMessage } from "vee-validate";
+import notification from "../../components/Others/notification.vue";
+import axios from "axios";
+import { useCookies } from "vue3-cookies";
 
 export default {
   setup() {
@@ -40,6 +40,8 @@ export default {
       // Options of Select Program Input
       // Based from API callback
       collegeProgram: [],
+      college: [],
+      campus: [],
 
       selectedFile: null,
       isDataActive: true,
@@ -76,59 +78,50 @@ export default {
       } catch (error) {}
     },
 
-
     // Sample Data Entry that will display in table
     async addData() {
-            
-        const headers = {
-            'Content-Type': 'multipart/form-data'
-        };
-        let userCookies = this.cookies.get('userCookies');
-        // Form Data
-        const formData = new FormData()
-        formData.append('supported_file', this.selectedFile);
-        // formData.append('campus_id', this.data[0].in_campus);
-        // formData.append('college_id',this.data[0].in_department);
-        formData.append('program_id', this.in_program);
-        formData.append('exam_date', this.in_examDate);
-        formData.append('number_of_takers', this.in_takers);
-        formData.append('number_of_passers', this.in_passers);
-        formData.append('campus_id', userCookies['campus_id']);
-        formData.append('college_id', userCookies['college_id']);
-        formData.append('user_id', userCookies['id']);
+      const headers = {
+        "Content-Type": "multipart/form-data",
+      };
+      let userCookies = this.cookies.get("userCookies");
+      // Form Data
+      const formData = new FormData();
+      formData.append("supported_file", this.selectedFile);
+      // formData.append('campus_id', this.data[0].in_campus);
+      // formData.append('college_id',this.data[0].in_department);
+      formData.append("program_id", this.in_program);
+      formData.append("exam_date", this.in_examDate);
+      formData.append("number_of_takers", this.in_takers);
+      formData.append("number_of_passers", this.in_passers);
+      formData.append("campus_id", userCookies["campus_id"]);
+      formData.append("college_id", userCookies["college_id"]);
+      formData.append("user_id", userCookies["id"]);
 
-        try {
-            const response = await axios.post(import.meta.env.VITE_API_CREATE_HEP, formData, {
-                    headers
-                })
-                .then(response => {
-                    // this.collegeProgram = response.data;
-                  
-                    if (response.data == "Successfully HEP added!") {
-                        
+      try {
+        const response = await axios
+          .post(import.meta.env.VITE_API_CREATE_HEP, formData, {
+            headers,
+          })
+          .then((response) => {
+            // this.collegeProgram = response.data;
 
+            if (response.data == "Successfully HEP added!") {
+              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching campus", error);
+          });
+      } catch (error) {}
 
-                        // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching campus', error);
-                });
+      this.isDataActive = false;
+      (this.in_program = ""),
+        (this.in_examDate = ""),
+        (this.in_takers = 0),
+        (this.in_passers = 0),
+        (this.selectedFile = null);
 
-        } catch (error) {
-
-        }
-
- 
-        this.isDataActive = false;
-        this.in_program= "",
-        this.in_examDate= "",
-        this.in_takers= 0,
-        this.in_passers= 0,
-        this.selectedFile =null
-
-
-        // }, 2000)
+      // }, 2000)
     },
     // Validate if the input field is empty
     validateInput(value) {
@@ -162,22 +155,41 @@ export default {
       }
     },
 
-        async fetchProgram_Data(college_id){
-            try{
-                const response = await axios.post(import.meta.env.VITE_API_GET_PROGRAM,{
-                    "college_id": college_id
-                })
-                .then(response => {
-                    this.collegeProgram = response.data;
-                })
-                .catch(error => {
-                    console.error('Error fetching campus', error);
-                });
-                this.collegeProgram = response.data
-            }catch (error){
-                // add actions here
-            }
-        },
+    async fetchProgram_Data(college_id) {
+      try {
+        const response = await axios
+          .post(import.meta.env.VITE_API_GET_PROGRAM, {
+            college_id: college_id,
+          })
+          .then((response) => {
+            this.collegeProgram = response.data;
+          })
+          .catch((error) => {
+            console.error("Error fetching campus", error);
+          });
+        this.collegeProgram = response.data;
+      } catch (error) {
+        // add actions here
+      }
+    },
+
+    async fetchCollege_Data(campus_id){
+      try{
+          const response = await axios.post(import.meta.env.VITE_API_GET_COLLEGE,{
+              "campus_id": campus_id
+          })
+          .then(response => {
+            console.log("college:", response.data);
+              this.college = response.data;
+          })
+          .catch(error => {
+              console.error('Error fetching program', error);
+          });
+      }catch (error){
+          // add actions here
+      }
+  },
+
 
     handleFileUpload(event) {
       this.selectedFile = event.target.files[0];
@@ -191,44 +203,50 @@ export default {
     },
 
     deleteData(id) {
-        this.selectedID = id;
+      this.selectedID = id;
     },
 
-    async ViewHistory(id){
-        this.selectedID = id;
-        let userCookies = this.cookies.get('userCookies');
-        const response = await axios.post(import.meta.env.VITE_API_HEP_HISTORY,{
-                "id": id,
-                "user_id": userCookies['id']
-            })
-            .then(response => {
-                console.log(response.data);
-                this.viewHistory = response.data;
-            })
-            .catch(error => {
-                console.error('Error history not found', error);
-            });
-    }
+    async ViewHistory(id) {
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      const response = await axios
+        .post(import.meta.env.VITE_API_HEP_HISTORY, {
+          id: id,
+          user_id: userCookies["id"],
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.viewHistory = response.data;
+        })
+        .catch((error) => {
+          console.error("Error history not found", error);
+        });
+    },
   },
   mounted() {
     // call here
     // this.fetchProgram_Data()
-    let userCookies = this.cookies.get('userCookies');
-    let accesstoken = this.cookies.get('userAccessToken');
-    let userPosition = this.cookies.get('userPosition');
-    let userCollege = this.cookies.get('userCollege');
-    let userCampus = this.cookies.get('userCampus'); 
+    let userCookies = this.cookies.get("userCookies");
+    let accesstoken = this.cookies.get("userAccessToken");
+    let userPosition = this.cookies.get("userPosition");
+    let userCollege = this.cookies.get("userCollege");
+    let userCampus = this.cookies.get("userCampus");
     this.user = userPosition;
     this.userCookies = userCookies;
     this.data[0].in_campus = userCampus;
     this.data[0].in_department = userCollege;
 
-    if (this.user == null && this.userCookies == null){
-        this.$router.push('/');
+    if (this.user == null && this.userCookies == null) {
+      this.$router.push("/");
     }
 
-    this.fetchProgram_Data(userCookies['college_id'], userCampus, userCollege);
-    this.FetchData(userCookies["office"],userCookies['campus_id'],userCookies['id'],userCollege,userCampus);
-
+    this.fetchProgram_Data(userCookies["college_id"], userCampus, userCollege);
+    this.FetchData(
+      userCookies["office"],
+      userCookies["campus_id"],
+      userCookies["id"],
+      userCollege,
+      userCampus
+    );
   },
 };

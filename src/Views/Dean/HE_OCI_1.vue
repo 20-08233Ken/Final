@@ -181,7 +181,7 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" :disabled='item.approval != ``'></v-btn>
+                                        text="Edit" variant="flat" :disabled='item.approval != `Returned`'></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
@@ -208,7 +208,7 @@
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
                                             <Field as="select" class="select select-bordered w-full mt-2"
-                                                style="border:  1px solid #d2d2d2;" v-model="in_program" name="program"
+                                                style="border:  1px solid #d2d2d2;" v-model="item.program_id" name="program"
                                                 :rules="validateInput">
                                                 <option disabled selected>Select Program ...</option>
                                                 <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}
@@ -219,7 +219,7 @@
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Exam Date</p>
                                             <Field type="date" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full" name="exam_date"
-                                                style="border:  1px solid #d2d2d2;" v-model="in_examDate"
+                                                style="border:  1px solid #d2d2d2;" v-model="item.exam_date"
                                                 :rules="validateInput" />
                                             <ErrorMessage name="exam_date" class="error_message" />
 
@@ -227,7 +227,7 @@
                                                 Takers</p>
                                             <Field type="number" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full" defa
-                                                style="border:  1px solid #d2d2d2;" v-model="in_takers" name="no_takers"
+                                                style="border:  1px solid #d2d2d2;" v-model="item.number_of_takers" name="no_takers"
                                                 :rules="checkNegative" />
                                             <ErrorMessage name="no_takers" class="error_message" />
 
@@ -235,7 +235,7 @@
                                                 Passers</p>
                                             <Field type="number" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full"
-                                                style="border:  1px solid #d2d2d2;" v-model="in_passers"
+                                                style="border:  1px solid #d2d2d2;" v-model="item.number_of_passers"
                                                 name="no_passers" :rules="checkNegative" />
                                             <ErrorMessage name="no_passers" class="error_message" />
 

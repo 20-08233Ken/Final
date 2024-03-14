@@ -8,6 +8,7 @@
                 <!-- <Navigation/>  -->
 
                 
+            <Planning_nav  v-if="user === 'Planning'"/>
             <Planning_nav  v-if="user === 'IPDO'"/>
             <Dean_nav  v-if="user == 'Dean'"/>
             <Registrar_nav  v-if="user === 'Registrar'"/>

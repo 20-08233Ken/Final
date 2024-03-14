@@ -1,12 +1,12 @@
-<script src="../../../Scripts/Chancellor/HighEd/v_OPI_1.js">
+<script src="../../../Scripts/VCs/HighEd/v_OPI_2.js">
 
 
 </script>
 
 <template>
             <h1 class="font-Header text-3xl text-Red-Rose">Higher Education Program</h1>
-            <h2 class="font-Subheader text-lg text-Red-Rose">Output Indicator 1</h2>
-            <h2 class="font-Subheader text-1gray-700">Percentage of undergraduate students enrolled in CHED-identified and RDC-identified priority programs</h2>
+            <h2 class="font-Subheader text-lg text-Red-Rose">Output Indicator 2</h2>
+            <h2 class="font-Subheader text-1gray-700"> Percentage of undergraduate programs with accreditation</h2>
 
             <span>
 
@@ -55,7 +55,6 @@
 
             </div>
             </dialog>
-
             <dialog id="showRejection" class="modal">
             <div class="modal-box">
            
@@ -94,4 +93,6 @@
 
             </div>
             </dialog>
+
+
 </template>

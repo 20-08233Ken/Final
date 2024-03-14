@@ -1,12 +1,11 @@
-<script src="../../../Scripts/Chancellor/HighEd/v_OPI_1.js">
-
+<script src="../../../Scripts/VCs/HighEd/v_OCI_2.js">
 
 </script>
 
 <template>
             <h1 class="font-Header text-3xl text-Red-Rose">Higher Education Program</h1>
-            <h2 class="font-Subheader text-lg text-Red-Rose">Output Indicator 1</h2>
-            <h2 class="font-Subheader text-1gray-700">Percentage of undergraduate students enrolled in CHED-identified and RDC-identified priority programs</h2>
+            <h2 class="font-Subheader text-lg text-Red-Rose">Outcome Indicator 2</h2>
+            <h2 class="font-Subheader text-1gray-700"> Percentage of graduates (2 years prior) that are employed</h2>
 
             <span>
 
@@ -72,11 +71,6 @@
                     <p class="py-4 text-0.9">If others, please specify </p>
                     <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"  style="border:  1px solid #d2d2d2;"/>
                     <ErrorMessage name="otherReason" class="error_message"/>
-
-                    
-                    <button class="btn btn-success text-white">
-                        Submit
-                    </button>
                 </Form>
 
 

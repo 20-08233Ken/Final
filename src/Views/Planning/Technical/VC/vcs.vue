@@ -2,7 +2,6 @@
     import VCs from '../../components/Others/Navigation/VCs_nav.vue'
     import Planning_navVue from '../../components/Others/Navigation/Planning_nav.vue'
 
-    // VCAA
     import v_OCI_1 from './HighEd/v_OCI_1.vue'
     import v_OCI_2 from './HighEd/v_OCI_2.vue'
     import v_OPI_1 from './HighEd/v_OPI_1.vue'
@@ -11,18 +10,6 @@
     import ad_OCI_1 from './AdvEd/v_OCI_1.vue'
     import ad_OPI_1 from './AdvEd/v_OPI_1.vue'
     import ad_OPI_2 from './AdvEd/v_OPI_2.vue'
-
-    // Planning
-    import Pl_v_OCI_1 from './HighEd/v_OCI_1.vue'
-    import Pl_v_OCI_2 from './HighEd/v_OCI_2.vue'
-    import Pl_v_OPI_1 from './HighEd/v_OPI_1.vue'
-    import Pl_v_OPI_2 from './HighEd/v_OPI_2.vue'
-
-    import Pl_ad_OCI_1 from './AdvEd/v_OCI_1.vue'
-    import Pl_ad_OPI_1 from './AdvEd/v_OPI_1.vue'
-    import Pl_ad_OPI_2 from './AdvEd/v_OPI_2.vue'
-
-
 
     import OPI1N2Vue from './Extension/OPI_1N2.vue'
     import OC from './Extension/OC.vue'
@@ -83,8 +70,7 @@ export default{
     <main class="w-full">
         <VCs v-if="user === 'VCAA'"/>
         <Planning_navVue v-if="user === 'Planning'" />
-        <Planning_navVue v-if="user === 'IPDO'" />
-        
+        <p>{{ user }}</p>
         <section class="w-full flex gap-16 px-3vw mt-8">
            
             <div class="w-3/12  flex flex-col">
