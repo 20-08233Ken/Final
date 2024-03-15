@@ -65,7 +65,7 @@
 </script>
 
 <template>
-        <div class="flex justify-end w-auto shadow-card2 relative overflow-x-auto" >
+        <div class="flex justify-end w-auto shadow-card2 relative overflow-x-auto w-full" >
             <span class="flex flex-col w-full px-4 py-4 " :class="{'isShow':isHide === true, 'notShow':isHide === false}">
                 <calendar/>
                 <h4 class="mt-6 font-Header text-Red-Rose" >Activities</h4>

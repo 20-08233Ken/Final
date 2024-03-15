@@ -38,3 +38,29 @@
     color: white;
 }
 
+/* td:last-child{
+    display:flex;
+    align-items:center
+} */
+
+:deep thead {
+    background-color:	rgb(55 65 81);
+    border: 1px solid white;
+
+}
+:deep th{
+    color: white;
+    border: 1px solid white;
+}
+
+.isActive{
+    background-color:rgb(255, 240, 221);
+}
+
+.isApproved{
+    color: rgb(21 128 61);
+}
+
+
+.view-table >tr:nth-child(even) {background-color: #f2f2f2;}
+

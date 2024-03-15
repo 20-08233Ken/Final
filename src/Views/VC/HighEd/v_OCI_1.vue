@@ -13,18 +13,21 @@
 
     <span class=" w-full overflow-x-auto">
 
-        <v-data-table :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10" style="width:100%; overflow-x: scroll;">
+        <v-data-table :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10"
+            style="width:100%; overflow-x: scroll;">
 
-           
-            <template v-slot:item.supported_file="{item}" >
+
+            <template v-slot:item.supported_file="{item}">
                 <span class="flex w-full  gap-2 py-4">
-                    <v-btn size="x-small" class="bg-light-blue-darken-3"><a :href=item.supported_file target="_blank">View PDF</a> </v-btn>
+                    <v-btn size="x-small" class="bg-light-blue-darken-3"><a :href=item.supported_file
+                            target="_blank">View PDF</a> </v-btn>
                 </span>
-                </template>
+            </template>
             <template v-slot:item.actions="{item}">
                 <span class="flex w-full  gap-2 py-4">
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
-                        @click="approvedHEP(item.hep_one_id)"> Approved</v-btn>
+                        @click="approvedHEP(item.hep_one_id)" :disabled="item.status != 'For IPDO Approval'"> Approved</v-btn>
+                  
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
                         @click="rejectedHEP(item.hep_one_id)"> Reject</v-btn>
                 </span>
@@ -64,33 +67,44 @@
             <h3 class="font-bold text-lg bg-gray-700 text-white px-4 py-3 font-Header">Reason of Rejection</h3>
 
 
-            <Form>
+            <Form @submit="RejectRequest">
                 <p class="py-4 text-0.9">Reasons </p>
                 <Field as="select" placeholder="Type here" name="reason" class="select w-full"
-                    style="border:  1px solid #d2d2d2;">
+                    style="border:  1px solid #d2d2d2;" :rules="validateInput">
                     <option v-for=" x in reasonOpt" :value="x.reason">{{ x.reason }}</option>
                 </Field>
                 <ErrorMessage name="reason" class="error_message" />
 
                 <p class="py-4 text-0.9">If others, please specify </p>
                 <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"
-                    style="border:  1px solid #d2d2d2;" />
+                    style="border:  1px solid #d2d2d2;" :rules="validateInput" />
                 <ErrorMessage name="otherReason" class="error_message" />
+                <span class="w-full flex justify-end gap-4 mt-4">
+                    <form method="dialog">
+
+                        <button class="btn bg-white border-0 shadow-0">
+                            Cancel
+                        </button>
+                    </form>
+                        <button class="btn btn-success text-white">
+                            Submit
+                        </button>
+                </span>
+          
             </Form>
 
 
-            <form method="dialog">
-                <span class="w-full flex justify-end gap-4 mt-4">
-                    <button class="btn bg-white border-0 shadow-0">
-                        Cancel
-                    </button>
 
-                    <button class="btn btn-success text-white" @click="RejectRequest">
-                        Submit
-                    </button>
-                </span>
-            </form>
 
         </div>
     </dialog>
 </template>
+
+
+<style scoped>
+
+.error_message{
+    color: red;
+    font-size: .9rem;
+}
+</style>

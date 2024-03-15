@@ -25,6 +25,10 @@ export default{
         AuthenticationModal
     },  
     methods:{
+        showAlert() {
+            // Use sweetalert2
+            this.$swal('Invalid Credentials');
+          },
         validateData(value){
             if(!value){
                return 'This field is required';
@@ -39,7 +43,6 @@ export default{
                 this.loginError =true
             },1500)
         },
-
 
         // Modify this Part for API callback
         async submitData(){
@@ -74,6 +77,7 @@ export default{
                        //  $("errorMessage").val();
 
                        alert(JSON.stringify(error.response.data.message));
+                       
                     }
                     // called modal
                     //this.login =false'

@@ -110,16 +110,13 @@ export default {
 
         if(response.data){
           this.hepData = response.data;
-          console.log(this.hepData)
+        
         }
 
       }).
       catch(function(error){
           if(error.response){
               
-              console.log(error.response.data)
-              console.log(error.response.status)
-
               if (error.response.data){
                 // call the modal
                 //  this.loginError =false
@@ -167,11 +164,10 @@ export default {
         
         this.selectedIds.push(id);
 
-        // console.log(this.selectedIds)
       } else {
        
         this.selectedIds.splice(index, 1);
-        // console.log(this.selectedIds)
+
       }
     },
 
@@ -186,9 +182,10 @@ export default {
                 "id":   this.selectedID
             })
             .then(response => {
-
+              location.reload();
                 console.log("response:",response);
                 if (response.data == "This request is already approved by VCAA!"){
+                  
                   this.$router.push('/VCs');
                 }
             })
@@ -214,8 +211,8 @@ export default {
                 "remarks":this.remarks
             })
             .then(response => {
-
-                console.log("response:",response);
+              location.reload();
+    
             })
             .catch(error => {
                 console.error('Error fetching hep data', error);
@@ -224,6 +221,14 @@ export default {
         }catch (error){
             // add actions here
         }
+    },
+
+    validateInput(value) {
+      if (!value) {
+        return "This field is required";
+      }
+
+      return true;
     },
 
   },
@@ -239,15 +244,10 @@ export default {
   mounted() {
 
     let userCookies = this.cookies.get('userCookies');
-    // console.log(userCookies);
     let accesstoken = this.cookies.get('userAccessToken');
-    // console.log(accesstoken);
     let userPosition = this.cookies.get('userPosition');
-    // console.log(userPosition);
     let userCollege = this.cookies.get('userCollege');
-    // console.log(userCollege);
     let userCampus = this.cookies.get('userCampus'); 
-    // console.log(userCampus);
     this.user = userPosition;
     this.userCookies = userCookies;
 
@@ -255,10 +255,6 @@ export default {
         this.$router.push('/');
     }
     this.GetHEPData();
-    // this.approved(userCookies);
-
-    // const holdCookies = userPosition();
-
     const holdCookies =userPosition;
 
   },

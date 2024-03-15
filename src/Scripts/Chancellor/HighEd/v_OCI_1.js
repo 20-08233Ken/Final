@@ -110,15 +110,13 @@ export default {
         
         if(response.data){
           this.hepData = response.data;
-          console.log(this.hepData)
+
         }
 
       }).
       catch(function(error){
           if(error.response){
               
-              console.log(error.response.data)
-              console.log(error.response.status)
 
               if (error.response.data){
                 // call the modal
@@ -167,11 +165,11 @@ export default {
         
         this.selectedIds.push(id);
 
-        console.log(this.selectedIds)
+ 
       } else {
        
         this.selectedIds.splice(index, 1);
-        console.log(this.selectedIds)
+
       }
     },
 
@@ -179,15 +177,15 @@ export default {
     async ApprovedRequest(){
         try{
             let users_list = this.cookies.get('userCookies');
-            const response = await axios.post(import.meta.env.VITE_API_APPROVE_HEP, {
+            const response = await axios.post(import.meta.env.VITE_API_CHANCELLOR_APPROVE_HEP, {
                 "office": users_list.office,
                 "campus_id": users_list.campus_id,
                 "user_id": users_list.id,
-                "id":   this.selectedID
+                "id":   this.selectedIds
             })
             .then(response => {
-
-                console.log("response:",response);
+                location.reload();
+ 
                 if (response.data == "This request is already approved by VCAA!"){
                   this.$router.push('/VCs');
                 }
@@ -203,9 +201,7 @@ export default {
 
     async RejectRequest(){
         try{
-            console.log("REJECTED");
-            console.log(this.remarks);
-            console.log(this.reasons);
+
             let users_list = this.cookies.get('userCookies');
             const response = await axios.post(import.meta.env.VITE_API_DISAPPROVE_HEP, {
                 "office": users_list.office,
@@ -216,8 +212,8 @@ export default {
                 "remarks":this.remarks
             })
             .then(response => {
+                location.reload();
 
-                console.log("response:",response);
             })
             .catch(error => {
                 console.error('Error fetching hep data', error);
@@ -241,15 +237,15 @@ export default {
   mounted() {
 
     let userCookies = this.cookies.get('userCookies');
-    // console.log(userCookies);
+
     let accesstoken = this.cookies.get('userAccessToken');
-    // console.log(accesstoken);
+
     let userPosition = this.cookies.get('userPosition');
-    // console.log(userPosition);
+
     let userCollege = this.cookies.get('userCollege');
-    // console.log(userCollege);
+
     let userCampus = this.cookies.get('userCampus'); 
-    // console.log(userCampus);
+
     this.user = userPosition;
     this.userCookies = userCookies;
 
@@ -257,9 +253,6 @@ export default {
         this.$router.push('/');
     }
     this.GetHEPData();
-    // this.approved(userCookies);
-
-    // const holdCookies = userPosition();
 
     const holdCookies =userPosition;
 

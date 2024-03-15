@@ -27,8 +27,62 @@ export default {
       isActive: false,
       isIcon: false,
       isAdd: false,
+      receivedProgam: null,      
+      headers: [
+        {
+          title:'',
+          value:'check_box'
+        },
+        {
+          title: "HEP Code",
+          value: "hep_code",
+         
+        },
+        {
+          title: "Campus",
+          value: "campus",
+          width:'200px'
+          
+        },
+        {
+          title: "Department",
+          value: "college",
+          width:'200px'
+        
+        },
+        {
+          title: "Undergraduate Program",
+          value: "program",
+          width:'200px'
+        },
+        {
+          title: "Exam date",
+          value: "exam_date",
+          width:'200px'
+        },
+        {
+          title: "No. of 1st Time takers",
+          value: "number_of_takers",
+          width:'200px'
+        },
+        {
+          title: "No. of 1st Time Passers",
+          value: "number_of_passers",
+        },
+        {
+          title: "Supporting Documents",
+          value: "supported_file",
 
-      receivedProgam: null,
+        },
+        {
+          title: "Validation Status",
+          value: "status",
+        },
+        {
+          title: "Actions",
+          value: "actions",
+        },
+      ],
 
       // Data base from the Account Info of Dean
       data: [
@@ -156,11 +210,44 @@ export default {
     },
 
     openUpdate(item){
-
       this.forUpdate = item
-      console.log(this.forUpdate)
+
     },
-    submitUpdate(){
+    async submitUpdate(){
+
+      const headers = {
+        "Content-Type": "multipart/form-data",
+      };
+      let userCookies = this.cookies.get("userCookies");
+      // Form Data
+      const formEditData = new FormData();
+      formEditData.append("supported_file", this.editselectedFile);
+      formEditData.append("program_id", this.forUpdate.program_id);
+      formEditData.append("exam_date", this.forUpdate.exam_date);
+      formEditData.append("number_of_takers",this.forUpdate.number_of_takers);
+      formEditData.append("number_of_passers", this.forUpdate.number_of_passers);
+      formEditData.append("campus_id", userCookies["campus_id"]);
+      formEditData.append("college_id", userCookies["college_id"]);
+      formEditData.append("user_id", userCookies["id"]);
+      formEditData.append("id", this.forUpdate.id);
+
+      try {
+        const response = await axios
+          .post(import.meta.env.VITE_API_UPDATE_HEP, formEditData, {
+            headers,
+          })
+          .then((response) => {
+            // this.collegeProgram = response.data;
+
+            if (response.data == "Successfully HEP updated!") {
+              location.reload();
+              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching campus", error);
+          });
+      } catch (error) {}
 
     },
     // Validate if the input field is empty
@@ -251,8 +338,25 @@ export default {
           user_id: userCookies["id"],
         })
         .then((response) => {
-          console.log(response.data);
+   
           this.viewHistory = response.data;
+        })
+        .catch((error) => {
+          console.error("Error history not found", error);
+        });
+    },
+
+    async ViewHistory(id) {
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      const response = await axios
+        .post(import.meta.env.VITE_API_HEP_HISTORY, {
+          id: id,
+          user_id: userCookies["id"],
+        })
+        .then((response) => {
+   
+          this.approvedLogs = response.data;
         })
         .catch((error) => {
           console.error("Error history not found", error);

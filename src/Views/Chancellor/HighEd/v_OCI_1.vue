@@ -21,7 +21,6 @@
 
 
             <template v-slot:item.check_box="{ item }"  v-if="user === 'Chancellor'">
-
                     <input type='checkbox' :id="item.hep_one_id" :value="item.hep_one_id" @change="toogleCheckBox(item.hep_one_id)"> 
             </template>
             <template v-slot:item.supported_file="{ item }">
@@ -74,32 +73,34 @@
             <h3 class="font-bold text-lg bg-gray-700 text-white px-4 py-3 font-Header">Reason of Rejection</h3>
 
 
-            <Form>
+            <Form @submit="RejectRequest">
                 <p class="py-4 text-0.9">Reasons </p>
                 <Field as="select" placeholder="Type here" name="reason" class="select w-full"
-                    style="border:  1px solid #d2d2d2;">
+                    style="border:  1px solid #d2d2d2;" :rules="validateInput">
                     <option v-for=" x in reasonOpt" :value="x.reason">{{ x.reason }}</option>
                 </Field>
                 <ErrorMessage name="reason" class="error_message" />
 
                 <p class="py-4 text-0.9">If others, please specify </p>
                 <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"
-                    style="border:  1px solid #d2d2d2;" />
+                    style="border:  1px solid #d2d2d2;" :rules="validateInput" />
                 <ErrorMessage name="otherReason" class="error_message" />
+                <span class="w-full flex justify-end gap-4 mt-4">
+                    <form method="dialog">
+
+                        <button class="btn bg-white border-0 shadow-0">
+                            Cancel
+                        </button>
+                    </form>
+                        <button class="btn btn-success text-white">
+                            Submit
+                        </button>
+                </span>
+          
             </Form>
 
 
-            <form method="dialog">
-                <span class="w-full flex justify-end gap-4 mt-4">
-                    <button class="btn bg-white border-0 shadow-0">
-                        Cancel
-                    </button>
 
-                    <button class="btn btn-success text-white" @click="RejectRequest">
-                        Submit
-                    </button>
-                </span>
-            </form>
 
         </div>
     </dialog>
