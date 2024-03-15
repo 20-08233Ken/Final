@@ -35,10 +35,10 @@
                 </ul>
 
             </div>
-            <div class="w-7/12 flex justify-end gap-4" v-if="user == 'Dean'">
+            <div class=" flex-1 justify-end gap-4" v-if="user == 'Dean'">
 
-                <div class="w-full flex  px-16 py-16 ">
-                    <span class="flex w-full flex-col   ">
+                <div class=" flex-1  px-16 py-16 ">
+                    <span class="flex flex-1 flex-col   ">
                         <component :is="currentComponent"></component>
                     </span>
 

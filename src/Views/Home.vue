@@ -17,7 +17,7 @@
             <Research_nav v-if="user === 'Research'"/>
             <VCs_nav v-if="user === 'VCAA'"/>
             <Chancellor_navVue v-if="user === 'Chancellor'"/> 
-
+            <vpaa_nav v-if="user === 'VPAA'"/> 
 
   
                

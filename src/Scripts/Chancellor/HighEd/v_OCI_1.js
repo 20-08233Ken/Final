@@ -28,7 +28,7 @@ export default {
         },
         {
           title: "HEP Code",
-          value: "hep_one_id",
+          value: "hep_code",
           width:'200px'
         },
         {

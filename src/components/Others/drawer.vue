@@ -1,6 +1,7 @@
 <script >
 import { userPosition } from '../../Scripts/cookies';
-
+import {userCampus }from '../../Scripts/cookies';
+import {userCollege }from '../../Scripts/cookies';
 import {Form, Field, ErrorMessage} from 'vee-validate'
 import { ref } from 'vue';
 import { useCookies } from 'vue3-cookies';
@@ -25,8 +26,9 @@ export default {
             ph_convention:null,
 
             change_hour:null,
-            user:null
-
+            user:null,
+            campus:'',
+            college:''
         }
     },
     mounted(){
@@ -56,6 +58,13 @@ export default {
 
         const holdCookies = userPosition();
         this.user = holdCookies();
+
+        const holdcampus = userCampus();
+        this.campus = holdcampus();
+
+        const holdCollege = userCollege();
+        this.college = holdCollege();
+       
     },
 
     components:{
@@ -180,7 +189,7 @@ export default {
                         </svg>
                     </i>
 
-                    <p class="text-gray-500"> Alangilan Campus I - TNEU</p>
+                    <p class="text-gray-500"> {{ campus }}</p>
                 </span>
 
                 <span class="flex w-full items-center mt-2 gap-4 px-4 ">
@@ -193,7 +202,7 @@ export default {
                         </svg>
                     </i>
 
-                    <p class="text-gray-500">College of Engineering</p>
+                    <p class="text-gray-500">{{ college }}</p>
                 </span>
 
                 <span class="flex w-full items-center mt-2 gap-4 px-4 ">

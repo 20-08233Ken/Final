@@ -36,16 +36,16 @@
 
         <div class="w-full flex justify-center   gap-2 mt-10">
             <button class="btn   w-6/12" :class="{ 'isDataActive': isDataActive === true }" @click="changeData(true)">
-                Form
+                Table
             </button>
 
             <button class="btn   w-6/12" :class="{ 'isDataNotActive': isDataActive === false }"
                 @click="changeData(false)">
-                Table
+                Form
             </button>
         </div>
 
-        <div class="w-full flex flex-col mt-8" v-if="isDataActive === true">
+        <div class="w-full flex flex-col mt-8" v-if="isDataActive === false">
             <Form @submit="addData">
 
                 <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
@@ -139,11 +139,11 @@
             </Form>
         </div>
 
-        <div class="w-full flex flex-col mt-8 overflow-x-auto " v-if="isDataActive === false">
+        <div class="w-full flex flex-col mt-8 overflow-x-auto " v-if="isDataActive === true">
             <table class="table-zebra table-sm" >
                 <thead>
                     <tr class="bg-gray-700 ">
-                        <th></th>
+                        <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">H</th>
                         <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Campus</th>
                         <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Department
                         </th>
@@ -166,14 +166,14 @@
                 </thead>
                 <tbody>
                     <tr v-for="(item, index) in hepData">
-                        <th class="text-0.8"></th>
+                        <td class="text-0.8">{{ item.hep_code }}</td>
                         <td class="text-0.8">{{ item.campus }}</td>
                         <td class="text-0.8">{{ item.college }}</td>
                         <td class="text-0.8">{{ item.program }}</td>
                         <td class="text-0.8">{{ item.exam_date }}</td>
                         <td class="text-0.8">{{ item.number_of_passers }}</td>
                         <td class="text-0.8">{{ item.number_of_takers }}</td>
-                        <td> <v-btn size="small" class="bg-teal-darken-1">  <a :href=item.docs target="_blank">View PDF</a></v-btn></td>
+                        <td> <v-btn size="x-small" class="bg-teal-darken-1">  <a :href=item.docs target="_blank">View PDF</a></v-btn></td>
                         <td class="text-0.8">{{ item.status }}</td>
                         <td class="flex flex-col items-center gap-2 px-2">
 
@@ -181,7 +181,7 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" :disabled='item.approval != `Returned`'></v-btn>
+                                        text="Edit" variant="flat" :disabled='item.approval != `Returned`' @click="openUpdate(item)"></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
@@ -208,8 +208,8 @@
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
                                             <Field as="select" class="select select-bordered w-full mt-2"
-                                                style="border:  1px solid #d2d2d2;" v-model="item.program_id" name="program"
-                                                :rules="validateInput">
+                                                style="border:  1px solid #d2d2d2;"  name="program"
+                                                :rules="validateInput" v-model="forUpdate.program_id">
                                                 <option disabled selected>Select Program ...</option>
                                                 <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}
                                                 </option>
@@ -219,7 +219,7 @@
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Exam Date</p>
                                             <Field type="date" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full" name="exam_date"
-                                                style="border:  1px solid #d2d2d2;" v-model="item.exam_date"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.exam_date"
                                                 :rules="validateInput" />
                                             <ErrorMessage name="exam_date" class="error_message" />
 
@@ -227,7 +227,7 @@
                                                 Takers</p>
                                             <Field type="number" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full" defa
-                                                style="border:  1px solid #d2d2d2;" v-model="item.number_of_takers" name="no_takers"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.number_of_takers" name="no_takers"
                                                 :rules="checkNegative" />
                                             <ErrorMessage name="no_takers" class="error_message" />
 
@@ -235,7 +235,7 @@
                                                 Passers</p>
                                             <Field type="number" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full"
-                                                style="border:  1px solid #d2d2d2;" v-model="item.number_of_passers"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.number_of_passers"
                                                 name="no_passers" :rules="checkNegative" />
                                             <ErrorMessage name="no_passers" class="error_message" />
 

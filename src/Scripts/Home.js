@@ -19,7 +19,7 @@ import QAM_nav from '../components/Others/Navigation/QAM_nav.vue'
 import Extension_nav from '../components/Others/Navigation/Extension_nav.vue'
 import VCAA_navVue from '../components/Others/Navigation/VCAA_nav.vue'
 import Research_nav from '../components/Others/Navigation/Research_nav.vue'
-
+import vpaa_nav from '../components/Others/Navigation/vpaa_nav.vue'
 import VCs_nav from '../components/Others/Navigation/VCs_nav.vue'
 import Chancellor_navVue from '../components/Others/Navigation/Chancellor_nav.vue'
 
@@ -64,7 +64,8 @@ export default{
         Research_nav,
         VCAA_navVue,
         VCs_nav,
-        Chancellor_navVue
+        Chancellor_navVue,
+        vpaa_nav
     },  
       methods:{
         showActive(componentName,tabNumber){
