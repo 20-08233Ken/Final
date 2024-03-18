@@ -2,7 +2,7 @@ import AuthenticationModal from '../components/Others/AuthenticationModal.vue'
 import {Form, Field, ErrorMessage} from 'vee-validate'
 import axios from 'axios';
 import { useCookies } from 'vue3-cookies';
-
+import Swal from 'sweetalert2'
 export default{
     setup(){
         const {cookies} =useCookies();
@@ -14,7 +14,8 @@ export default{
                 username:'',
                 password:''
             },
-            loginError:true
+            loginError:true,
+            myErrorMessage:null
 
            
 
@@ -22,12 +23,17 @@ export default{
     },
     components:{
         Form, Field, ErrorMessage,
-        AuthenticationModal
+        AuthenticationModal,
+        Swal
     },  
     methods:{
         showAlert() {
-            // Use sweetalert2
-            this.$swal('Invalid Credentials');
+            Swal.fire({
+              title: 'Hello!',
+              text: 'This is a SweetAlert dialog.',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            })
           },
         validateData(value){
             if(!value){
@@ -75,9 +81,15 @@ export default{
                        //  this.loginError =false
                        //  this.addTimeout()
                        //  $("errorMessage").val();
-
-                       alert(JSON.stringify(error.response.data.message));
-                       
+                      
+                    //    alert(JSON.stringify(error.response.data.message))
+                    
+                       Swal.fire({
+                        title: 'Error ',
+                        text: JSON.stringify(error.response.data.message),
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                      })
                     }
                     // called modal
                     //this.login =false'

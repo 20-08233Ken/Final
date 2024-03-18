@@ -30,7 +30,7 @@
                 class="w-1/12 py-6 hover:bg-red-800 text-center md:hidden sm:hidden xm:hidden"
                 style="font-size: clamp(14px , 2vw , 16px);"
             >
-                <router-link to="/dashboard">Dahsboard</router-link>
+                <router-link to="/dashboard">Dashboard</router-link>
             </li>
             <li 
                 class="w-1/12 py-6 hover:bg-red-800 text-center md:hidden sm:hidden xm:hidden"  

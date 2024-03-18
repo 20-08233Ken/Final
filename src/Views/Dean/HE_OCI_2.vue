@@ -452,54 +452,10 @@
             </table>
         </div>
         <div class="w-full flex flex-col mt-8 overflow-x-auto" v-if="isDataActive === 3">
-            <h1 class="font-Subheader ">PRC: List of Graduates by Institution, Program, and Sex</h1>
-            <table class="table-zebra table-sm mt-4">
-                <thead>
-                    <tr class="bg-gray-700 ">
-                        <th class="text-0.8 text-white text-center font-Subheader border-r-1 border-b-1" colspan="7">Student
-                            Profile</th>
-                        <th class="text-0.8 text-white text-center font-Subheader border-r-1 border-b-1" rowspan="2">Program
-                            Name</th>
-                        <th class="text-0.8 text-white text-center font-Subheader border-r-1 border-b-1" rowspan="2">Program
-                            Major</th>
-                        <th class="text-0.8 text-white text-center font-Subheader border-r-1 border-b-1" colspan="2">Program
-                            Authority to Operate / Graduate</th>
-
-                        <!-- <th class="text-0.8 text-white font-Subheader text-center border-r-1 border-b-1" rowspan="3">Action</th> -->
-                    </tr>
-                    <tr class="bg-gray-700 ">
-                        <th></th>
-                        <th class="text-0.8 text-white font-Subheader text-center border-r-1 border-white">Student ID</th>
-                        <th class="text-0.8 text-white font-Subheader text-center border-r-1 border-white">Date of Birth
-                            (mm/dd/yyyy)</th>
-                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Last Name</th>
-                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">First Name</th>
-                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Sex (M/F)</th>
-                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Date Graduated</th>
-                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Authority Number</th>
-                        <th class="text-0.8 text-white font-Subheader  text-center border-r-1 border-white">Year Granted</th>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item, index) in sampleData">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-
-                    </tr>
-
-
-                </tbody>
-            </table>
+            <h1 class="font-Subheader mb-4">PRC: List of Graduates by Institution, Program, and Sex</h1>
+            <v-data-table :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10"
+                style="width:100%; overflow-x: scroll;">
+            </v-data-table>
         </div>
     </div>
 

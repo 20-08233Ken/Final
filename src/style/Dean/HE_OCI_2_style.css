@@ -37,3 +37,14 @@
     background-color: #94080D;
     color: white;
 }
+
+:deep thead {
+    background-color:	rgb(55 65 81);
+    border: 1px solid white;
+
+}
+:deep th{
+    color: white;
+    border: 1px solid white;
+     
+}

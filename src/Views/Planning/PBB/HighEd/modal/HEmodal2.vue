@@ -100,7 +100,7 @@
       persistent
     >
       <template v-slot:activator="{ props: activatorProps }">
-        <v-btn v-bind="activatorProps"  class="bg-red-darken-4 w-3/12 rounded-md">
+        <v-btn v-bind="activatorProps"  class="bg-red-darken-4 w-3/12 rounded-md" size="x-small">
           View
         </v-btn>
       </template>

@@ -25,11 +25,11 @@
 
                     <h5 class="w-6/12 font-Subheader text-0.9">Percentage of graduate school faculty engaged in research work</h5>
 
-                    <span class="flex w-5/12 justify-end  gap-4 ">
+                    <span class="flex w-5/12 justify-end gap-4 ">
 
                         <modal1 />
-                        <router-link to="/" class="w-3/12">
-                            <v-btn class="bg-teal-accent-4 w-full rounded-md w-3/12">Validate</v-btn>
+                        <router-link to="/VCs" class="flex w-3/12">
+                            <v-btn size="x-small" class="bg-teal-darken-3 w-full rounded-md ">Validate</v-btn>
                         </router-link>
                     </span>
                 </div>
@@ -53,9 +53,9 @@
                     <span class="flex w-5/12 justify-end  gap-4 ">
 
                         <modal2 />
-                        <router-link to="/" class="w-3/12">
+                        <router-link to="/VCs" class="flex w-3/12">
                             <!-- <button class="btn btn-sm  btn-success text-white w-full">Validate</button> -->
-                            <v-btn class="bg-teal-accent-4 w-full rounded-md w-3/12">Validate</v-btn>
+                            <v-btn size="x-small" class="bg-teal-darken-3 w-full rounded-md ">Validate</v-btn>
                         </router-link>
                     </span>
                 </div>
@@ -76,9 +76,9 @@
                     <span class="flex w-5/12 justify-end  gap-4 ">
 
                         <modal3 />
-                        <router-link to="/" class="w-3/12">
+                        <router-link to="/VCs" class="flex w-3/12">
                             <!-- <button class="btn btn-sm  btn-success text-white w-full">Validate</button> -->
-                            <v-btn class="bg-teal-accent-4 w-full rounded-md w-3/12">Validate</v-btn>
+                            <v-btn size="x-small" class="bg-teal-darken-3 w-full rounded-md">Validate</v-btn>
 
                         </router-link>
                     </span>

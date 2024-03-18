@@ -24,7 +24,7 @@
             </svg>
         </i>
         <span class="flex flex-col justify-center w-9/12">
-            <h1 class="w-full  font-Header text-lg text-white">Percentage of graduates (2 years prior) that are employed
+            <h1 class="w-full  font-Header text-lg text-white">Graduate school faculty engaged in research work
             </h1>
         </span>
 
@@ -35,7 +35,7 @@
 
 
     <div class="w-full overflow-x-auto shadow-card2 mt-4 px-8 py-4 rounded-lg">
-        <p class="w-full text-center text-gray-400">Higher Education Program: Outcome Indicator 1</p>
+        <p class="w-full text-center text-gray-400">Advanced Education Program: Outcome Indicator 1</p>
         <p class="w-full text-center text-gray-400">College of Engineering</p>
 
         <div class="w-full flex justify-center   gap-2 mt-8">

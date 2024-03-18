@@ -25,11 +25,11 @@
 
                     <h5 class="w-6/12 font-Subheader text-0.9">Percentage of first time licensure exam takers</h5>
 
-                    <span class="flex w-5/12 justify-end  gap-4 ">
+                    <span class="flex w-5/12 justify-end items-center gap-4">
 
                         <modal1 />
-                        <router-link to="/" class="w-3/12">
-                            <v-btn class="bg-teal-accent-4 w-full rounded-md w-3/12">Validate</v-btn>
+                        <router-link to="/VCs" class="flex w-3/12">
+                            <v-btn class="bg-teal-darken-3 w-full rounded-md " size="x-small">Validate</v-btn>
                         </router-link>
                     </span>
                 </div>
@@ -46,11 +46,11 @@
 
                     <h5 class="w-6/12 font-Subheader text-0.9">Percentage of graduates (2 years prior) that are employed</h5>
 
-                    <span class="flex w-5/12 justify-end  gap-4 ">
+                    <span class="flex w-5/12 justify-end  gap-4  items-center">
 
                         <modal2 />
-                        <router-link to="/" class="w-3/12">
-                            <v-btn class="bg-teal-accent-4 w-full rounded-md w-3/12">Validate</v-btn>
+                        <router-link to="/VCs" class="flex w-3/12">
+                            <v-btn class="bg-teal-darken-3 w-full rounded-md " size="x-small">Validate</v-btn>
                         </router-link>
                     </span>
                 </div>
@@ -69,12 +69,12 @@
                     <h5 class="w-6/12 font-Subheader text-0.9 ">Percentage of undergraduate students enrolled in CHED-identified
                         and RDC-identified priority programs</h5>
 
-                    <span class="flex w-5/12 justify-end  gap-4 ">
+                    <span class="flex w-5/12 justify-end  gap-4 items-center">
 
                         <modal3 />
-                        <router-link to="/" class="w-3/12">
+                        <router-link to="/VCs" class="flex w-3/12">
                             <!-- <button class="btn btn-sm  btn-success text-white w-full">Validate</button> -->
-                            <v-btn class="bg-teal-accent-4 w-full rounded-md w-3/12">Validate</v-btn>
+                            <v-btn class="bg-teal-darken-3 w-full rounded-md " size="x-small">Validate</v-btn>
                         </router-link>
                     </span>
                 </div>
@@ -92,12 +92,12 @@
 
                     <h5 class="w-6/12 font-Subheader text-0.9">Percentage of undergraduate programs with accreditation</h5>
 
-                    <span class="flex w-5/12 justify-end  gap-4 ">
+                    <span class="flex w-5/12 justify-end  gap-4 items-center">
 
                         <modal4 />
-                        <router-link to="/" class="w-3/12">
+                        <router-link to="/VCs" class="flex w-3/12">
                             <!-- <button class="btn btn-sm  btn-success text-white w-full">Validate</button> -->
-                            <v-btn class="bg-teal-accent-4 w-full rounded-md w-3/12">Validate</v-btn>
+                            <v-btn class="bg-teal-darken-3 w-full rounded-md " size="x-small">Validate</v-btn>
 
                         </router-link>
                     </span>

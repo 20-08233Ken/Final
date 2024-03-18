@@ -27,7 +27,8 @@ export default {
       isActive: false,
       isIcon: false,
       isAdd: false,
-      receivedProgam: null,      
+      receivedProgam: null,    
+      search: '',  
       headers: [
         {
           title:'',
@@ -35,19 +36,21 @@ export default {
         },
         {
           title: "HEP Code",
-          value: "hep_code",
+          key: "hep_code",
          
         },
         {
           title: "Campus",
           value: "campus",
-          width:'200px'
+          
+        
           
         },
         {
           title: "Department",
           value: "college",
-          width:'200px'
+          width:'500'
+         
         
         },
         {
@@ -110,20 +113,15 @@ export default {
       collegeProgram: [],
       college: [],
       campus: [],
-
       selectedFile: null,
       isDataActive: true,
-
       // For View Button
       approvedLogs: [],
-
       editData: [],
-
       viewHistory: [],
-
       selectedID: "",
-
-      forUpdate:[]
+      forUpdate:[],
+      editselectedFile: null,
     };
   },
   methods: {
@@ -329,22 +327,22 @@ export default {
     },
 
 
-    async ViewHistory(id) {
-      this.selectedID = id;
-      let userCookies = this.cookies.get("userCookies");
-      const response = await axios
-        .post(import.meta.env.VITE_API_HEP_HISTORY, {
-          id: id,
-          user_id: userCookies["id"],
-        })
-        .then((response) => {
+    // async ViewHistory(id) {
+    //   this.selectedID = id;
+    //   let userCookies = this.cookies.get("userCookies");
+    //   const response = await axios
+    //     .post(import.meta.env.VITE_API_HEP_HISTORY, {
+    //       id: id,
+    //       user_id: userCookies["id"],
+    //     })
+    //     .then((response) => {
    
-          this.viewHistory = response.data;
-        })
-        .catch((error) => {
-          console.error("Error history not found", error);
-        });
-    },
+    //       this.viewHistory = response.data;
+    //     })
+    //     .catch((error) => {
+    //       console.error("Error history not found", error);
+    //     });
+    // },
 
     async ViewHistory(id) {
       this.selectedID = id;
@@ -362,6 +360,36 @@ export default {
           console.error("Error history not found", error);
         });
     },
+    EdithandleFileUpload(event) {
+      this.EditselectedFile = event.target.files[0];
+    },
+
+    async DownloadFile(id) {
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      const response = await axios
+        .post(import.meta.env.VITE_API_FETCH_PDF, {
+          id: id,
+          user_id: userCookies["id"],
+          responseType: 'blob',
+          
+        })
+        .then(response => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          // window.open(url, '_blank');
+        })
+        // .then(response => response.blob())
+        // .then(blob => {
+        //     const url = window.URL.createObjectURL(new Blob([response.data]));
+        //     window.open(url, '_blank');
+        //     // If you want to embed the PDF in your page, you can use an <iframe> instead:
+        //     // document.getElementById('pdfViewer').src = url;
+        // })
+        .catch(error => {
+          console.error('Error fetching PDF:', error);
+        });
+    },
+
   },
   mounted() {
     // call here

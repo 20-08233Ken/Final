@@ -29,6 +29,8 @@ export default{
             currentComponent:HE_OPI_1,
             activeBtn:1,
             user:null,
+
+
         }
     },
     methods:{

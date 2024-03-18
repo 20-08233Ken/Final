@@ -43,6 +43,7 @@
     align-items:center
 } */
 
+
 :deep thead {
     background-color:	rgb(55 65 81);
     border: 1px solid white;
@@ -51,6 +52,11 @@
 :deep th{
     color: white;
     border: 1px solid white;
+     
+}
+
+:deep td{
+
 }
 
 .isActive{
@@ -59,6 +65,11 @@
 
 .isApproved{
     color: rgb(21 128 61);
+}
+
+.isReject{
+    color: red;
+
 }
 
 

@@ -1,8 +1,13 @@
 import { Form, Field, ErrorMessage } from 'vee-validate'
 import notification from '../../components/Others/notification.vue';
-
+import axios from "axios";
+import { useCookies } from "vue3-cookies";
 
 export default {
+    setup() {
+        const { cookies } = useCookies();
+        return { cookies };
+      },
     components: {
         Form,
         Field,
@@ -24,7 +29,68 @@ export default {
             isIcon: false,
             isActive: false,
             id: 1,
-
+            headers: [
+                {
+                  title: "Student Profile",
+                  align: "center",
+                  children: [
+                    {
+                      title: "ID",
+                      value: "id",
+                    },
+                    {
+                      title: "Student ID",
+                      value: "student_id",
+                    },
+                    {
+                      title: "Date of Birth",
+                      value: "birthday",
+                    },
+                    {
+                      title: "Last Name",
+                      value: "lastname",
+                    },
+                    {
+                      title: "First Name",
+                      value: "firstname",
+                    },
+                    {
+                      title: "Middle Name",
+                      value: "middlename",
+                    },
+                    {
+                      title: "Sex",
+                      value: "gender",
+                    },
+                    {
+                      title: "Date Graduated",
+                      value: "date_graduated",
+                    },
+                  ],
+                },
+                {
+                  title: "Program Name",
+                  value: "program",
+                },
+                {
+                  title: "Program Major",
+                  value: "program_major",
+                },
+                {
+                  title: "Program Authority to Operate/Graduate",
+                  children: [
+                    {
+                      title: "Authority Number",
+                      value: "authority_number",
+                    },
+                    {
+                      title: "Year Granted",
+                      value: "granted_year",
+                    },
+                  ],
+                },
+              ],
+            hepData:[],
             // Data base from the Account Info of Dean
             data: [
                 {
@@ -45,30 +111,7 @@ export default {
                     program: "Bachelor of Science in Electrical Engineer",
                 }
             ],
-            sampleData: [
-                {
-                    tb_id:1,  
-                    tb_campus:'Alangilan Campus',
-                    tb_department:'College of Engineering',
-                    tb_program:'BS civil engineering',
-                    tb_name:'Name',
-                    tb_status:'Status',
-                    tb_company:'Company',
-                    tb_docs:'https://code.visualstudio.com/docs/languages/html',
-                    tb_approval:'Approved'
-                },
-                {
-                    tb_id:1,  
-                    tb_campus:'Alangilan Campus',
-                    tb_department:'College of Engineering',
-                    tb_program:'BS civil engineering',
-                    tb_name:'Name',
-                    tb_status:'Status',
-                    tb_company:'Company',
-                    tb_docs:'https://code.visualstudio.com/docs/languages/html',
-                    tb_approval:'Rejected'
-                },
-            ],
+
             selectedFile1:null,
             selectedFile2:null,
             isDataActive:1,
@@ -150,15 +193,27 @@ export default {
         onClose() {
             this.isActive = false
         },
-        async fetchProgram_Data(){
-            try{
-                const response = await axios.get('');
-                // remove first the data from college program 
-                this.collegeProgram = response.data
-            }catch (error){
-                // add actions here
+
+
+        async fecthHEPData() {
+            console.log("fecthHEPData");
+            try {
+              let userCookies = this.cookies.get("userCookies");
+              const response = await axios
+                .post(import.meta.env.VITE_API_DISPLAY_HEP_TWO, {
+                  user_id: userCookies["id"],
+                })
+                .then((response) => {
+                  console.log("fecthHEPData:", response.data);
+                  this.hepData = response.data;
+                })
+                .catch((error) => {
+                  console.error("Error fetching hep Data", error);
+                });
+            } catch (error) {
+              // add actions here
             }
-        },
+          },
         handleFileUpload(event){
             this.selectedFile1 = event.target.files[0]
         },
@@ -182,7 +237,9 @@ export default {
              return true
              
            
-        },  checkNegative(value){
+        },  
+        
+        checkNegative(value){
             if(value < 0){
                 return 'Negative numbers is not allowed'
             }
@@ -200,8 +257,24 @@ export default {
 
     },
 
-    mount(){
+    mounted(){
         // call here
         // this.fetchProgram_Data()
+        let userCookies = this.cookies.get("userCookies");
+        let accesstoken = this.cookies.get("userAccessToken");
+        let userPosition = this.cookies.get("userPosition");
+        let userCollege = this.cookies.get("userCollege");
+        let userCampus = this.cookies.get("userCampus");
+        this.user = userPosition;
+        this.userCookies = userCookies;
+        this.data[0].in_campus = userCampus;
+        this.data[0].in_department = userCollege;
+
+        if (this.user == null && this.userCookies == null) {
+        this.$router.push("/");
+        }
+
+        this.fecthHEPData();
+
     }
 }
