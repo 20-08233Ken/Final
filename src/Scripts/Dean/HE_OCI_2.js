@@ -249,34 +249,54 @@ export default {
           })
           .then((response) => {
             // this.collegeProgram = response.data;
-            console.log(response.data);
-            if (response.data == "HEP Successfully Added") {
-              location.reload();
-              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
-            }else if (response.data == "Student not found"){
+         
+            if (response.data == "Student Not Found ") {
+
               Swal.fire({
                 title: 'Error ',
                 text: "Student not found",
                 icon: 'error',
                 confirmButtonText: 'OK'
               })
+              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
+            }else if(response.data == "Existing Data Already"){
 
-              this.clearCredits();
-              // this.isDataActive = 3;
-            }else if (response.data == "Existing Data"){
+                Swal.fire({
+                  title: 'Error ',
+                  text: "Existing Data Already",
+                  icon: 'error',
+                  confirmButtonText: 'OK'
+                })
+                this.clearCredits();
+            }
+            else if(response.data == "HEP Successfully Added"){
+
+                Swal.fire({
+                  title: 'Success ',
+                  text: "Date Added Successfully",
+                  icon: 'success',
+                  confirmButtonText: 'OK'
+                })
+                this.isDataActive = 3;
+                this.clearCredits();
+              }
+            else {
+           
+    
               Swal.fire({
-                title: 'Error ',
-                text: "Existing Data",
+                title: 'Invalid ',
+                text: "Please upload needed file/s",
                 icon: 'error',
                 confirmButtonText: 'OK'
               })
-
-              this.clearCredits();
-              // this.isDataActive = 3;
+           
+      
             }
           })
           .catch((error) => {
             console.error("Error fetching campus", error);
+
+            console.log(formData)
             
           });
       } catch (error) {
