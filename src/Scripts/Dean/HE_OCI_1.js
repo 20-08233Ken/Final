@@ -29,6 +29,7 @@ export default {
       isAdd: false,
       receivedProgam: null,    
       search: '',  
+      myLoading:false,
       headers: [
         {
           title:'',
@@ -135,6 +136,7 @@ export default {
             user_id: user_id,
           })
           .then((response) => {
+            this.myLoading = true
             this.hepData = response.data;
             // if (response.data == "Successfully HEP added!"){
             //     this.isDataActive = false;
@@ -142,7 +144,13 @@ export default {
           })
           .catch((error) => {
             console.error("Error fetching hep data", error);
+          })
+
+          .finally(() => {
+            this.myLoading = false
           });
+          
+          
       } catch (error) {}
     },
     async deleteData(id) {
@@ -162,6 +170,13 @@ export default {
     },
     // Sample Data Entry that will display in table
     async addData() {
+      this.loading = true;
+      setTimeout(() => {
+        // Simulated data fetching completion
+        // Once data is fetched, set loading to false
+        this.loading = false;
+      }, 8000);
+      console.log(this.loading)
       const headers = {
         "Content-Type": "multipart/form-data",
       };
@@ -391,9 +406,21 @@ export default {
     },
 
   },
+  
+  // watch:{
+  //     hepData(){
+  //         if(this.hepData.length === 0){
+  //           this.myLoading = true
+  //         }else{
+  //           this.myLoading = false
+  //         }
+  //     }
+  // }
+  
   mounted() {
     // call here
     // this.fetchProgram_Data()
+
     let userCookies = this.cookies.get("userCookies");
     let accesstoken = this.cookies.get("userAccessToken");
     let userPosition = this.cookies.get("userPosition");

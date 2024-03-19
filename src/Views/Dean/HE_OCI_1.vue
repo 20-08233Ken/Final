@@ -2,6 +2,8 @@
 </script>
 
 <template>
+
+
     <div v-if="isAdd" role="alert" class="alert alert-success w-5/12 text-white fixed top-20 z-50 transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -22,6 +24,9 @@
         <span class="flex flex-col justify-center  w-9/12">
             <h1 class="w-full  font-Header text-lg text-white">Percentage of first-time licensure exam takers that pass
                 the licensure exams</h1>
+
+            <p class="w-full text-0.9  text-gray-400">Higher Education Program: Outcome Indicator 1</p>
+            <p class="w-full text-0.9 text-gray-400">College of Engineering</p>
         </span>
 
         <span class="flex w-3/12 items-center justify-end">
@@ -29,23 +34,21 @@
         </span>
     </div>
 
-    <div class="w-full overflow-x-auto shadow-card2 mt-4 px-8 py-4 rounded-lg">
-        <p class="w-full text-center text-gray-400">Higher Education Program: Outcome Indicator 1</p>
-        <p class="w-full text-center text-gray-400">College of Engineering</p>
-
-        <div class="w-full flex justify-center gap-2 mt-10">
-            <button class="btn font-Subheader w-6/12" :class="{ 'isDataActive': isDataActive === true }"
+    <div class="w-full flex justify-center gap-2 ">
+            <v-btn class="btn font-Subheader flex-1" :class="{ 'isDataActive': isDataActive === true }"
                 @click="changeData(true)">
+                <v-icon>mdi-table</v-icon>
                 Table
-            </button>
+            </v-btn>
 
-            <button class="btn font-Subheader  w-6/12" :class="{ 'isDataNotActive': isDataActive === false }"
+            <v-btn class="btn font-Subheader flex-1" :class="{ 'isDataNotActive': isDataActive === false }"
                 @click="changeData(false)">
+                <v-icon>mdi-form-select</v-icon>
                 Form
-            </button>
+            </v-btn>
         </div>
-
-        <div class="w-full flex flex-col mt-8" v-if="isDataActive === false">
+    <div class="w-full overflow-x-auto shadow-card2  px-8 rounded-lg">
+        <div class="w-full flex flex-col mt-8 " v-if="isDataActive === false">
             <Form @submit="addData">
 
                 <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
@@ -139,21 +142,21 @@
             </Form>
         </div>
 
-        <div class="w-full flex flex-col mt-8 overflow-x-auto " v-if="isDataActive === true">
-
+        <div class="w-full flex flex-col mt-3 overflow-x-auto " v-if="isDataActive === true">
             <v-card>
-             
 
-                    <template v-slot:text >
-                        <!-- <v-responsive class="mx-auto" max-width="100%"> -->
-                        <v-text-field v-model="search" label="Search" prepend-inner-icon="mdi-magnify"
-                            variant="outlined" hide-details single-line></v-text-field>
-                        <!-- </v-responsive> -->
-                    </template>
 
-              
+                <template v-slot:text>
+                    <!-- <v-responsive class="mx-auto" max-width="100%"> -->
+                    <v-text-field v-model="search" label="Search" prepend-inner-icon="mdi-magnify" variant="outlined"
+                        hide-details single-line></v-text-field>
+                    <!-- </v-responsive> -->
+                </template>
+
+
                 <v-data-table :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10"
-                    :search="search" style="width:100%; overflow-x: scroll;">
+                    loading-text="Loading... Please wait" :loading="myLoading" :search="search"
+                    style="width:100%; overflow-x: scroll;">
 
                     <template v-slot:item.supported_file="{ item }">
                         <span class="flex w-full  gap-2 py-4">
@@ -385,9 +388,6 @@
 
                         </span>
                     </template>
-
-
-
 
                 </v-data-table>
             </v-card>

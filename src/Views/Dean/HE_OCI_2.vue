@@ -2,6 +2,8 @@
 </script>
 
 <template>
+
+
     <div v-if="isAdd" role="alert" class="alert alert-success w-5/12 text-white fixed top-20 z-50 transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -25,6 +27,8 @@
         <span class="flex flex-col justify-center w-9/12">
             <h1 class="w-full  font-Header text-lg text-white">Percentage of graduates (2 years prior) that are employed
             </h1>
+            <p class="w-full text-0.9 text-gray-400">Higher Education Program: Outcome Indicator 2</p>
+            <p class="w-full text-0.9 text-gray-400">College of Engineering</p>
         </span>
 
         <span class="flex w-3/12 items-center justify-end">
@@ -32,26 +36,36 @@
         </span>
     </div>
 
+    <div class="w-full flex justify-center   gap-2 ">
+        <v-btn class="btn flex-1" :class="{'isDataActive':isDataActive===1}" @click="changeData(1)">
+            <v-icon>mdi-account-tie</v-icon>
+            Registrar
+        </v-btn>
 
-    <div class="w-full overflow-x-auto shadow-card2 mt-4 px-8 py-4 rounded-lg">
-        <p class="w-full text-center text-gray-400">Higher Education Program: Outcome Indicator 2</p>
-        <p class="w-full text-center text-gray-400">College of Engineering</p>
+        <v-btn class="btn flex-1" :class="{'isDataNotActive':isDataActive===2}" @click="changeData(2)">
+            <v-icon>mdi-form-select</v-icon>
+            Form
+        </v-btn>
 
-        <div class="w-full flex justify-center   gap-2 mt-8">
-            <button class="btn   w-4/12" :class="{'isDataActive':isDataActive===1}" @click="changeData(1)">
-                Form
-            </button>
+        <v-btn class="btn flex-1" :class="{'isDataNotActive':isDataActive===3}" @click="changeData(3)">
+            <v-icon>mdi-table</v-icon>
+            Table
+        </v-btn>
+    </div>
 
-            <button class="btn   w-4/12" :class="{'isDataNotActive':isDataActive===2}" @click="changeData(2)">
-                Table
-            </button>
+    <div class="w-full overflow-x-auto shadow-card2 mt-1 px-8 py-4 rounded-lg">
+        <div class="w-full flex flex-col mt-3 overflow-x-auto" v-if="isDataActive === 1">
+            <h1 class="font-Subheader mb-4">PRC: List of Graduates by Institution, Program, and Sex</h1>
 
-            <button class="btn   w-4/12" :class="{'isDataNotActive':isDataActive===3}" @click="changeData(3)">
-                Registrar
-            </button>
+            <v-data-table-server :headers="headersRegistrar" :items="registrarData" class="elevation-1 "
+                items-per-page="10" :items-length="0" :loading="myLoading" loading-text="Loading... Please wait"
+                style="width:100%; overflow-x: scroll;">
+
+
+            </v-data-table-server>
         </div>
 
-        <div class="w-full flex flex-col mt-8" v-if="isDataActive === 1">
+        <div class="w-full flex flex-col mt-8" v-if="isDataActive === 2">
             <Form @submit="addData">
 
                 <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
@@ -66,7 +80,7 @@
                 <Field as="select" name="program" class="select select-bordered w-full mt-2"
                     style="border:  1px solid #d2d2d2;" v-model="in_program" :rules="validateData">
                     <option disabled selected>Select Program ...</option>
-                    <option v-for="x in collegeProgram" :value="x.program">{{ x.program }}</option>
+                    <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}</option>
                 </Field>
                 <ErrorMessage name="program" class="error_message" />
 
@@ -166,59 +180,58 @@
                 </table>
 
                 <span class="w-full flex items-center justify-end gap-2 mt-5">
-                    <button class="btn bg-emerald-600 text-white w-2/12" @click="showFile()">Add</button>
+                    <button class="btn bg-emerald-600 text-white w-2/12" type="submit"
+                        :disabled="disableSubmit">Add</button>
                 </span>
             </Form>
         </div>
 
-        <div class="w-full flex flex-col mt-8 overflow-x-auto" v-if="isDataActive === 2">
-            <table class="table-zebra table-sm">
-                <thead>
-                    <tr class="bg-gray-700 ">
-                        <th></th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Campus</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Department</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Program</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Name</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Status</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Company's Business /
-                            Type of Business</th>
-                        <th class="text-0.8 text-center  text-white font-Subheader border-r-1 border-white">Supported
-                            Documents</th>
+        <div class="w-full flex flex-col mt-3 overflow-x-auto" v-if="isDataActive === 3">
+            <v-card>
+                <template v-slot:text>
+                    <!-- <v-responsive class="mx-auto" max-width="100%"> -->
+                    <v-text-field v-model="search" label="Search" prepend-inner-icon="mdi-magnify" variant="outlined"
+                        hide-details single-line></v-text-field>
+                    <!-- </v-responsive> -->
+                </template>
+                <v-data-table-server :headers="headersDean" :items="deansData" class="elevation-1 "
+                    items-per-page="10" :items-length="0"  loading-text="Loading... Please wait"
+                    style="width:100%; overflow-x: scroll;">
 
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Approval Status</th>
-                        <th class="text-0.8 text-white font-Subheader border-r-1 border-white">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item, index) in sampleData">
-                        <td class="text-0.8"></td>
-                        <td class="text-0.8">{{ item.tb_campus}}</td>
-                        <td class="text-0.8">{{ item.tb_apartment}}</td>
-                        <td class="text-0.8">{{ item.tb_program}}</td>
-                        <td class="text-0.8">{{ item.tb_name}}</td>
-                        <td class="text-0.8">{{ item.tb_status}}</td>
-                        <td class="text-0.8">{{ item.tb_company}}</td>
-                        <td> <v-btn size="small" class="bg-teal-darken-1">  <a :href=item.tb_docs target="_blank">View PDF</a></v-btn></td>
-                        <td class="text-0.8">{{ item.tb_approval }}</td>
-                        <td class="flex flex-col items-center gap-2 ">
+                    <template v-slot:item.graduate_files="{ item }">
+                        <span class="flex w-full flex-col  gap-2 py-4">
+                            <!-- <v-btn size="x-small" class="bg-light-blue-darken-3"><a :href=item.supported_file
+                                target="_blank">View PDF</a> </v-btn> -->
+                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="DownloadFile(item.hep_one_id)">
+                                <a :href="item.graduate_files">Graduate Tracer Study</a>
+                            </v-btn>
+
+                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="DownloadFile(item.hep_one_id)">
+                                <a :href="item.official_list">Official list of FY 2021 Graduates</a> 
+                            </v-btn>
+                        </span>
+                    </template>
+
+                    <template v-slot:item.actions="{ item }">
+                        <span class="flex w-full flex-col  gap-2 py-4">
 
                             <!-- Edit -->
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" :disabled='item.tb_approval == ``'></v-btn>
+                                        text="Edit" variant="flat" @click="openUpdate(item)"
+                                        :disabled='item.approval != `Returned`'></v-btn>
                                 </template>
-
                                 <template v-slot:default="{ isActive }">
                                     <v-card class="px-8 py-8">
                                         <h3
                                             class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
-
                                             Edit Record</h3>
-                                        <Form class="mt-4">
+                                        <p>{{ item.tb_id }}</p>
 
-                                            <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
+                                        <Form @submit="">
+
+                                            <p class="text-0.9 font-Subheader text-gray-500 mt-4">Campus</p>
                                             <Field type="text" name='campus' placeholder="Type here" disabled
                                                 class="input mt-2 input-bordered w-full " v-model="data[0].in_campus"
                                                 :rules="validateData" />
@@ -358,28 +371,28 @@
                                                 </tbody>
                                             </table>
 
-                                            <span class="w-full flex items-center justify-end gap-2 mt-5">
-                                                <button class="btn bg-emerald-600 text-white w-2/12"
-                                                    @click="showFile()">Add</button>
-                                            </span>
                                         </Form>
 
                                         <v-card-actions>
                                             <v-spacer></v-spacer>
+                                            <span class="w-full flex items-center justify-end gap-4 mt-5">
 
-                                            <v-btn text="Close" @click="isActive.value = false"></v-btn>
+
+                                                <v-btn text="Close" @click="isActive.value = false"></v-btn>
+                                                <button
+                                                    class="btn btn-accent  w-2/12 text-white border-0">Update</button>
+                                            </span>
                                         </v-card-actions>
                                     </v-card>
                                 </template>
                             </v-dialog>
 
-
                             <!-- Delete -->
                             <v-dialog max-width="700">
+
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
-                                        text="Delete" variant="flat"
-                                        :disabled='item.tb_approval == ``'></v-btn>
+                                        text="Delete" variant="flat" :disabled='item.approval != ``'></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
@@ -398,7 +411,8 @@
                                                 <v-spacer></v-spacer>
                                                 <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
 
-                                                <v-btn class="bg-red-darken-4" @click="deleteData(item.tb_id)"> Confirm</v-btn>
+                                                <v-btn class="bg-red-darken-4" @click="deleteData(item.hep_one_id)">
+                                                    Confirm</v-btn>
                                             </v-card-actions>
                                         </form>
                                     </v-card>
@@ -409,7 +423,7 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
-                                        text="View" variant="flat" :disabled='item.tb_approval === `Approved`'></v-btn>
+                                        text="View" variant="flat" @click="ViewHistory(item.hep_one_id)"></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }" class="w-full">
@@ -419,19 +433,30 @@
                                                 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
                                                 Approval History</h3>
 
-                                            <table class="mt-4 w-full border-0" id="notifTable">
+                                            <table class="view-table mt-4 w-full border-0" id="notifTable">
 
                                                 <tr v-for="(items, index) in approvedLogs">
+
                                                     <td class="w-1/12">
-                                                        <v-icon class="text-green-700">mdi-history</v-icon>
+                                                        <v-icon
+                                                            :class="{ 'isApproved': items.status === 'Approved', 'isReject': items.status === 'Returned' }">mdi-history</v-icon>
                                                     </td>
                                                     <td>
-                                                        <h1>{{ items.status }} by {{ items.role }}</h1>
+                                                        <h1
+                                                            :class="{ 'isApproved': items.status === 'Approved', 'isReject': items.status === 'Returned' }">
+                                                            {{ items.status }} by {{ items.role }}</h1>
                                                     </td>
                                                     <td>
-                                                        <p>{{ items.reason }}<br><i>{{ items.remarks }}</i> </p>
+                                                        <p>{{ items.reasons }}<br><i>{{ items.remarks }}</i> </p>
+
                                                     </td>
+                                                    <td>
+                                                        <p>{{ items.created_at }}</p>
+
+                                                    </td>
+
                                                 </tr>
+
 
                                             </table>
 
@@ -444,19 +469,13 @@
                                     </v-card>
                                 </template>
                             </v-dialog>
-                        </td>
-                    </tr>
+                        </span>
+                    </template>
 
+                </v-data-table-server>
+            </v-card>
+        </div>
 
-                </tbody>
-            </table>
-        </div>
-        <div class="w-full flex flex-col mt-8 overflow-x-auto" v-if="isDataActive === 3">
-            <h1 class="font-Subheader mb-4">PRC: List of Graduates by Institution, Program, and Sex</h1>
-            <v-data-table :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10"
-                style="width:100%; overflow-x: scroll;">
-            </v-data-table>
-        </div>
     </div>
 
 

@@ -223,8 +223,9 @@ export default {
       try {
         let userCookies = this.cookies.get("userCookies");
         const response = await axios
-          .post(import.meta.env.VITE_API_DISPLAY_HEP_TWO, {
+          .post(import.meta.env.VITE_API_DISPLAY_REGISTRAR_DATA, {
             user_id: userCookies["id"],
+            campus_id: userCookies["campus_id"],
           })
           .then((response) => {
             console.log("fecthHEPData:", response.data);
@@ -237,6 +238,7 @@ export default {
         // add actions here
       }
     },
+
   },
 
   mounted() {

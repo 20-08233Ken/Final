@@ -22,7 +22,70 @@ export default{
             count:true,
             isActive:false,
             isAdd:false,
+            search: '',
+            headers:[
+                {
+                    title:'',
+                    value:'check_box'
+                  },
+                  {
+                    title: "HEP Code",
+                    key: "hep_code",
+                   
+                  },
+                {
+                    title:'Campus',
+                    value:'campus',
+                    class:'table_header',
+                },
+                {
+                    title:'Department',
+                    value:'department',
+                },
+                {
+                    title:'Undergraduate Program',
+                    value:'program',
+                },
+                {
+                    title:'Name',
+                    value:'name',
+                },
+                {
+                    title:'Position',
+                    align:'position',
+                },
+                {
+                    title:'Category',
+                    align:'category',
+                },
+                {
+                    title:'Supporting Documents',
+                    value:'supported_file',
+                    align:'center'
+                },
+                {
+                    title:'Validation Status',
+                    value:'v_status',
+                },{
+                    title:"Actions",
+                    value:'actions'
+                }
+                
+            ],
+            sampleData:[
+                {
+                    hep_code:'1',
+                    campus:'2',
+                    department:'3',
+                    program:'4',
+                    name:'5',
+                    position:'6',
+                    category:'8',
+                    supported_file:'9',
+                    v_status:'10'
 
+                }
+            ],
             // Data base from the Account Info of Dean
             data:[
                 {
@@ -66,32 +129,7 @@ export default{
                     engagement:"E. None of the above"
                 },
             ],
-            sampleData:[
-                {
-                    tb_id:'1',
-                    tb_campus:'campus',
-                    tb_department:'department',
-                    tb_program:'program',
-                    tb_fname:'exam date',
-                    tb_positiom:'passers',
-                    tb_engagement:'takers',
-                    tb_duration:'23',
-                    tb_docs:'https://code.visualstudio.com/docs/languages/html',
-                    tb_approval:'Approved'
-                },
-                {
-                    tb_id:'2',
-                    tb_campus:'campus',
-                    tb_department:'department',
-                    tb_program:'program',
-                    tb_fname:'exam date',
-                    tb_positiom:'passers',
-                    tb_engagement:'takers',
-                    tb_duration:'23',
-                    tb_docs:'https://code.visualstudio.com/docs/languages/html',
-                    tb_approval:'Rejected'
-                },
-            ],
+
 
             selectedFile1:null,
             selectedFile2:null,
