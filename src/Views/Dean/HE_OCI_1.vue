@@ -143,7 +143,7 @@
         </div>
 
         <div class="w-full flex flex-col mt-3 overflow-x-auto " v-if="isDataActive === true">
-            <v-card>
+            <v-card class="overflow-x-auto">
 
 
                 <template v-slot:text>

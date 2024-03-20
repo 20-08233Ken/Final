@@ -4,16 +4,16 @@
 </script>
 
 <template>
-    <h1 class="font-Header text-3xl text-Red-Rose">Higher Education Program</h1>
+    <h1 class="font-Header text-2xl text-Red-Rose">Higher Education Program</h1>
     <h2 class="font-Subheader text-lg text-Red-Rose">Outcome Indicator 1</h2>
-    <h2 class="font-Subheader text-1gray-700">Percentage of first-time licensure exam takers that pass the licensure
+    <h2 class="font-Subheader text-gray-700 text-0.9">Percentage of first-time licensure exam takers that pass the licensure
         exams</h2>
 
 
 
-    <span class=" w-full overflow-x-auto">
+    <span class=" w-full overflow-x-auto mt-4">
 
-        <v-data-table :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10"
+        <v-data-table   loading-text="Loading... Please wait" :loading="myLoading" :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10"
             style="width:100%; overflow-x: scroll;">
 
 
@@ -24,12 +24,64 @@
                 </span>
             </template>
             <template v-slot:item.actions="{item}">
-                <span class="flex w-full  gap-2 py-4">
+                <span class="flex w-full flex-col  gap-2 py-4">
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
-                        @click="approvedHEP(item.hep_one_id)" :disabled="item.status != 'For IPDO Approval' && this.user == 'IPDO'"> Approved</v-btn>
-                  
+                        @click="approvedHEP(item.hep_one_id)"
+                        :disabled="item.status != 'For IPDO Approval' && this.user == 'IPDO'"> Approved</v-btn>
+
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
-                        @click="rejectedHEP(item.hep_one_id)" :disabled="item.status != 'For IPDO Approval' && this.user == 'IPDO'"> Reject</v-btn>
+                        @click="rejectedHEP(item.hep_one_id)"
+                        :disabled="item.status != 'For IPDO Approval' && this.user == 'IPDO'"> Reject</v-btn>
+
+                    <v-dialog max-width="700">
+                        <template v-slot:activator="{ props: activatorProps }">
+                            <v-btn  block size="x-small" v-bind="activatorProps" color="surface-variant" text="View"
+                                variant="flat" @click="ViewHistory(item.hep_one_id)"></v-btn>
+                        </template>
+
+                        <template v-slot:default="{ isActive }" class="w-full">
+                            <v-card>
+                                <div class="w-full px-4 py-4">
+                                    <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
+                                        Approval History</h3>
+
+                                    <table class="view-table mt-4 w-full border-0" id="notifTable">
+
+                                        <tr v-for="(items, index) in approvedLogs">
+
+                                            <td class="w-1/12">
+                                                <v-icon
+                                                    :class="{ 'isApproved': items.status === 'Approved', 'isReject': items.status === 'Returned' }">mdi-history</v-icon>
+                                            </td>
+                                            <td>
+                                                <h1
+                                                    :class="{ 'isApproved': items.status === 'Approved', 'isReject': items.status === 'Returned' }">
+                                                    {{ items.status }} by {{ items.role }}</h1>
+                                            </td>
+                                            <td>
+                                                <p>{{ items.reasons }}<br><i>{{ items.remarks }}</i> </p>
+
+                                            </td>
+                                            <td>
+                                                <p>{{ items.created_at }}</p>
+
+                                            </td>
+
+                                        </tr>
+
+
+                                    </table>
+
+                                </div>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn text="Close" @click="isActive.value = false"></v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </template>
+                    </v-dialog>
+                    <!-- :disabled="item.status != 'For IPDO Approval' && this.user == 'IPDO'" -->
                 </span>
             </template>
 
@@ -86,11 +138,11 @@
                             Cancel
                         </button>
                     </form>
-                        <button class="btn btn-success text-white">
-                            Submit
-                        </button>
+                    <button class="btn btn-success text-white">
+                        Submit
+                    </button>
                 </span>
-          
+
             </Form>
 
 
@@ -98,6 +150,8 @@
 
         </div>
     </dialog>
+
+
 </template>
 
 
@@ -107,4 +161,13 @@
     color: red;
     font-size: .9rem;
 }
+.isApproved{
+    color: rgb(21 128 61);
+}
+
+.isReject{
+    color: red;
+
+}
+
 </style>

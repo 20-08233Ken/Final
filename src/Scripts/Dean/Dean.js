@@ -27,6 +27,7 @@ export default{
             currentComponent:HE_OCI_1,
             activeBtn:1,
             user:null, 
+
             sampleData:[
                 {
                     id:1,

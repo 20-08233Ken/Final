@@ -59,7 +59,7 @@
 
             <v-data-table-server :headers="headersRegistrar" :items="registrarData" class="elevation-1 "
                 items-per-page="10" :items-length="0" :loading="myLoading" loading-text="Loading... Please wait"
-                style="width:100%; overflow-x: scroll;">
+                style="width:100%;">
 
 
             </v-data-table-server>
@@ -191,11 +191,12 @@
                 <template v-slot:text>
                     <!-- <v-responsive class="mx-auto" max-width="100%"> -->
                     <v-text-field v-model="search" label="Search" prepend-inner-icon="mdi-magnify" variant="outlined"
-                        hide-details single-line></v-text-field>
+                        hide-details single-line ></v-text-field>
                     <!-- </v-responsive> -->
                 </template>
-                <v-data-table-server :headers="headersDean" :items="deansData" class="elevation-1 "
-                    items-per-page="10" :items-length="0"  loading-text="Loading... Please wait"
+
+                <v-data-table :headers="headersDean" :items="deansData" class="elevation-1 "
+                    items-per-page="10"  :loading="myLoading2" loading-text="Loading... Please wait" :search="search"
                     style="width:100%; overflow-x: scroll;">
 
                     <template v-slot:item.graduate_files="{ item }">
@@ -207,7 +208,7 @@
                             </v-btn>
 
                             <v-btn size="x-small" class="bg-light-blue-darken-3" @click="DownloadFile(item.hep_one_id)">
-                                <a :href="item.official_list">Official list of FY 2021 Graduates</a> 
+                                <a :href="item.official_list">Official List of Graduates</a> 
                             </v-btn>
                         </span>
                     </template>
@@ -219,8 +220,10 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" @click="openUpdate(item)"
-                                        :disabled='item.approval != `Returned`'></v-btn>
+                                        text="Edit" variant="flat" @click="openUpdate(item)" :disabled='item.approval != `Returned`'
+                                       ></v-btn>
+
+                                        <!-- ></v-btn> -->
                                 </template>
                                 <template v-slot:default="{ isActive }">
                                     <v-card class="px-8 py-8">
@@ -229,7 +232,7 @@
                                             Edit Record</h3>
                                         <p>{{ item.tb_id }}</p>
 
-                                        <Form @submit="">
+                                        <Form @submit="submitUpdate">
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-4">Campus</p>
                                             <Field type="text" name='campus' placeholder="Type here" disabled
@@ -243,10 +246,10 @@
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
                                             <Field as="select" name="program" class="select select-bordered w-full mt-2"
-                                                style="border:  1px solid #d2d2d2;" v-model="in_program"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.program_id"
                                                 :rules="validateData">
                                                 <option disabled selected>Select Program ...</option>
-                                                <option v-for="x in collegeProgram" :value="x.program">{{ x.program }}
+                                                <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}
                                                 </option>
                                             </Field>
                                             <ErrorMessage name="program" class="error_message" />
@@ -255,21 +258,21 @@
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Firstname</p>
                                             <Field type="text" name="firstname" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="in_fname"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.student_firstname"
                                                 :rules="validateData" />
                                             <ErrorMessage name="firstname" class="error_message" />
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Lastname</p>
                                             <Field type="text" name="lastname" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="in_lname"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.student_lastname"
                                                 :rules="validateData" />
                                             <ErrorMessage name="lastname" class="error_message" />
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Middle Initial</p>
                                             <Field type="text" name="m_initial" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="in_mname"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.student_middlename"
                                                 :rules="validateData" />
                                             <ErrorMessage name="m_initial" class="error_message" />
 
@@ -290,7 +293,7 @@
 
                                             <Field as="select" name="statuses"
                                                 class="select select-bordered w-full mt-2"
-                                                style="border:  1px solid #d2d2d2;" v-model="in_status"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.graduate_tracer_status"
                                                 :rules="validateData">
                                                 <option disabled selected> ...</option>
                                                 <option value="Employed">Employed</option>
@@ -315,7 +318,7 @@
                                             </span>
                                             <Field type="text" name="business" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="in_business"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.business"
                                                 :rules="validateData" />
                                             <ErrorMessage name="business" class="error_message" />
 
@@ -351,7 +354,7 @@
                                                             Graduate Tracer Study</td>
                                                         <td
                                                             class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                            <input type="file" class="ml-5" @change="handleFileUpload">
+                                                            <input type="file" class="ml-5" @change="updateFile1">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -364,25 +367,27 @@
                                                             Official list of FY 2021 Graduates</td>
                                                         <td
                                                             class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                                            <input type="file" class="ml-5" @change="handleFileUpload2">
+                                                            <input type="file" class="ml-5" @change="updateFile2">
                                                         </td>
                                                     </tr>
 
                                                 </tbody>
                                             </table>
 
-                                        </Form>
-
-                                        <v-card-actions>
+                                            <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <span class="w-full flex items-center justify-end gap-4 mt-5">
 
 
                                                 <v-btn text="Close" @click="isActive.value = false"></v-btn>
                                                 <button
-                                                    class="btn btn-accent  w-2/12 text-white border-0">Update</button>
+                                                    class="btn btn-accent  w-2/12 text-white border-0" type="submit">Update</button>
                                             </span>
                                         </v-card-actions>
+
+                                        </Form>
+
+
                                     </v-card>
                                 </template>
                             </v-dialog>
@@ -411,7 +416,7 @@
                                                 <v-spacer></v-spacer>
                                                 <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
 
-                                                <v-btn class="bg-red-darken-4" @click="deleteData(item.hep_one_id)">
+                                                <v-btn class="bg-red-darken-4" @click="deleteData(item.hep_two_id)">
                                                     Confirm</v-btn>
                                             </v-card-actions>
                                         </form>
@@ -423,7 +428,7 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
-                                        text="View" variant="flat" @click="ViewHistory(item.hep_one_id)"></v-btn>
+                                        text="View" variant="flat" @click="ViewHistory(item.hep_two_id)"></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }" class="w-full">
@@ -472,7 +477,7 @@
                         </span>
                     </template>
 
-                </v-data-table-server>
+                </v-data-table>
             </v-card>
         </div>
 
@@ -482,5 +487,5 @@
 </template>
 
 <style scoped>
-@import url('../../style//Dean/HE_OCI_2_style.css');
+@import url('../../style/Dean/HE_OCI_2_style.css');
 </style>

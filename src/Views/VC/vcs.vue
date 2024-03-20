@@ -88,7 +88,7 @@ export default{
         <Planning_navVue v-if="user === 'Planning'" />
         <Planning_navVue v-if="user === 'IPDO'" />
         
-        <section class="w-full flex gap-16 px-3vw mt-8">
+        <section class="w-full flex gap-8 px-3vw mt-8">
            
             <div class="w-3/12  flex flex-col">
                 <h3 class="w-full flex px-4 py-1 font-Subheader bg-gray-700 text-white">Performace Indicator</h3>
@@ -125,7 +125,7 @@ export default{
                     :class="{ 'isActive': currentBtn === 11 }">Output Indicator 2</h5>
             </div>
 
-            <div class="flex flex-col w-9/12 shadow-card2 px-3vw py-3vw rounded-lg">
+            <div class="flex flex-col w-9/12 shadow-card2 px-3vw py-8 rounded-lg">
                 <component :is="currentComponent"></component>
             </div>
 

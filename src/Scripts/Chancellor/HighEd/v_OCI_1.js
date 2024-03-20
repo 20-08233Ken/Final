@@ -90,8 +90,9 @@ export default {
       remarks: "",
       reasons: "",
       user:null,
-      selectedIds: []
-
+      selectedIds: [],
+      approvedLogs:[],
+      myLoading:false,
     };
   },
 
@@ -109,6 +110,7 @@ export default {
       then(response =>{ 
         
         if(response.data){
+          this.myLoading = true
           this.hepData = response.data;
 
         }
@@ -146,6 +148,10 @@ export default {
               //this.login =false'
               // this.addTimeout();
       })
+
+      .finally(() => {
+        this.myLoading = false
+      });
     },
 
     approvedHEP(id) {
@@ -222,6 +228,22 @@ export default {
         }catch (error){
             // add actions here
         }
+    },
+    async ViewHistory(id) {
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      const response = await axios
+        .post(import.meta.env.VITE_API_HEP_HISTORY, {
+          id: id,
+          user_id: userCookies["id"],
+        })
+        .then((response) => {
+   
+          this.approvedLogs = response.data;
+        })
+        .catch((error) => {
+          console.error("Error history not found", error);
+        });
     },
 
   },

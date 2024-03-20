@@ -48,3 +48,11 @@
     border: 1px solid white;
      
 }
+.isApproved{
+    color: rgb(21 128 61);
+}
+
+.isReject{
+    color: red;
+
+}

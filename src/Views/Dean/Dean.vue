@@ -38,6 +38,8 @@
 
             </div>
           
+
+           
             <div class="w-7/12 flex flex-col gap-4 mt-8" v-if="user == 'Dean'">
                 <component :is="currentComponent"></component>
                 <!-- <div class=" flex-1  px-4 mt-8">

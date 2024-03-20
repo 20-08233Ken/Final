@@ -13,15 +13,17 @@
 
     <span class=" w-full overflow-x-auto">
 
-        <span class="w-full flex justify-end my-4"> 
-            <v-btn size="small" class="bg-teal-darken-3" onclick="showApproval.showModal()" :disabled="selectedIds == ''"> Approved</v-btn>
+        <span class="w-full flex justify-end my-4">
+            <v-btn size="small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
+                :disabled="selectedIds == ''"> Approved</v-btn>
         </span>
-        <v-data-table :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10"
+        <v-data-table :headers="headers" :items="hepData"   loading-text="Loading... Please wait" :loading="myLoading" class="elevation-1 " items-per-page="10"
             style="width:100%; overflow-x: scroll;">
 
 
-            <template v-slot:item.check_box="{ item }"  v-if="user === 'Chancellor'">
-                    <input type='checkbox' :id="item.hep_one_id" :value="item.hep_one_id" @change="toogleCheckBox(item.hep_one_id)"> 
+            <template v-slot:item.check_box="{ item }" v-if="user === 'Chancellor'">
+                <input type='checkbox' :id="item.hep_one_id" :value="item.hep_one_id"
+                    @change="toogleCheckBox(item.hep_one_id)">
             </template>
             <template v-slot:item.supported_file="{ item }">
 
@@ -30,12 +32,61 @@
                             target="_blank">View PDF</a> </v-btn>
                 </span>
             </template>
-            <template v-slot:item.actions="{ item }" >
+            <template v-slot:item.actions="{ item }">
                 <span class="flex w-full  gap-2 py-4">
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
                         @click="approvedHEP(item.hep_one_id)" v-if="user != 'Chancellor'"> Approved</v-btn>
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
                         @click="rejectedHEP(item.hep_one_id)"> Reject</v-btn>
+
+                    <v-dialog max-width="700">
+                        <template v-slot:activator="{ props: activatorProps }">
+                            <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant" text="View"
+                                variant="flat" @click="ViewHistory(item.hep_one_id)"></v-btn>
+                        </template>
+
+                        <template v-slot:default="{ isActive }" class="w-full">
+                            <v-card>
+                                <div class="w-full px-4 py-4">
+                                    <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
+                                        Approval History</h3>
+
+                                    <table class="view-table mt-4 w-full border-0" id="notifTable">
+
+                                        <tr v-for="(items, index) in approvedLogs">
+
+                                            <td class="w-1/12">
+                                                <v-icon
+                                                    :class="{ 'isApproved': items.status === 'Approved', 'isReject': items.status === 'Returned' }">mdi-history</v-icon>
+                                            </td>
+                                            <td>
+                                                <h1
+                                                    :class="{ 'isApproved': items.status === 'Approved', 'isReject': items.status === 'Returned' }">
+                                                    {{ items.status }} by {{ items.role }}</h1>
+                                            </td>
+                                            <td>
+                                                <p>{{ items.reasons }}<br><i>{{ items.remarks }}</i> </p>
+
+                                            </td>
+                                            <td>
+                                                <p>{{ items.created_at }}</p>
+
+                                            </td>
+
+                                        </tr>
+
+
+                                    </table>
+
+                                </div>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn text="Close" @click="isActive.value = false"></v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </template>
+                    </v-dialog>
                 </span>
             </template>
 
@@ -92,11 +143,11 @@
                             Cancel
                         </button>
                     </form>
-                        <button class="btn btn-success text-white">
-                            Submit
-                        </button>
+                    <button class="btn btn-success text-white">
+                        Submit
+                    </button>
                 </span>
-          
+
             </Form>
 
 
@@ -104,4 +155,17 @@
 
         </div>
     </dialog>
+
+
 </template>
+
+
+<style scoped>
+.isApproved{
+    color: rgb(21 128 61);
+}
+
+.isReject{
+    color: red;
+
+}</style>

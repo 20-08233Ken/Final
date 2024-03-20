@@ -35,6 +35,13 @@ export default {
       disableSubmit: false,
       search: "",
       myLoading: false,
+      myLoading2: false,
+      forUpdate:[
+      ],
+   
+      up_selectedFile1:null,
+      up_selectedFile2:null,
+      count: null,
       headersRegistrar: [
         {
           title: "Student Profile",
@@ -105,39 +112,39 @@ export default {
         },
         {
           title: "Campus",
-          value: "campus",
+          key: "campus",
         },
         {
           title: "Department",
-          value: "college",
+          key: "college",
         },
         {
           title: "Undergraduate Program",
-          value: "program",
+          key: "program",
         },
         {
           title: "Name",
-          value: "student_fullname",
+          key: "student_fullname",
         },
         {
           title: "Status",
-          value: "graduate_tracer_status",
+          key: "graduate_tracer_status",
         },
         {
           title: "Companys Business / Type of Business",
-          value: "business",
+          key: "business",
         },
         {
           title: "Supporting Documents",
-          value: "graduate_files",
+          key: "graduate_files",
         },
         {
           title: "Validation Status",
-          value: "status",
+          key: "status",
         },
         {
           title: "Actions",
-          value: "actions",
+          key: "actions",
         },
       ],
       deansData: [],
@@ -186,22 +193,51 @@ export default {
 
       // For view
       approvedLogs: [
-        {
-          status: "Approved ",
-          role: "VCAA",
-          remarks: "remarks",
-          reason: "Comment",
-        },
-        {
-          status: "Approved ",
-          role: "VCAA",
-          remarks: "remarks",
-          reason: "Comment",
-        },
+
       ],
     };
   },
   methods: {
+    // Updates
+    openUpdate(item){
+      this.forUpdate = item
+   
+    },
+
+    updateFile1(event){
+      this.up_selectedFile1 = event.target.files[0];
+    },
+
+    updateFile2(event){
+      this.up_selectedFile2 = event.target.files[0];
+    },
+
+
+    updateRecord(){
+      // add api call
+    },
+
+
+    // HISTORY
+async ViewHistory(id) {
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      const response = await axios
+        .post(import.meta.env.VITE_API_HEP_HISTORY_TWO, {
+          id: id,
+          user_id: userCookies["id"],
+        })
+        .then((response) => {
+   
+          this.approvedLogs = response.data;
+        })
+        .catch((error) => {
+          console.error("Error history not found", error);
+        });
+    },
+    
+
+    // Data validation
     validateData(value) {
       if (!value) {
         return "This field is required";
@@ -296,12 +332,12 @@ export default {
           .catch((error) => {
             console.error("Error fetching campus", error);
 
-            console.log(formData)
+            
             
           });
       } catch (error) {
 
-        console.log('test')
+        
       }
 
       
@@ -330,14 +366,12 @@ export default {
             campus_id: userCookies["campus_id"],
           })
           .then((response) => {
-            this.registrarData = response.data;
+            this.registrarData = response.data.hep;
             this.myLoading = true;
 
-            if (this.registrarData.length === 0) {
-              console.log("Empty");
+            if (this.registrarData.length === 0) {   
               this.disableSubmit = true;
-            } else {
-              console.log("Not empty");
+            } else {        
               this.disableSubmit = false;
             }
           })
@@ -363,19 +397,50 @@ export default {
             user_id: user_id,
           })
           .then((response) => {
-            this.deansData = response.data;
-            console.log("Deans: ",response.data);
+            this.myLoading2 = true;
+            this.deansData = response.data.hep;
+            this.count = response.data.count;
+            
             // if (response.data == "Successfully HEP added!"){
             //     this.isDataActive = false;
             // }
           })
           .catch((error) => {
             console.error("Error fetching hep data", error);
+          })
+          
+          .finally(() => {
+            this.myLoading2 = false
           });
       } catch (error) {}
     },
 
-  
+    // Fetch 
+    async FetchDataCounter(office, campus, user_id) {
+      try {
+        const response = await axios
+          .post(import.meta.env.VITE_API_APPROVE_DISPLAY_TWO_HEP, {
+            office: office,
+            campus_id: campus,
+            user_id: user_id,
+            count: this.count
+          })
+          .then((response) => {
+              console.log(response);
+            // if (response.data == "Successfully HEP added!"){
+            //     this.isDataActive = false;
+            // }
+          })
+          .catch((error) => {
+            console.error("Error fetching hep data", error);
+          })
+          
+          .finally(() => {
+            this.myLoading2 = false
+          });
+      } catch (error) {}
+    },
+
     // College Program
 
     async fetchProgram_Data(college_id) {
@@ -444,7 +509,7 @@ export default {
     changeData(isActive) {
       this.isDataActive = isActive;
 
-      console.log(this.isDataActive);
+
     },
     validateInput(value) {
       if (!value) {
@@ -464,10 +529,64 @@ export default {
       }
     },
 
-    deleteData(id) {
-      console.log(id);
+    async deleteData(id) {
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      const response = await axios
+        .post(import.meta.env.VITE_API_REMOVE_TWO_HEP, {
+          id: id,
+          user_id: userCookies["id"],
+        })
+        .then((response) => {
+          location.reload();
+        })
+        .catch((error) => {
+          console.error("Error history not found", error);
+        });
     },
+
+    async submitUpdate(){
+
+      const headers = {
+        "Content-Type": "multipart/form-data",
+      };
+      let userCookies = this.cookies.get("userCookies");
+      // Form Data
+      const formEditData = new FormData();
+      formEditData.append("official_list_file", this.up_selectedFile1);
+      formEditData.append("graduate_tracer_study_file", this.up_selectedFile2);
+      formEditData.append("program_id", this.forUpdate.in_program);
+      formEditData.append("lastname", this.forUpdate.student_lastname);
+      formEditData.append("middlename", this.forUpdate.student_middlename);
+      formEditData.append("firstname", this.forUpdate.student_firstname);
+      formEditData.append("graduate_tracer_status", this.forUpdate.graduate_tracer_status);
+      formEditData.append("business", this.forUpdate.in_business);
+      formEditData.append("campus_id", userCookies["campus_id"]);
+      formEditData.append("college_id", userCookies["college_id"]);
+      formEditData.append("user_id", userCookies["id"]);
+
+      try {
+        const response = await axios
+          .post(import.meta.env.VITE_API_UPDATE_TWO_HEP, formEditData, {
+            headers,
+          })
+          .then((response) => {
+            // this.collegeProgram = response.data;
+
+            if (response.data == "Successfully HEP updated!") {
+              location.reload();
+              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching campus", error);
+          });
+      } catch (error) {}
+
+    },
+
   },
+ 
 
   mounted() {
     // call here
