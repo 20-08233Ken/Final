@@ -134,57 +134,99 @@ export default {
         },
       ],
 
-      headers:[
-        {
-            title:'',
-            value:'check_box'
-        },
-        {
-            title: "HEP Code",
-            key: "hep_code",
-        },
-        {
-            title: "Campus",
-            value: "campus",
-        },
-        {
-            title: "Department",
-            value: "college",
-        },
-        {
-            title: "Undergraduate Program",
-            value: "program",
-        },
-        {
-            title: "Name",
-            value: "student_fullname",
-        },
-        {
-            title: "Status",
-            value: "graduate_tracer_status",
-        },
-        {
-            title: "Companys Business / Type of Business",
-            value: "business",
-        },
-        {
-            title: "Graduate Tracer Study",
-            value: "graduate_files",
-        },
-        {
-            title: "Official List of Graduate",
-            value: "official_list",
-        },
-        {
-            title: "Validation Status",
-            value: "status",
-        },
-        {
-            title: "Actions",
-            value: "actions",
-        },
-    ],
-      reasonOpt: [
+    //   headers:[
+    //     {
+    //         title:'',
+    //         value:'check_box'
+    //     },
+    //     {
+    //         title: "HEP Code",
+    //         key: "hep_code",
+    //     },
+    //     {
+    //         title: "Campus",
+    //         value: "campus",
+    //     },
+    //     {
+    //         title: "Department",
+    //         value: "college",
+    //     },
+    //     {
+    //         title: "Undergraduate Program",
+    //         value: "program",
+    //     },
+    //     {
+    //         title: "Name",
+    //         value: "student_fullname",
+    //     },
+    //     {
+    //         title: "Status",
+    //         value: "graduate_tracer_status",
+    //     },
+    //     {
+    //         title: "Companys Business / Type of Business",
+    //         value: "business",
+    //     },
+    //     {
+    //         title: "Graduate Tracer Study",
+    //         value: "graduate_files",
+    //     },
+    //     {
+    //         title: "Official List of Graduate",
+    //         value: "official_list",
+    //     },
+    //     {
+    //         title: "Validation Status",
+    //         value: "status",
+    //     },
+    //     {
+    //         title: "Actions",
+    //         value: "actions",
+    //     },
+    // ],
+    headersDean: [
+      {
+        title: "HEP Code",
+        key: "hep_code",
+      },
+      {
+        title: "Campus",
+        key: "campus",
+      },
+      {
+        title: "Department",
+        key: "college",
+      },
+      {
+        title: "Undergraduate Program",
+        key: "program",
+      },
+      {
+        title: "Name",
+        key: "student_fullname",
+      },
+      {
+        title: "Status",
+        key: "graduate_tracer_status",
+      },
+      {
+        title: "Companys Business / Type of Business",
+        key: "business",
+      },
+      {
+        title: "Supporting Documents",
+        key: "graduate_files",
+      },
+      {
+        title: "Validation Status",
+        key: "status",
+      },
+      {
+        title: "Actions",
+        key: "actions",
+      },
+    ],  
+    reasonOpt: [
         {
           reason: "Lack of Supporting Documents",
         },
@@ -219,6 +261,7 @@ export default {
         .then((response) => {
           if (response.data) {
             this.hepData = response.data;
+            console.log(JSON.stringify(this.hepData))
           }
         })
         .catch(function (error) {
@@ -322,7 +365,7 @@ export default {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
       const response = await axios
-        .post(import.meta.env.VITE_API_HEP_HISTORY, {
+        .post(import.meta.env.VITE_API_HEP_HISTORY_TWO, {
           id: id,
           user_id: userCookies["id"],
         })
@@ -332,6 +375,55 @@ export default {
         })
         .catch((error) => {
           console.error("Error history not found", error);
+        });
+    },
+
+    async viewFilePDF(id) {
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      await axios
+        .post(import.meta.env.VITE_API_FETCH_GRADUATE_FILE, {
+          id: id,
+          user_id: userCookies["id"],
+          responseType: 'arraybuffer' // Set the response type to arraybuffer
+        })
+        .then(response => {
+          // Create a Blob object from the response data
+          const blob = new Blob([response.data], { type: 'application/pdf' });
+        
+          // Create a URL for the Blob object
+          const url = URL.createObjectURL(blob);
+        
+          // Open the URL in a new tab
+          window.open(url, '_blank');
+        })
+        .catch(error => {
+          console.error('Error fetching PDF:', error);
+        });
+ 
+    },
+    async viewFileXLS(id, filename) {
+      console.log(filename);
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      await axios
+        .post(import.meta.env.VITE_API_FETCH_OFFICIAL_LIST, {
+          id: id,
+          user_id: userCookies["id"],
+          responseType: "arraybuffer", // Set the response type to arraybuffer
+        })
+        .then((response) => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement("a");
+          let parts = url.split("/");
+          // console.log(parts[3]);
+          link.href = url;
+          link.setAttribute("download", filename);
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch((error) => {
+          console.error("Error fetching PDF:", error);
         });
     },
   },

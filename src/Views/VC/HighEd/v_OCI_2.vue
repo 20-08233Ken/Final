@@ -12,9 +12,33 @@
     </span>
 
     <span class=" w-full mt-4">
+        <span class="w-full flex items-center justify-end my-4 gap-2">
+            <v-btn size="small"  elevation="0" class="bg-teal-darken-3">
+                <v-icon>mdi-refresh</v-icon>
+                <p class="ml-3">Reload Table</p>
+            </v-btn>
+        </span>
+        <v-data-table   loading-text="Loading... Please wait" :loading="myLoading" :headers="headersDean" :items="hepData" class="elevation-1" items-per-page="10">
+            <template v-slot:item.graduate_files="{item}">
 
-        <v-data-table   loading-text="Loading... Please wait" :loading="myLoading" :headers="headers" :items="hepData" class="elevation-1" items-per-page="10">
+                <div class="flex flex-col gap-2">
+                  
+                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFilePDF(item.hep_two_id)">View PDF</v-btn>
+                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFileXLS(item.hep_two_id, item.official_list)">View Excel</v-btn>
 
+                </div>
+                <!-- <span class="flex w-full  gap-2 py-4">
+                </span>
+                <span class="flex w-full  gap-2 py-4">
+                </span> -->
+            </template>
+            <!-- <template v-slot:item.official_list="{item}">
+                <span class="flex w-full  gap-2 py-4">
+                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFilePDF(item.hep_two_id)">View Excel</v-btn>
+                </span>
+            </template> -->
+
+          
             <template v-slot:item.actions="{item}">
 
                 <span class="flex w-full  gap-2 py-4">
@@ -114,30 +138,31 @@
 
             <Form @submit="RejectRequest">
                 <p class="py-4 text-0.9">Reasons </p>
-                <Field as="select" placeholder="Type here" name="reason" class="select w-full"
+                <Field as="select" placeholder="Type here" name="reason" v-model="reasons" class="select w-full"
                     style="border:  1px solid #d2d2d2;">
                     <option v-for=" x in reasonOpt" :value="x.reason">{{ x.reason }}</option>
                 </Field>
                 <ErrorMessage name="reason" class="error_message" />
 
                 <p class="py-4 text-0.9">If others, please specify </p>
-                <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"
+                <Field type="text" placeholder="Type here" name="otherReason" v-model="remarks" class="input  input-bordered w-full"
                     style="border:  1px solid #d2d2d2;" />
                 <ErrorMessage name="otherReason" class="error_message" />
-            </Form>
+            
 
 
-            <form method="dialog">
                 <span class="w-full flex justify-end gap-4 mt-4">
-                    <button class="btn bg-white border-0 shadow-0">
-                        Cancel
-                    </button>
+                    <form method="dialog">
 
-                    <button class="btn btn-success text-white" type="submit">
+                        <button class="btn bg-white border-0 shadow-0">
+                            Cancel
+                        </button>
+                    </form>
+                    <button class="btn btn-success text-white">
                         Submit
                     </button>
                 </span>
-            </form>
+        </Form>
 
         </div>
     </dialog>

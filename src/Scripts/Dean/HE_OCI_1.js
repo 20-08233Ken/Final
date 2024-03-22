@@ -4,6 +4,8 @@ import edit_1 from "../../Views/Dean/edit/edit_1.vue";
 import axios from "axios";
 import { useCookies } from "vue3-cookies";
 
+import Swal from "sweetalert2";
+
 export default {
   setup() {
     const { cookies } = useCookies();
@@ -14,7 +16,7 @@ export default {
     Field,
     ErrorMessage,
     notification,
-    edit_1
+    edit_1,
   },
   data() {
     return {
@@ -24,50 +26,44 @@ export default {
       in_passers: 0,
       count: true,
       id: 1,
-      isActive: false,
+      isActive: 1,
       isIcon: false,
       isAdd: false,
-      receivedProgam: null,    
-      search: '',  
-      myLoading:false,
+      receivedProgam: null,
+      search: "",
+      myLoading: false,
       headers: [
         {
-          title:'',
-          value:'check_box'
+          title: "",
+          value: "check_box",
         },
         {
           title: "HEP Code",
           key: "hep_code",
-         
         },
         {
           title: "Campus",
           value: "campus",
-          
-        
-          
         },
         {
           title: "Department",
           value: "college",
-          width:'500'
-         
-        
+          width: "500",
         },
         {
           title: "Undergraduate Program",
           value: "program",
-          width:'200px'
+          width: "200px",
         },
         {
           title: "Exam date",
           value: "exam_date",
-          width:'200px'
+          width: "200px",
         },
         {
           title: "No. of 1st Time takers",
           value: "number_of_takers",
-          width:'200px'
+          width: "200px",
         },
         {
           title: "No. of 1st Time Passers",
@@ -76,7 +72,6 @@ export default {
         {
           title: "Supporting Documents",
           value: "supported_file",
-
         },
         {
           title: "Validation Status",
@@ -97,17 +92,16 @@ export default {
       ],
       hepData: [],
       updateData: [
-        {  
-
-            hep_code: null,
-            campus:null,
-            college:null,
-            program: null,
-            exam_date: null,
-            number_of_passers: null,
-            number_of_takers: null,
-        }
-    ],
+        {
+          hep_code: null,
+          campus: null,
+          college: null,
+          program: null,
+          exam_date: null,
+          number_of_passers: null,
+          number_of_takers: null,
+        },
+      ],
 
       // Options of Select Program Input
       // Based from API callback
@@ -115,14 +109,18 @@ export default {
       college: [],
       campus: [],
       selectedFile: null,
-      isDataActive: true,
+      selectedFileName: null,
+      isDataActive: 1,
       // For View Button
       approvedLogs: [],
       editData: [],
       viewHistory: [],
       selectedID: "",
-      forUpdate:[],
+      forUpdate: [],
       editselectedFile: null,
+      userOffice:null,
+      userCampus:null,
+      userID:null,
     };
   },
   methods: {
@@ -134,10 +132,13 @@ export default {
             office: office,
             campus_id: campus,
             user_id: user_id,
+
+
           })
           .then((response) => {
-            this.myLoading = true
+            this.myLoading = true;
             this.hepData = response.data;
+            console.log('Lpoaded')
             // if (response.data == "Successfully HEP added!"){
             //     this.isDataActive = false;
             // }
@@ -147,12 +148,12 @@ export default {
           })
 
           .finally(() => {
-            this.myLoading = false
+            this.myLoading = false;
           });
-          
-          
       } catch (error) {}
     },
+
+
     async deleteData(id) {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
@@ -162,21 +163,22 @@ export default {
           user_id: userCookies["id"],
         })
         .then((response) => {
-          location.reload();
+          Swal.fire({
+            title: "Success",
+            text: "Data Deleted successfully. Please reload the table",
+            icon: "success",
+            confirmButtonText: "OK",
+          });
+          this.changeData(1)
         })
         .catch((error) => {
           console.error("Error history not found", error);
         });
     },
+
+
     // Sample Data Entry that will display in table
     async addData() {
-      this.loading = true;
-      setTimeout(() => {
-        // Simulated data fetching completion
-        // Once data is fetched, set loading to false
-        this.loading = false;
-      }, 8000);
-      console.log(this.loading)
       const headers = {
         "Content-Type": "multipart/form-data",
       };
@@ -201,18 +203,34 @@ export default {
           })
           .then((response) => {
             // this.collegeProgram = response.data;
-
+            
+          
             if (response.data == "Successfully HEP added!") {
-              location.reload();
+              // location.reload();
+              // console.log('added')
+              this.isDataActive = 1
+              Swal.fire({
+                title: "Success",
+                text: "Data added successfully. Please reload the table",
+                icon: "success",
+                confirmButtonText: "OK",
+              });
+          
+       
               // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
           })
           .catch((error) => {
             console.error("Error fetching campus", error);
-          });
+          })
+          
+          .finally(() =>{
+          
+          })
+          ;
       } catch (error) {}
 
-      this.isDataActive = false;
+  
       (this.in_program = ""),
         (this.in_examDate = ""),
         (this.in_takers = 0),
@@ -222,12 +240,10 @@ export default {
       // }, 2000)
     },
 
-    openUpdate(item){
-      this.forUpdate = item
-
+    openUpdate(item) {
+      this.forUpdate = item;
     },
-    async submitUpdate(){
-
+    async submitUpdate() {
       const headers = {
         "Content-Type": "multipart/form-data",
       };
@@ -237,8 +253,11 @@ export default {
       formEditData.append("supported_file", this.editselectedFile);
       formEditData.append("program_id", this.forUpdate.program_id);
       formEditData.append("exam_date", this.forUpdate.exam_date);
-      formEditData.append("number_of_takers",this.forUpdate.number_of_takers);
-      formEditData.append("number_of_passers", this.forUpdate.number_of_passers);
+      formEditData.append("number_of_takers", this.forUpdate.number_of_takers);
+      formEditData.append(
+        "number_of_passers",
+        this.forUpdate.number_of_passers
+      );
       formEditData.append("campus_id", userCookies["campus_id"]);
       formEditData.append("college_id", userCookies["college_id"]);
       formEditData.append("user_id", userCookies["id"]);
@@ -253,7 +272,14 @@ export default {
             // this.collegeProgram = response.data;
 
             if (response.data == "Successfully HEP updated!") {
-              location.reload();
+              
+              Swal.fire({
+                title: "Success",
+                text: "Data added successfully. Please reload the table",
+                icon: "success",
+                confirmButtonText: "OK",
+              });
+              this.changeData(1)
               // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
           })
@@ -261,7 +287,6 @@ export default {
             console.error("Error fetching campus", error);
           });
       } catch (error) {}
-
     },
     // Validate if the input field is empty
     validateInput(value) {
@@ -272,7 +297,6 @@ export default {
       return true;
     },
     submitData() {
-    
       if (this.count === true) {
         this.isActive = true;
         this.count = false;
@@ -313,51 +337,79 @@ export default {
       }
     },
 
-    async fetchCollege_Data(campus_id){
-      try{
-          const response = await axios.post(import.meta.env.VITE_API_GET_COLLEGE,{
-              "campus_id": campus_id
+    async fetchCollege_Data(campus_id) {
+      try {
+        const response = await axios
+          .post(import.meta.env.VITE_API_GET_COLLEGE, {
+            campus_id: campus_id,
           })
-          .then(response => {
-           
-              this.college = response.data;
+          .then((response) => {
+            this.college = response.data;
           })
-          .catch(error => {
-              console.error('Error fetching program', error);
+          .catch((error) => {
+            console.error("Error fetching program", error);
           });
-      }catch (error){
-          // add actions here
+      } catch (error) {
+        // add actions here
       }
-  },
-
-    handleFileUpload(event) {
-      this.selectedFile = event.target.files[0];
     },
 
+    // Upload PDF File
+    handleFileUpload(event) {
+      const filename = event.target.files[0].name;
+      const fileExtension = filename.split(".").pop().toLowerCase();
+
+      if (fileExtension != "pdf") {
+        Swal.fire({
+          title: "Error ",
+          text: "Invalid File Type",
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+
+        event.target.value = "";
+      } else {
+        this.selectedFile = event.target.files[0];
+        // this.selectedFileName = event.target.files[0].name
+        // console.log(JSON.stringify(this.selectedFileName))
+      }
+    },
+
+    // View File
+    async viewFile(id) {
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      await axios
+        .post(import.meta.env.VITE_API_FETCH_PDF, {
+          id: id,
+          user_id: userCookies["id"],
+          responseType: "arraybuffer", // Set the response type to arraybuffer
+        })
+        .then((response) => {
+          // Create a Blob object from the response data
+          const blob = new Blob([response.data], { type: "application/pdf" });
+
+          // Create a URL for the Blob object
+          const url = URL.createObjectURL(blob);
+
+          // Open the URL in a new tab
+          window.open(url, "_blank");
+        })
+        .catch((error) => {
+          console.error("Error fetching PDF:", error);
+        });
+    },
+
+    removeFiles() {
+      this.selectedFile = null;
+      console.log(this.selectedFile);
+    },
     // showFile() {
     //   this.isDataActive = false;
     // },
     changeData(isActive) {
       this.isDataActive = isActive;
     },
-
-
-    // async ViewHistory(id) {
-    //   this.selectedID = id;
-    //   let userCookies = this.cookies.get("userCookies");
-    //   const response = await axios
-    //     .post(import.meta.env.VITE_API_HEP_HISTORY, {
-    //       id: id,
-    //       user_id: userCookies["id"],
-    //     })
-    //     .then((response) => {
-   
-    //       this.viewHistory = response.data;
-    //     })
-    //     .catch((error) => {
-    //       console.error("Error history not found", error);
-    //     });
-    // },
 
     async ViewHistory(id) {
       this.selectedID = id;
@@ -368,8 +420,8 @@ export default {
           user_id: userCookies["id"],
         })
         .then((response) => {
-   
           this.approvedLogs = response.data;
+          console.log(this.approvedLogs);
         })
         .catch((error) => {
           console.error("Error history not found", error);
@@ -386,10 +438,9 @@ export default {
         .post(import.meta.env.VITE_API_FETCH_PDF, {
           id: id,
           user_id: userCookies["id"],
-          responseType: 'blob',
-          
+          responseType: "blob",
         })
-        .then(response => {
+        .then((response) => {
           const url = window.URL.createObjectURL(new Blob([response.data]));
           // window.open(url, '_blank');
         })
@@ -400,13 +451,12 @@ export default {
         //     // If you want to embed the PDF in your page, you can use an <iframe> instead:
         //     // document.getElementById('pdfViewer').src = url;
         // })
-        .catch(error => {
-          console.error('Error fetching PDF:', error);
+        .catch((error) => {
+          console.error("Error fetching PDF:", error);
         });
     },
-
   },
-  
+
   // watch:{
   //     hepData(){
   //         if(this.hepData.length === 0){
@@ -416,10 +466,11 @@ export default {
   //         }
   //     }
   // }
-  
+
   mounted() {
     // call here
     // this.fetchProgram_Data()
+
 
     let userCookies = this.cookies.get("userCookies");
     let accesstoken = this.cookies.get("userAccessToken");
@@ -434,6 +485,9 @@ export default {
     if (this.user == null && this.userCookies == null) {
       this.$router.push("/");
     }
+    this.userOffice=  userCookies["office"]
+    this.userCampus= userCookies["campus_id"]
+    this.userID= userCookies["id"]
 
     this.fetchProgram_Data(userCookies["college_id"], userCampus, userCollege);
     this.FetchData(

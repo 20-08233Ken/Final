@@ -28,7 +28,7 @@
                         Graduate students enrolled in research degree program</li>
                 </ul>
 
-                <h4 class="w-full text-white  bg-Red-Darken px-4 py-1 mt-8  text-0.9">Graduates</h4>
+                <h4 class="w-full text-white  bg-Red-Darken px-4 py-1 mt-8  text-0.9">List of Graduates</h4>
                 <ul class="mt-2 flex flex-col gap-1">
                     <li class="px-4 py-2  text-0.9" :class="{ 'active': activeBtn === 3 }" @click="showComponent('PRC', 3)">
                         Graduates by Institution, Program, and Sex</li>

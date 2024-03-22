@@ -161,7 +161,7 @@
                             <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
                             </td>
                             <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                Graduate Tracer Study</td>
+                                Graduate Tracer Study <span class="text-Red-Rose font-Header">(.pdf)</span></td>
                             <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
                                 <input type="file" class="ml-5" @change="handleFileUpload">
                             </td>
@@ -170,7 +170,7 @@
                             <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">2
                             </td>
                             <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                Official list of FY 2021 Graduates</td>
+                                Official list of FY 2021 Graduates <span class="text-Red-Rose font-Header">(.xlsx)</span></td>
                             <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
                                 <input type="file" class="ml-5" @change="handleFileUpload2">
                             </td>
@@ -189,29 +189,35 @@
         <div class="w-full flex flex-col mt-3 overflow-x-auto" v-if="isDataActive === 3">
             <v-card>
                 <template v-slot:text>
-                    <!-- <v-responsive class="mx-auto" max-width="100%"> -->
+
+                    <div class='w-full flex items-center gap-12'>
                     <v-text-field v-model="search" label="Search" prepend-inner-icon="mdi-magnify" variant="outlined"
                         hide-details single-line ></v-text-field>
-                    <!-- </v-responsive> -->
-                </template>
+                                    
+                    <v-btn elevation="0" ize="small" class="bg-teal-darken-3 flex ">
+                        <v-icon>mdi-refresh</v-icon>
+                        <p class="ml-3">Reload Table</p>
+                    </v-btn>
+                    
+                    </div>
+              </template>
 
                 <v-data-table :headers="headersDean" :items="deansData" class="elevation-1 "
                     items-per-page="10"  :loading="myLoading2" loading-text="Loading... Please wait" :search="search"
                     style="width:100%; overflow-x: scroll;">
 
                     <template v-slot:item.graduate_files="{ item }">
-                        <span class="flex w-full flex-col  gap-2 py-4">
-                            <!-- <v-btn size="x-small" class="bg-light-blue-darken-3"><a :href=item.supported_file
+                <span class="flex w-full flex-col  gap-2 py-4">
+                    <!-- <v-btn size="x-small" class="bg-light-blue-darken-3"><a :href=item.supported_file
                                 target="_blank">View PDF</a> </v-btn> -->
-                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="DownloadFile(item.hep_one_id)">
-                                <a :href="item.graduate_files">Graduate Tracer Study</a>
-                            </v-btn>
+                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFilePDF(item.hep_two_id)">
+                      View PDF
+                    </v-btn>
 
-                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="DownloadFile(item.hep_one_id)">
-                                <a :href="item.official_list">Official List of Graduates</a> 
-                            </v-btn>
-                        </span>
-                    </template>
+                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFileXLS(item.hep_two_id, item.official_list)">View Excel</v-btn>
+
+                </span>
+            </template>
 
                     <template v-slot:item.actions="{ item }">
                         <span class="flex w-full flex-col  gap-2 py-4">
@@ -220,7 +226,7 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" @click="openUpdate(item)" :disabled='item.approval != `Returned`'
+                                        text="Edit" variant="flat" @click="openUpdate(item)" :disabled='item.status != `Returned`'
                                        ></v-btn>
 
                                         <!-- ></v-btn> -->
@@ -232,7 +238,7 @@
                                             Edit Record</h3>
                                         <p>{{ item.tb_id }}</p>
 
-                                        <Form @submit="submitUpdate">
+                                        <Form @submit="submitUpdate(item.hep_two_id)">
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-4">Campus</p>
                                             <Field type="text" name='campus' placeholder="Type here" disabled
@@ -397,8 +403,10 @@
 
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
-                                        text="Delete" variant="flat" :disabled='item.approval != ``'></v-btn>
-                                </template>
+                                        text="Delete" variant="flat" :disabled='item.status != `Returned to Dean`'></v-btn>
+                               
+                                        <!-- :disabled='item.status != `Returned to Dean`' -->
+                                    </template>
 
                                 <template v-slot:default="{ isActive }">
 

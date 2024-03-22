@@ -41,7 +41,7 @@ export default {
    
       up_selectedFile1:null,
       up_selectedFile2:null,
-      count: null,
+
       headersRegistrar: [
         {
           title: "Student Profile",
@@ -150,17 +150,7 @@ export default {
       deansData: [],
 
       sampleDeansData: [
-        // {
-        //   hep_code:'1',
-        //   campus:'2',
-        //   department:'3',
-        //   program:'4',
-        //   name:'5',
-        //   status:'6',
-        //   business:'7',
-        //   sup_doc:'8',
-        //   v_status:'9'
-        // }
+
       ],
 
       // Data base from the Account Info of Dean
@@ -219,7 +209,7 @@ export default {
 
 
     // HISTORY
-async ViewHistory(id) {
+  async ViewHistory(id) {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
       const response = await axios
@@ -230,6 +220,7 @@ async ViewHistory(id) {
         .then((response) => {
    
           this.approvedLogs = response.data;
+          console.log(JSON.stringify(  this.approvedLogs))
         })
         .catch((error) => {
           console.error("Error history not found", error);
@@ -314,6 +305,7 @@ async ViewHistory(id) {
                   confirmButtonText: 'OK'
                 })
                 this.isDataActive = 3;
+                this.$router.go();
                 this.clearCredits();
               }
             else {
@@ -356,6 +348,8 @@ async ViewHistory(id) {
       this.selecteofficial_list_filedFile = null;
       this.graduate_tracer_study_file = null;
     },
+
+
     // FETCHING REGISTRAR
     async FetchRegistrarhepData() {
       try {
@@ -366,7 +360,7 @@ async ViewHistory(id) {
             campus_id: userCookies["campus_id"],
           })
           .then((response) => {
-            this.registrarData = response.data.hep;
+            this.registrarData = response.data;
             this.myLoading = true;
 
             if (this.registrarData.length === 0) {   
@@ -398,35 +392,8 @@ async ViewHistory(id) {
           })
           .then((response) => {
             this.myLoading2 = true;
-            this.deansData = response.data.hep;
-            this.count = response.data.count;
+            this.deansData = response.data;
             
-            // if (response.data == "Successfully HEP added!"){
-            //     this.isDataActive = false;
-            // }
-          })
-          .catch((error) => {
-            console.error("Error fetching hep data", error);
-          })
-          
-          .finally(() => {
-            this.myLoading2 = false
-          });
-      } catch (error) {}
-    },
-
-    // Fetch 
-    async FetchDataCounter(office, campus, user_id) {
-      try {
-        const response = await axios
-          .post(import.meta.env.VITE_API_APPROVE_DISPLAY_TWO_HEP, {
-            office: office,
-            campus_id: campus,
-            user_id: user_id,
-            count: this.count
-          })
-          .then((response) => {
-              console.log(response);
             // if (response.data == "Successfully HEP added!"){
             //     this.isDataActive = false;
             // }
@@ -461,50 +428,104 @@ async ViewHistory(id) {
       }
     },
 
-    //   async fecthHEPData() {
 
-    //     try {
-
-    //       let userCookies = this.cookies.get("userCookies");
-    //       const response = await axios
-    //         .post(import.meta.env.VITE_API_DISPLAY_REGISTRAR_DATA, {
-    //           user_id: userCookies["id"],
-    //           campus_id: userCookies["campus_id"],
-    //         })
-    //         .then((response) => {
-    //           console.log("fecthHEPData:", response.data);
-
-    //           this.myLoading = true
-    //           this.registrarData = response.data;
-
-    //             if(this.registrarData.length === 0){
-    //               console.log("Empty")
-    //               this.disableSubmit = true;
-    //             }else{
-    //               console.log('Not empty')
-    //               this.disableSubmit = false;
-    //             }
-    //         })
-    //         .catch((error) => {
-    //           console.error("Error fetching hep Data", error);
-    //         })
-
-    //         .finally(() =>{
-    //           this.myLoading = false
-    //         })
-    //         ;
-    //     } catch (error) {
-    //       // add actions here
-    //     }
-    // },
-
+    // Uploading File
     handleFileUpload(event) {
-      this.graduate_tracer_study_file = event.target.files[0];
+      // this.graduate_tracer_study_file = event.target.files[0];
+
+      const filename = event.target.files[0].name
+      const fileExtension = filename.split('.').pop().toLowerCase()
+      if( fileExtension != 'pdf'){
+        
+        Swal.fire({
+          title: 'Error ',
+          text: "Invalid File Type",
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+
+        event.target.value=''
+      }else{
+        this.graduate_tracer_study_file = event.target.files[0];
+
+      }
+
+
     },
     handleFileUpload2(event) {
-      this.official_list_file = event.target.files[0];
+      // this.official_list_file = event.target.files[0];
+      const filename = event.target.files[0].name
+      const fileExtension = filename.split('.').pop().toLowerCase()
+      if( fileExtension != 'xlsx'){
+        
+        Swal.fire({
+          title: 'Error ',
+          text: "Invalid File Type",
+          icon: 'error',
+          confirmButtonText: 'OK'
+        })
+
+        event.target.value=''
+      }else{
+        this.official_list_file = event.target.files[0];
+
+      }
+
     },
 
+
+    //Viewing File PDF
+    async viewFilePDF(id) {
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      await axios
+        .post(import.meta.env.VITE_API_FETCH_PDF, {
+          id: id,
+          user_id: userCookies["id"],
+          responseType: 'arraybuffer' // Set the response type to arraybuffer
+        })
+        .then(response => {
+          // Create a Blob object from the response data
+          const blob = new Blob([response.data], { type: 'application/pdf' });
+        
+          // Create a URL for the Blob object
+          const url = URL.createObjectURL(blob);
+        
+          // Open the URL in a new tab
+          window.open(url, '_blank');
+        })
+        .catch(error => {
+          console.error('Error fetching PDF:', error);
+        });
+ 
+    },
+
+    //Viewing File xls
+    async viewFileXLS(id,filename) {
+      console.log(filename);
+      this.selectedID = id;
+      let userCookies = this.cookies.get("userCookies");
+      await axios
+        .post(import.meta.env.VITE_API_FETCH_OFFICIAL_LIST, {
+          id: id,
+          user_id: userCookies["id"],
+          responseType: 'arraybuffer' // Set the response type to arraybuffer
+        })
+        .then(response => {
+          const url = window.URL.createObjectURL(new Blob([response.data]));
+          const link = document.createElement('a');
+          let parts = url.split("/");
+          // console.log(parts[3]);
+          link.href = url;
+          link.setAttribute('download', filename);
+          document.body.appendChild(link);
+          link.click();
+        })
+        .catch(error => {
+          console.error('Error fetching PDF:', error);
+        });
+ 
+    },
 
     changeData(isActive) {
       this.isDataActive = isActive;
@@ -529,6 +550,7 @@ async ViewHistory(id) {
       }
     },
 
+    // Delete data
     async deleteData(id) {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
@@ -536,16 +558,20 @@ async ViewHistory(id) {
         .post(import.meta.env.VITE_API_REMOVE_TWO_HEP, {
           id: id,
           user_id: userCookies["id"],
+
+
         })
         .then((response) => {
-          location.reload();
+
+          this.isDataActive = 3;
+    
         })
         .catch((error) => {
           console.error("Error history not found", error);
         });
     },
 
-    async submitUpdate(){
+    async submitUpdate(id){
 
       const headers = {
         "Content-Type": "multipart/form-data",
@@ -560,11 +586,10 @@ async ViewHistory(id) {
       formEditData.append("middlename", this.forUpdate.student_middlename);
       formEditData.append("firstname", this.forUpdate.student_firstname);
       formEditData.append("graduate_tracer_status", this.forUpdate.graduate_tracer_status);
-      formEditData.append("business", this.forUpdate.in_business);
+      formEditData.append("business", this.forUpdate.business);
       formEditData.append("campus_id", userCookies["campus_id"]);
       formEditData.append("college_id", userCookies["college_id"]);
       formEditData.append("user_id", userCookies["id"]);
-
       try {
         const response = await axios
           .post(import.meta.env.VITE_API_UPDATE_TWO_HEP, formEditData, {
@@ -573,10 +598,32 @@ async ViewHistory(id) {
           .then((response) => {
             // this.collegeProgram = response.data;
 
-            if (response.data == "Successfully HEP updated!") {
-              location.reload();
+            if (response.data == "Student Not Found ") {
+
+              Swal.fire({
+                title: 'Error ',
+                text: "Student not found",
+                icon: 'error',
+                confirmButtonText: 'OK'
+                
+              })
+              
               // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
+            else if (response.data == "Successfully HEP updated!") {
+              Swal.fire({
+                title: 'Success ',
+                text: "Date Updated Successfully",
+                icon: 'success',
+              })
+              
+                this.isDataActive = 3;
+              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
+            }
+            // if (response.data == "Successfully HEP updated!") {
+            //   location.reload();
+            //   // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
+            // }
           })
           .catch((error) => {
             console.error("Error fetching campus", error);

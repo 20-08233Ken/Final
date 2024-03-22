@@ -230,28 +230,28 @@
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Firstname</p>
                                             <Field type="text" name="fname" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="in_fname"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.a"
                                                 :rules="validateData" />
                                             <ErrorMessage name="fname" class="error_message" />
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Lastname</p>
                                             <Field type="text" name="lname" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="in_lname"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.a"
                                                 :rules="validateData" />
                                             <ErrorMessage name="lname" class="error_message" />
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Middle Initial</p>
                                             <Field type="text" name="m_initial" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="in_mname"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.a"
                                                 :rules="validateData" />
                                             <ErrorMessage name="m_initial" class="error_message" />
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6"> Position</p>
                                             <Field type="text" name="position" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="in_position"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.a"
                                                 :rules="validateData" />
                                             <ErrorMessage name="position" class="error_message" />
 
@@ -269,7 +269,7 @@
                                             </span>
                                             <Field as='select' name="engagement"
                                                 class="select select-bordered w-full mt-2"
-                                                style="border:  1px solid #d2d2d2;" v-model="in_engagement"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.a"
                                                 :rules="validateData">
                                                 <option disabled selected>Select Engagement ...</option>
                                                 <option v-for="x in facultyEngagement" :value="x.key"> {{ x.engagement

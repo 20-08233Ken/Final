@@ -1,23 +1,35 @@
 <script>
-      import VCs from '../../components/Others/Navigation/VCs_nav.vue'
+import VCs from '../../components/Others/Navigation/VCs_nav.vue'
+import Planning_navVue from '../../components/Others/Navigation/Planning_nav.vue';
+import { useCookies } from "vue3-cookies";
+import { userPosition } from '../../Scripts/cookies';
 
-      export default{
-        return(){
-            data:{
+export default {
 
-            }
-        },
-        components:{
-            VCs
+    data() {
+        return{
+            user: null
         }
-      }
+    },
+    components: {
+        VCs,
+        Planning_navVue
+    },
+
+    mounted() {
+        const holdCookies = userPosition()
+        this.user = holdCookies()
+
+    }
+}
 
 </script>
 
 <template>
     <main class="w-full">
-        <VCs />
-
+      
+        <Planning_navVue  v-if="user== 'IPDO' || user == 'Planning'"/>
+        <VCs v-if="user == 'VCAA' || user == 'Chancellor' || user == 'VPAA'"  />
         <section class='w-full'>
             <div class="w-full flex justify-center">
 

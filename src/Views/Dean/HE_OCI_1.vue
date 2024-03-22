@@ -34,123 +34,34 @@
         </span>
     </div>
 
+
     <div class="w-full flex justify-center gap-2 ">
-            <v-btn class="btn font-Subheader flex-1" :class="{ 'isDataActive': isDataActive === true }"
-                @click="changeData(true)">
-                <v-icon>mdi-table</v-icon>
-                Table
-            </v-btn>
+        <v-btn class="btn font-Subheader flex-1" :class="{ 'isDataActive': isDataActive === 1 }"
+            @click="changeData(1)">
+            <v-icon>mdi-table</v-icon>
+            Table
+        </v-btn>
 
-            <v-btn class="btn font-Subheader flex-1" :class="{ 'isDataNotActive': isDataActive === false }"
-                @click="changeData(false)">
-                <v-icon>mdi-form-select</v-icon>
-                Form
-            </v-btn>
-        </div>
+        <v-btn class="btn font-Subheader flex-1" :class="{ 'isDataNotActive': isDataActive === 2 }"
+            @click="changeData(2)">
+            <v-icon>mdi-form-select</v-icon>
+            Form
+        </v-btn>
+    </div>
     <div class="w-full overflow-x-auto shadow-card2  px-8 rounded-lg">
-        <div class="w-full flex flex-col mt-8 " v-if="isDataActive === false">
-            <Form @submit="addData">
-
-                <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
-                <Field type="text" name="campus" placeholder="Type here" disabled
-                    class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-                    v-model="data[0].in_campus" :rules="validateInput" />
-
-                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
-                <Field type="text" placeholder="Type here" name="department" disabled
-                    class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-                    v-model="data[0].in_department" :rules="validateInput" />
-
-
-                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
-                <Field as="select" class="select select-bordered w-full mt-2" style="border:  1px solid #d2d2d2;"
-                    v-model="in_program" name="program" :rules="validateInput">
-                    <option disabled selected>Select Program ...</option>
-                    <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}</option>
-                </Field>
-                <ErrorMessage name="program" class="error_message" />
-
-                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Exam Date</p>
-                <Field type="date" placeholder="Type here" class="input mt-2 input-bordered w-full" name="exam_date"
-                    style="border:  1px solid #d2d2d2;" v-model="in_examDate" :rules="validateInput" />
-                <ErrorMessage name="exam_date" class="error_message" />
-
-                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Number of First-time Takers</p>
-                <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full" defa
-                    style="border:  1px solid #d2d2d2;" v-model="in_takers" name="no_takers" :rules="checkNegative" />
-                <ErrorMessage name="no_takers" class="error_message" />
-
-                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Number of First-time Passers</p>
-                <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full"
-                    style="border:  1px solid #d2d2d2;" v-model="in_passers" name="no_passers" :rules="checkNegative" />
-                <ErrorMessage name="no_passers" class="error_message" />
-
-
-
-                <span class="flex items-center mt-6 gap-2">
-                    <p class="text-0.9 font-Subheader text-gray-500 ">Upload Supported File</p>
-                    <i class="tooltip" tooltip-right
-                        data-tip=" Provide the supporting documentation used in reference to the information. You may also provide links to the scanned copies for easier reference">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                            stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                        </svg>
-                    </i>
-                </span>
-
-                <span clas="w-full flex">
-                    <table class="w-full mt-4">
-                        <thead>
-                            <tr class="bg-gray-700 text-white">
-                                <th class="border-2 text-white"></th>
-                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
-                                    Required Files</th>
-                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
-                                    Upload Files
-                                </th>
-                                <th>
-
-                                </th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr>
-                                <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
-                                </td>
-                                <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                    PRC Official Results</td>
-                                <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
-                                    <input type="file" class="ml-5" accept=".pdf" @change="handleFileUpload">
-                                </td>
-                                <td>
-
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-
-                </span>
-
-
-
-                <span class="w-full flex items-center justify-end gap-2 mt-5">
-                    <button class="btn bg-emerald-600 text-white w-2/12 " type="submit">Add</button>
-                </span>
-            </Form>
-        </div>
-
-        <div class="w-full flex flex-col mt-3 overflow-x-auto " v-if="isDataActive === true">
+        <div class="w-full flex flex-col mt-3 overflow-x-auto " v-if="isDataActive === 1">
             <v-card class="overflow-x-auto">
-
-
                 <template v-slot:text>
-                    <!-- <v-responsive class="mx-auto" max-width="100%"> -->
+             
+                    <div class='w-full flex items-center gap-12'>
                     <v-text-field v-model="search" label="Search" prepend-inner-icon="mdi-magnify" variant="outlined"
                         hide-details single-line></v-text-field>
-                    <!-- </v-responsive> -->
+                  
+                    <v-btn elevation="0" size="small" class="bg-teal-darken-3 flex " @click="FetchData(userOffice,userCampus,userID)">
+                        <v-icon>mdi-refresh</v-icon>
+                        <p class="ml-3">Reload Table</p>
+                    </v-btn>
+                    </div>
                 </template>
 
 
@@ -160,11 +71,7 @@
 
                     <template v-slot:item.supported_file="{ item }">
                         <span class="flex w-full  gap-2 py-4">
-                            <!-- <v-btn size="x-small" class="bg-light-blue-darken-3"><a :href=item.supported_file
-                                target="_blank">View PDF</a> </v-btn> -->
-
-                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="DownloadFile(item.hep_one_id)">
-                            </v-btn>
+                                <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.hep_one_id)">View PDF</v-btn>
                         </span>
                     </template>
                     <template v-slot:item.actions="{ item }">
@@ -174,8 +81,10 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" :disabled='item.approval != `Returned`'
+                                        text="Edit" variant="flat" :disabled='item.status != `Returned to Dean`'
                                         @click="openUpdate(item)"></v-btn>
+
+                                   
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
@@ -284,21 +193,21 @@
                                             </table>
 
 
-
-
-
-                                        </Form>
-
-                                        <v-card-actions>
+                                            <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <span class="w-full flex items-center justify-end gap-4 mt-5">
 
 
                                                 <v-btn text="Close" @click="isActive.value = false"></v-btn>
                                                 <button
-                                                    class="btn btn-accent  w-2/12 text-white border-0">Update</button>
+                                                    class="btn btn-accent  w-2/12 text-white border-0" type="submit" @click="isActive.value = false">Update</button>
                                             </span>
                                         </v-card-actions>
+
+
+                                        </Form>
+
+
                                     </v-card>
                                 </template>
                             </v-dialog>
@@ -308,8 +217,9 @@
 
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
-                                        text="Delete" variant="flat" :disabled='item.approval != ``'></v-btn>
-                                </template>
+                                        text="Delete" variant="flat" :disabled='item.status != ` `'></v-btn>
+                       
+                                    </template>
 
                                 <template v-slot:default="{ isActive }">
 
@@ -327,7 +237,7 @@
                                                 <v-spacer></v-spacer>
                                                 <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
 
-                                                <v-btn class="bg-red-darken-4" @click="deleteData(item.hep_one_id)">
+                                                <v-btn class="bg-red-darken-4" @click="deleteData(item.hep_one_id ,isActive.value = false)">
                                                     Confirm</v-btn>
                                             </v-card-actions>
                                         </form>
@@ -391,57 +301,110 @@
 
                 </v-data-table>
             </v-card>
-            <!-- 
-            <table class="table-zebra table-sm">
-                <thead>
-                    <tr class="bg-gray-700 ">
-                        <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">H</th>
-                        <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Campus</th>
-                        <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Department
-                        </th>
-                        <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Program</th>
-                        <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Exam Date
-                        </th>
-                        <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Number of
-                            Passers
-                        </th>
-                        <th class="text-0.8 text-center  text-white font-Subheader border-r-1 border-white">Number of
-                            Takers</th>
-                        <th class="text-0.8 text-center  text-white font-Subheader border-r-1 border-white">Supported
-                            Documents</th>
-                        <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Approval
-                            Status</th>
-                        <th class="text-0.8 text-center text-white font-Subheader border-r-1 border-white">Action</th>
-
-
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(item, index) in hepData">
-                        <td class="text-0.8">{{ item.hep_code }}</td>
-                        <td class="text-0.8">{{ item.campus }}</td>
-                        <td class="text-0.8">{{ item.college }}</td>
-                        <td class="text-0.8">{{ item.program }}</td>
-                        <td class="text-0.8">{{ item.exam_date }}</td>
-                        <td class="text-0.8">{{ item.number_of_passers }}</td>
-                        <td class="text-0.8">{{ item.number_of_takers }}</td>
-                        <td> <v-btn size="x-small" class="bg-teal-darken-1"> <a :href=item.docs target="_blank">View
-                                    PDF</a></v-btn></td>
-                        <td class="text-0.8">{{ item.status }}</td>
-                        <td class="flex flex-col items-center gap-2 px-2">
-
-
-                        </td>
-                    </tr>
-
-
-                </tbody>
-            </table> -->
+ 
         </div>
+        <div class="w-full flex flex-col mt-8 " v-if="isDataActive === 2">
+            <Form @submit="addData">
+
+                <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
+                <Field type="text" name="campus" placeholder="Type here" disabled
+                    class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
+                    v-model="data[0].in_campus" :rules="validateInput" />
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
+                <Field type="text" placeholder="Type here" name="department" disabled
+                    class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
+                    v-model="data[0].in_department" :rules="validateInput" />
+
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
+                <Field as="select" class="select select-bordered w-full mt-2" style="border:  1px solid #d2d2d2;"
+                    v-model="in_program" name="program" :rules="validateInput">
+                    <option disabled selected>Select Program ...</option>
+                    <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}</option>
+                </Field>
+                <ErrorMessage name="program" class="error_message" />
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Exam Date</p>
+                <Field type="date" placeholder="Type here" class="input mt-2 input-bordered w-full" name="exam_date"
+                    style="border:  1px solid #d2d2d2;" v-model="in_examDate" :rules="validateInput" />
+                <ErrorMessage name="exam_date" class="error_message" />
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Number of First-time Takers</p>
+                <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full" defa
+                    style="border:  1px solid #d2d2d2;" v-model="in_takers" name="no_takers" :rules="checkNegative" />
+                <ErrorMessage name="no_takers" class="error_message" />
+
+                <p class="text-0.9 font-Subheader text-gray-500 mt-6">Number of First-time Passers</p>
+                <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full"
+                    style="border:  1px solid #d2d2d2;" v-model="in_passers" name="no_passers" :rules="checkNegative" />
+                <ErrorMessage name="no_passers" class="error_message" />
+
+
+
+                <span class="flex items-center mt-6 gap-2">
+                    <p class="text-0.9 font-Subheader text-gray-500 ">Upload Supported File</p>
+                    <i class="tooltip" tooltip-right
+                        data-tip=" Provide the supporting documentation used in reference to the information. You may also provide links to the scanned copies for easier reference">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                            stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                        </svg>
+                    </i>
+                </span>
+
+                <span clas="w-full flex">
+                    <table class="w-full mt-4">
+                        <thead>
+                            <tr class="bg-gray-700 text-white">
+                                <th class="border-2 text-white"></th>
+                                <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                    Required Files</th>
+                                <th class="border-2 text-white text-center text-0.9 font-Subheader " colspan="2">
+                                    Upload Files
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td class="w-1/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
+                                </td>
+                                <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                    PRC Official Results <span class="text-Red-Rose font-Header">(.pdf)</span></td>
+                                <td class="flex-1 text-0.9 text-Subheader text-gray-700  px-4">
+                                    <input type="file" class="ml-5" accept=".pdf" @change="handleFileUpload" >
+
+                                </td>
+                                <!-- <td class="px-4" v-if="selectedFileName != null">                  
+                                    <v-btn class="rounded-full font-Subheader bg-red-darken-4 text-0.8" size="small" @click="removeFiles" >Remove file</v-btn>
+                                </td> -->
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                </span>
+
+
+
+                <span class="w-full flex items-center justify-end gap-2 mt-5">
+                    <button class="btn bg-emerald-600 text-white w-2/12 " type="submit" >Add</button>
+                </span>
+            </Form>
+        </div>
+
+     
 
     </div>
 </template>
 
 <style scoped>
 @import url('../../style/Dean/HE_OCI_1_style.css');
+
+
 </style>

@@ -13,14 +13,20 @@
 
     <span class=" w-full overflow-x-auto">
 
-        <span class="w-full flex justify-end my-4">
+        <span class="w-full flex items-center justify-end my-4 gap-2">
+            <v-btn size="small"  elevation="0" class="bg-grey-lighten-3">
+                <v-icon>mdi-refresh</v-icon>
+                <p class="ml-3">Reload Table</p>
+            </v-btn>
             <v-btn size="small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
                 :disabled="selectedIds == ''"> Approved</v-btn>
         </span>
-        <v-data-table :headers="headers" :items="hepData"   loading-text="Loading... Please wait" :loading="myLoading" class="elevation-1 " items-per-page="10"
-            style="width:100%; overflow-x: scroll;">
+<!-- 
+        <div class="w-full flex justify-end">
 
-
+        </div> -->
+        <v-data-table :headers="headers" :items="hepData" loading-text="Loading... Please wait" :loading="myLoading"
+            class="elevation-1 " items-per-page="10" style="width:100%; overflow-x: scroll;">
             <template v-slot:item.check_box="{ item }" v-if="user === 'Chancellor'">
                 <input type='checkbox' :id="item.hep_one_id" :value="item.hep_one_id"
                     @change="toogleCheckBox(item.hep_one_id)">
@@ -28,12 +34,12 @@
             <template v-slot:item.supported_file="{ item }">
 
                 <span class="flex w-full  gap-2 py-4">
-                    <v-btn size="x-small" class="bg-light-blue-darken-3"><a :href=item.supported_file
-                            target="_blank">View PDF</a> </v-btn>
+                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.hep_one_id)">View
+                        PDF</v-btn>
                 </span>
             </template>
             <template v-slot:item.actions="{ item }">
-                <span class="flex w-full  gap-2 py-4">
+                <span class="flex w-full flex-col  gap-2 py-4">
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
                         @click="approvedHEP(item.hep_one_id)" v-if="user != 'Chancellor'"> Approved</v-btn>
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
@@ -126,7 +132,7 @@
 
             <Form @submit="RejectRequest">
                 <p class="py-4 text-0.9">Reasons </p>
-                <Field as="select" placeholder="Type here" name="reason" class="select w-full"
+                <Field as="select" placeholder="Type here" name="reason" class="select w-full" v-model="reasons"
                     style="border:  1px solid #d2d2d2;" :rules="validateInput">
                     <option v-for=" x in reasonOpt" :value="x.reason">{{ x.reason }}</option>
                 </Field>
@@ -134,7 +140,7 @@
 
                 <p class="py-4 text-0.9">If others, please specify </p>
                 <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"
-                    style="border:  1px solid #d2d2d2;" :rules="validateInput" />
+                    v-model="remarks" style="border:  1px solid #d2d2d2;" :rules="validateInput" />
                 <ErrorMessage name="otherReason" class="error_message" />
                 <span class="w-full flex justify-end gap-4 mt-4">
                     <form method="dialog">
