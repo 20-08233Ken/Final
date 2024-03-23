@@ -286,6 +286,11 @@
         console.log(this.updatedData);
         let userCookies = this.cookies.get("userCookies");
         // Form Data
+        let college = "";
+        if (this.updatedData.college_id != ""){
+            college =  this.updatedData.college_id;
+        }
+        console.log("college:",college);
         try {
           const response = await axios
             .post(
@@ -295,41 +300,26 @@
                 "middlename" : this.updatedData.middlename,
                 "firstname" : this.updatedData.firstname,
                 "username" : this.updatedData.username,
-                "campus_id" : this.updateData.campus_id,
-                "company_id" : this.updateData.company_id,
-                "college_id" : this.updateData.college_id,
-                "office" : this.updateData.office_id,
+                "campus_id" : this.updatedData.campus_id,
+                "company_id" : this.updatedData.company_id,
+                "position_id" : this.updatedData.position_id,
+                "college_id" : college,
+                "office" : this.updatedData.office_id,
                 "user_id" : userCookies["id"],
                 "id" : id,
               })
             .then((response) => {
               // this.collegeProgram = response.data;
-              console.log(response);
-              // if (response.data == "Student Not Found ") {
+              if (response.data == "User Account Successfully updated!") {
 
-              //   Swal.fire({
-              //     title: 'Error ',
-              //     text: "Student not found",
-              //     icon: 'error',
-              //     confirmButtonText: 'OK'
+                Swal.fire({
+                  title: 'Error ',
+                  text: "User Account Successfully updated!",
+                  icon: 'success',
+                  confirmButtonText: 'OK'
+                });
 
-              //   })
-
-              //   // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
-              // } else if (response.data == "Successfully HEP updated!") {
-              //   Swal.fire({
-              //     title: 'Success ',
-              //     text: "Date Updated Successfully",
-              //     icon: 'success',
-              //   })
-
-              //   this.isDataActive = 3;
-              //   // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
-              // }
-              // if (response.data == "Successfully HEP updated!") {
-              //   location.reload();
-              //   // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
-              // }
+              }
             })
             .catch((error) => {
               console.error("Error fetching campus", error);
@@ -509,7 +499,7 @@
                       College
                     </p>
                     <Field as="select" name="college" class="w-full select select-bordered mt-2"
-                      :disabled="item.position_id != 6" v-model="item.college_id" style="border: 1px solid #d2d2d2">
+                      :disabled="item.position_id != 6" v-model="updatedData.college_id" style="border: 1px solid #d2d2d2">
                       <option disabled selected>Select College ...</option>
                       <option v-for="items in CollegeData" :value="items.id">
                         {{ items.college }}

@@ -21,135 +21,216 @@
             return{
                 userData:[
                     {
-                        in_companyID:null,
-                        in_companyEmail:null,
-                        in_fname:null, 
-                        in_lname:null,  
-                        in_mname:null,  
+                        company_id:null,
+                        email:null,
+                        firstname:null, 
+                        lastname:null,  
+                        middlename:null,  
+                        username:null,  
                         in_password:null,  
-                        in_confPassword:null,
+                        confirm_password:null,
                         in_designation:null,  
-                        in_campusID:null,  
-                        in_collegeID:null,  
-                        in_officeID:null,  
-                        in_positionID:null, 
+                        campus_id:null,  
+                        college_id:null,  
+                        office_id:null,  
+                        position_id:null, 
                     }
                 ],
-
-                // Header of table
-
 
                 // This is for storing the data including program and office
                 allUserData:[], // This is for table
-                programData:[],
-                officeData:[],
-                campusData:[],
-                collegeData:[],
-                positionData:[],
+                ProgramData:[],
+                OfficeData:[],
+                CampusData:[],
+                CollegeData:[],
+                PositionData:[],
                 
-
-                // These are sample data for testing
-                sampleProgram:[
-                    {
-                        id:1,
-                        program:'Program 1'
-                    }
-                ],
-
-                sampleOffice:[
-                    {
-                        id:1,
-                        office:'Office 1'
-                    }
-                ],
-
-                sampleCampus:[
-                    {
-                        id:1,
-                        campus:'Campus 1'                        
-                    }
-                ],
-
-                sampleCollege:[
-                    {
-                        id:1,
-                        college:'College 1'
-                    }
-                ],
-
-                samplePosition:[
-                    {
-                        id:1,
-                        position:'Position 1'
-                    },{
-                        id:2,
-                        position:'Dean'
-                    }
-                ],
-
                 enableCollege:false
             }
         },
         methods:{
+
             // Validate Data
             validateData(value){
                 if(!value){
-                    return 'This field is required'
+                    return 'This field is required';
                 }
-
-                return true
+                return true;
             },
-
 
             // Submit Data
             async submitData(){
+                console.log(this.userData);
+                let userCookies = this.cookies.get("userCookies");
+                // Form Data
+                try {
+                    
+                    if (this.userData.in_password != this.userData.confirm_password){
+                        Swal.fire({
+                            title: 'Invalid Password',
+                            text: 'The password you entered does not match the confirmation password. Please ensure that both passwords are identical to proceed',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        })
+                    }else{
+                        college = "NULL";
+                        if (this.userData.college_id != ""){
+                            $college =  this.userData.college_id;
+                        }
+                        console.log("college:",college);
+                         axios.post(import.meta.env.VITE_API_CREATE_USER , {
+                            "email" : this.userData.email,
+                            "lastname" : this.userData.lastname,
+                            "middlename" : this.userData.middlename,
+                            "firstname" : this.userData.firstname,
+                            "username" : this.userData.username,
+                            "campus_id" : this.userData.campus_id,
+                            "company_id" : this.userData.company_id,
+                            "college_id" : college,
+                            "office" : this.userData.office_id,
+                            "user_id" : userCookies["id"],
+                            "id" : id,
+                        })
+                        .then((response) => {
+                        // this.collegeProgram = response.data;
+                            console.log(response);
+                            if (response.data == "Successfully Registered! ") {
+                                // Swal.fire({
+                                //     title: 'Success',
+                                //     text: 'User added successfully',
+                                //     icon: 'success',
+                                //     confirmButtonText: 'OK'
+                                // });
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error fetching campus", error);
+                        });
+                     
 
-                this.confirmPassword()
-
-                console.log(this.userData)
+                        // this.clearForm()
+                    }
+                  
+                } catch (error) {}
             },
 
-            // Confirm Password
-            confirmPassword(){
-
-                if (this.userData.in_password != this.userData.in_confPassword){
-                    Swal.fire({
-                        title: 'Invalid Password',
-                        text: 'The password you entered does not match the confirmation password. Please ensure that both passwords are identical to proceed',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                        })
-                }else{
-                    Swal.fire({
-                        title: 'Success',
-                        text: 'User added successfully',
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                        })
-
-                    this.clearForm()
-                }
-            },
-
+           
             // Clear form
             clearForm(){
-                this.userData.companyID = null
-                this.userData.in_companyEmail = null
-                this.userData.in_fname= null 
-                this.userData.in_lname= null  
-                this.userData.in_mname= null  
-                this.userData.in_password= null  
-                this.userData.in_confPassword= null  
-                this.userData.in_designation= null  
-                this.userData.in_campusID= null  
-                this.userData.in_officeID= null  
-                this.userData.in_positionID= null
-                this.userData.in_collegeID=null
-            }
+                this.userData.company_id = null;
+                this.userData.email = null;
+                this.userData.firstname= null; 
+                this.userData.lastname= null;  
+                this.userData.middlename= null;  
+                this.userData.username= null; 
+                this.userData.in_password= null;  
+                this.userData.confirm_password= null;  
+                this.userData.in_designation= null;  
+                this.userData.campus_id= null; 
+                this.userData.office_id= null;
+                this.userData.position_id= null;
+                this.userData.college_id=null;
+            },
+            
+            // Fetch Position
+            async FetchPosition() {
+                try {
+                let userCookies = this.cookies.get("userCookies");
+                    await axios.post( import.meta.env.VITE_API_POSITION_LIST, {
+                        user_id: userCookies['id']
+                    })
+                    .then((response) => {
+                        // this.myLoading2 = true;
+                        this.PositionData = response.data;
+                        // if (response.data == "Successfully HEP added!"){
+                        //     this.isDataActive = false;
+                        // }
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching hep data", error);
+                    })
+
+                    .finally(() => {
+                        this.myLoading2 = false;;
+                    });
+                } catch (error) {}
+            },
+
+            // Fetch Campus
+            async FetchCampus() {
+                // console.log("Fetch Position");
+                try {
+                let userCookies = this.cookies.get("userCookies");
+                    await axios.post( import.meta.env.VITE_API_GET_CAMPUS, {
+                        user_id: userCookies['id']
+                    })
+                    .then((response) => {
+                        // this.myLoading2 = true;
+                        this.CampusData = response.data;
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching hep data", error);
+                    })
+
+                    .finally(() => {
+                        this.myLoading2 = false;
+                    });
+                } catch (error) {}
+            },
+
+            // Fetch Office
+            async FetchOffice() {
+                // console.log("Fetch Position");
+                try {
+                let userCookies = this.cookies.get("userCookies");
+                await axios
+                    .post(
+                    import.meta.env.VITE_API_OFFICE_LIST, {
+                        user_id: userCookies['id']
+                    })
+                    .then((response) => {
+                        // this.myLoading2 = true;
+                        this.OfficeData = response.data;
+                    })
+                    .catch((error) => {
+                        console.error("Error fetching hep data", error);
+                    })
+
+                    .finally(() => {
+                        this.myLoading2 = false;
+                    });
+                } catch (error) {}
+            },
+
+            // Get College
+            async changeCollege(campus_id) {
+                try {
+                let userCookies = this.cookies.get("userCookies");
+                await axios
+                    .post(
+                    import.meta.env.VITE_API_GET_COLLEGE, {
+                        user_id: userCookies['id'],
+                        campus_id: campus_id,
+                    })
+                    .then((response) => {
+                    // this.myLoading2 = true;
+                        this.CollegeData = response.data;
+                    })
+                    .catch((error) => {
+                    console.error("Error fetching hep data", error);
+                    })
+
+                    .finally(() => {
+                    this.myLoading2 = false;
+                    });
+                } catch (error) {}
+            },
+
 
         },
         
         mounted() {
+            console.log("FCK");
             // call here
             // this.fetchProgram_Data()
             let userCookies = this.cookies.get("userCookies");
@@ -166,14 +247,10 @@
             this.$router.push("/");
             }
             this.overlay = false;
-            // this.FetchRegistrarhepData();
-            // this.fetchProgram_Data(userCookies["college_id"]);
-            // this.FetchData(
-            // userCookies["office"],
-            // userCookies["campus_id"],
-            // userCookies["id"],
-            // );
-        },
+            this.FetchPosition();
+            this.FetchCampus();
+            this.FetchOffice();
+        }
     }
 </script>
 
@@ -216,35 +293,42 @@
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Company ID</p>
                             <Field type="text" name="company_id" placeholder="Type here"
                                 class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-                                :rules="validateData" v-model="userData.in_companyID" />
+                                :rules="validateData" v-model="userData.company_id" />
                             <ErrorMessage name="company_id" class="error_message" />
 
 
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Company Email</p>
-                            <Field type="email" name="company_email" placeholder="Type here"
+                            <Field type="email" name="email" placeholder="Type here"
                                 class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-                                :rules="validateData" v-model="userData.in_companyEmail" />
-                            <ErrorMessage name="company_email" class="error_message" />
+                                :rules="validateData" v-model="userData.email" />
+                            <ErrorMessage name="email" class="error_message" />
 
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">First Name</p>
-                            <Field type="text" name="fname" placeholder="Type here"
+                            <Field type="text" name="firstname" placeholder="Type here"
                                 class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-                                :rules="validateData" v-model="userData.in_fname" />
-                            <ErrorMessage name="fname" class="error_message" />
-
+                                :rules="validateData" v-model="userData.firstname" />
+                            <ErrorMessage name="firstname" class="error_message" />
 
 
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Last Name</p>
-                            <Field type="text" name="lname" placeholder="Type here"
+                            <Field type="text" name="lastname" placeholder="Type here"
                                 class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-                                :rules="validateData" v-model="userData.in_lname" />
-                            <ErrorMessage name="lname" class="error_message" />
+                                :rules="validateData" v-model="userData.lastname" />
+                            <ErrorMessage name="lastname" class="error_message" />
 
-                            <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Middle Name</p>
-                            <Field type="text" name="mname" placeholder="Type here"
+                            <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Middlename</p>
+                            <Field type="text" name="middlename" placeholder="Type here"
                                 class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-                                :rules="validateData" v-model="userData.in_mname" />
-                            <ErrorMessage name="mname" class="error_message" />
+                                :rules="validateData" v-model="userData.middlename" />
+                            <ErrorMessage name="middlename" class="error_message" />
+
+
+                            <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Username</p>
+                            <Field type="text" name="username" placeholder="Type here"
+                                class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
+                                :rules="validateData" v-model="userData.username" />
+                            <ErrorMessage name="username" class="error_message" />
+
 
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Password</p>
                             <Field type="password" name="password" placeholder="Type here"
@@ -255,57 +339,48 @@
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Confirm Password</p>
                             <Field type="password" name="confirm_password" placeholder="Type here"
                                 class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-                                :rules="validateData" v-model="userData.in_confPassword" />
+                                :rules="validateData" v-model="userData.confirm_password" />
                             <ErrorMessage name="confirm_password" class="error_message" />
 
                             <p class="flex items-center gap-2 text-Red-Darken font-Subheader mt-8">
                                 Designation
                             </p>
 
-
-
-
-
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4">Campus</p>
-                            <Field as="select" name="campus" class="w-full select select-bordered  mt-2"
+                            <Field as="select" name="campus_id" class="w-full select select-bordered  mt-2"
                                 style="border:  1px solid #d2d2d2;" :rules="validateData"
-                                v-model="userData.in_campusID">
+                                v-model="userData.campus_id" @change="changeCollege(userData.campus_id)">
                                 <option disabled selected>Select Campus ...</option>
-                                <option v-for="items in sampleCampus" :value="items.id">{{ items.campus }}</option>
+                                <option v-for="items in CampusData" :value="items.id">{{ items.campus }}</option>
 
                             </Field>
                             <ErrorMessage name="campus" class="error_message" />
 
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Office</p>
-                            <Field as="select" name="office" class="w-full select select-bordered mt-2"
-                                v-model="userData.in_officeID" style="border:  1px solid #d2d2d2;">
+                            <Field as="select" name="office_id" class="w-full select select-bordered mt-2"
+                                v-model="userData.office_id" style="border:  1px solid #d2d2d2;">
                                 <option disabled selected>Select Office ...</option>
-                                <option v-for="items in sampleOffice" :value="items.id">{{ items.office }}</option>
+                                <option v-for="items in OfficeData" :value="items.id">{{ items.office }}</option>
                             </Field>
                             <ErrorMessage name="office" class="error_message" />
 
 
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Position</p>
-                            <Field as="select" name="postion" class="select select-bordered mt-2 w-full"
+                            <Field as="select" name="position_id" class="select select-bordered mt-2 w-full"
                                 style="border:  1px solid #d2d2d2;" :rules="validateData"
-                                v-model="userData.in_positionID">
+                                v-model="userData.position_id">
                                 <option disabled selected>Select Position ...</option>
-                                <option v-for="items in samplePosition" :value="items.id">{{ items.position }}</option>
+                                <option v-for="items in PositionData" :value="items.id">{{ items.role }}</option>
                             </Field>
                             <ErrorMessage name="postion" class="error_message" />
 
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">College</p>
-                            <Field as="select" name="college" class="w-full select select-bordered mt-2" :disabled='userData.in_positionID != 2'
-                                v-model="userData.in_collegeID" style="border:  1px solid #d2d2d2;">
+                            <Field as="select" name="college_id" class="w-full select select-bordered mt-2" :disabled='userData.position_id != 6'
+                                v-model="userData.college_id" style="border:  1px solid #d2d2d2;">
                                 <option disabled selected>Select College ...</option>
-                                <option v-for="items in sampleCollege" :value="items.id">{{ items.college }}</option>
+                                <option v-for="items in CollegeData" :value="items.id">{{ items.college }}</option>
                             </Field>
                             <ErrorMessage name="college" class="error_message" />
-
-          
-
-
-
 
                             <!-- <span class="w-full flex  mt-4">
                                 <form method="dialog" class="w-full flex justify-end">
