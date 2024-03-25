@@ -2,6 +2,8 @@
     import VCs from '../../components/Others/Navigation/VCs_nav.vue'
     import vpaa_nav from '../../components/Others/Navigation/vpaa_nav.vue'
     import Planning_navVue from '../../components/Others/Navigation/Planning_nav.vue'
+    import vcrdes_nav from '../../components/Others/Navigation/vcrdes_nav.vue'
+    import vprdes_nav from '../../components/Others/Navigation/vprdes_nav.vue'
 
     // VCAA
     import v_OCI_1 from './HighEd/v_OCI_1.vue'
@@ -50,6 +52,8 @@ export default{
     components:{
         VCs,
         Planning_navVue,
+        vprdes_nav,
+        vcrdes_nav,
         v_OCI_1,
         v_OCI_2,
         v_OPI_1,
@@ -85,9 +89,12 @@ export default{
     <main class="w-full">
         <VCs v-if="user === 'VCAA'"/>
         <vpaa_nav v-if="user === 'VPAA'"/>
+        <vpaa_nav v-if="user === 'VPAA'"/>
         <Planning_navVue v-if="user === 'Planning'" />
         <Planning_navVue v-if="user === 'IPDO'" />
-        
+        <vprdes_nav v-if="user === 'VPRDES'"/> 
+        <vcrdes_nav v-if="user === 'VCRDES'"/> 
+
         <section class="w-full flex gap-8 px-3vw mt-8">
            
             <div class="w-3/12  flex flex-col">

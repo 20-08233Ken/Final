@@ -189,7 +189,6 @@
 
       // Fetch Campus
       async FetchCampus() {
-        // console.log("Fetch Position");
         try {
           let userCookies = this.cookies.get("userCookies");
           const response = await axios
@@ -212,7 +211,6 @@
       },
 
       async FetchOffice() {
-        // console.log("Fetch Position");
         try {
           let userCookies = this.cookies.get("userCookies");
           const response = await axios
@@ -283,14 +281,12 @@
       },
 
       async submitUpdate(id) {
-        console.log(this.updatedData);
         let userCookies = this.cookies.get("userCookies");
         // Form Data
         let college = "";
         if (this.updatedData.college_id != ""){
             college =  this.updatedData.college_id;
         }
-        console.log("college:",college);
         try {
           const response = await axios
             .post(
@@ -303,6 +299,7 @@
                 "campus_id" : this.updatedData.campus_id,
                 "company_id" : this.updatedData.company_id,
                 "position_id" : this.updatedData.position_id,
+                "password" : this.updatedData.password,
                 "college_id" : college,
                 "office" : this.updatedData.office_id,
                 "user_id" : userCookies["id"],
@@ -313,10 +310,12 @@
               if (response.data == "User Account Successfully updated!") {
 
                 Swal.fire({
-                  title: 'Error ',
+                  title: 'Success ',
                   text: "User Account Successfully updated!",
                   icon: 'success',
                   confirmButtonText: 'OK'
+                }).then(function(){
+                  this.$router.go();
                 });
 
               }
@@ -510,10 +509,8 @@
                     <v-card-actions>
                       <v-spacer></v-spacer>
                       <span class="w-full justify-end flex gap-1">
-                        <v-btn text="Close" class="w-2/12 mt-4 bg-grey-lighten-3" @click="isActive.value = false">
-                        </v-btn>
-                        <v-btn text="Submit" class="bg-teal-darken-3 w-2/12 mt-4"
-                        type="submit"></v-btn>
+                        <v-btn text="Close" class="w-2/12 mt-4 bg-grey-lighten-3" @click="isActive.value = false"></v-btn>
+                        <v-btn text="Submit" class="bg-teal-darken-3 w-2/12 mt-4" type="submit"></v-btn>
                       </span>
                     </v-card-actions>
                   </Form>

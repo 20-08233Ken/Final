@@ -19,25 +19,7 @@
         },
         data(){
             return{
-                userData:[
-                    {
-                        company_id:null,
-                        email:null,
-                        firstname:null, 
-                        lastname:null,  
-                        middlename:null,  
-                        username:null,  
-                        in_password:null,  
-                        confirm_password:null,
-                        in_designation:null,  
-                        campus_id:null,  
-                        college_id:null,  
-                        office_id:null,  
-                        position_id:null, 
-                    }
-                ],
-
-                // This is for storing the data including program and office
+                userData:[],
                 allUserData:[], // This is for table
                 ProgramData:[],
                 OfficeData:[],
@@ -60,12 +42,12 @@
 
             // Submit Data
             async submitData(){
-                console.log(this.userData);
+                console.log("submit");
                 let userCookies = this.cookies.get("userCookies");
                 // Form Data
                 try {
-                    
-                    if (this.userData.in_password != this.userData.confirm_password){
+                    console.log("this.userData:", this.userData);
+                    if (this.userData.password != this.userData.confirm_password){
                         Swal.fire({
                             title: 'Invalid Password',
                             text: 'The password you entered does not match the confirmation password. Please ensure that both passwords are identical to proceed',
@@ -73,41 +55,41 @@
                             confirmButtonText: 'OK'
                         })
                     }else{
-                        college = "NULL";
-                        if (this.userData.college_id != ""){
-                            $college =  this.userData.college_id;
+                        console.log('else:', this.userData);
+                        let college = "NULL";
+                        console.log(this.userData.college_id);
+                        if (this.userData.college_id){
+                            college =  this.userData.college_id;
                         }
-                        console.log("college:",college);
-                         axios.post(import.meta.env.VITE_API_CREATE_USER , {
-                            "email" : this.userData.email,
-                            "lastname" : this.userData.lastname,
+                        console.log("college:", college);
+                        const response = axios.post(import.meta.env.VITE_API_CREATE_USER , {
+                            "firstname" : this.userData.firstname,                            
                             "middlename" : this.userData.middlename,
-                            "firstname" : this.userData.firstname,
+                            "lastname" : this.userData.lastname,
                             "username" : this.userData.username,
-                            "campus_id" : this.userData.campus_id,
-                            "company_id" : this.userData.company_id,
-                            "college_id" : college,
+                            "email" : this.userData.email,
+                            "password" : this.userData.password,
                             "office" : this.userData.office_id,
+                            "position" : this.userData.position_id,
+                            "company_id" : this.userData.company_id,
+                            "campus_id" : this.userData.campus_id,
+                            "college_id" : college,
                             "user_id" : userCookies["id"],
-                            "id" : id,
                         })
                         .then((response) => {
-                        // this.collegeProgram = response.data;
-                            console.log(response);
-                            if (response.data == "Successfully Registered! ") {
-                                // Swal.fire({
-                                //     title: 'Success',
-                                //     text: 'User added successfully',
-                                //     icon: 'success',
-                                //     confirmButtonText: 'OK'
-                                // });
+                            console.log("response:", response);
+                            if (response.data == "Successfully Registered!") {
+                                Swal.fire({
+                                    title: 'Success',
+                                    text: 'User added successfully',
+                                    icon: 'success',
+                                    confirmButtonText: 'OK'
+                                });
                             }
                         })
                         .catch((error) => {
                             console.error("Error fetching campus", error);
                         });
-                     
-
                         // this.clearForm()
                     }
                   
@@ -116,21 +98,20 @@
 
            
             // Clear form
-            clearForm(){
-                this.userData.company_id = null;
-                this.userData.email = null;
-                this.userData.firstname= null; 
-                this.userData.lastname= null;  
-                this.userData.middlename= null;  
-                this.userData.username= null; 
-                this.userData.in_password= null;  
-                this.userData.confirm_password= null;  
-                this.userData.in_designation= null;  
-                this.userData.campus_id= null; 
-                this.userData.office_id= null;
-                this.userData.position_id= null;
-                this.userData.college_id=null;
-            },
+            // clearForm(){
+            //     this.userData.company_id = null;
+            //     this.userData.email = null;
+            //     this.userData.firstname= null; 
+            //     this.userData.lastname= null;  
+            //     this.userData.middlename= null;  
+            //     this.userData.username= null; 
+            //     this.userData.password= null;  
+            //     this.userData.confirm_password= null;  
+            //     this.userData.campus_id= null; 
+            //     this.userData.office_id= null;
+            //     this.userData.position_id= null;
+            //     this.userData.college_id=null;
+            // },
             
             // Fetch Position
             async FetchPosition() {
@@ -158,7 +139,6 @@
 
             // Fetch Campus
             async FetchCampus() {
-                // console.log("Fetch Position");
                 try {
                 let userCookies = this.cookies.get("userCookies");
                     await axios.post( import.meta.env.VITE_API_GET_CAMPUS, {
@@ -180,7 +160,6 @@
 
             // Fetch Office
             async FetchOffice() {
-                // console.log("Fetch Position");
                 try {
                 let userCookies = this.cookies.get("userCookies");
                 await axios
@@ -230,9 +209,6 @@
         },
         
         mounted() {
-            console.log("FCK");
-            // call here
-            // this.fetchProgram_Data()
             let userCookies = this.cookies.get("userCookies");
             let accesstoken = this.cookies.get("userAccessToken");
             let userPosition = this.cookies.get("userPosition");
@@ -240,11 +216,8 @@
             let userCampus = this.cookies.get("userCampus");
             this.user = userPosition;
             this.userCookies = userCookies;
-            // this.data[0].in_campus = userCampus;
-            // this.data[0].in_department = userCollege;
-
             if (this.user == null && this.userCookies == null) {
-            this.$router.push("/");
+                this.$router.push("/");
             }
             this.overlay = false;
             this.FetchPosition();
@@ -333,7 +306,7 @@
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Password</p>
                             <Field type="password" name="password" placeholder="Type here"
                                 class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-                                :rules="validateData" v-model="userData.in_password" />
+                                :rules="validateData" v-model="userData.password" />
                             <ErrorMessage name="password" class="error_message" />
 
                             <p class="text-0.9 font-Subheader text-gray-500 mt-4 ">Confirm Password</p>
@@ -391,10 +364,8 @@
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <span class="w-full justify-end flex gap-1 ">
-                                    <v-btn text="Close" class=" w-2/12 mt-4 bg-grey-lighten-3"
-                                        @click="isActive.value = false"></v-btn>
-                                    <v-btn text="Submit" class="bg-teal-darken-3 w-2/12 mt-4"
-                                        @click="submitData(isActive.value = false)" type="submit"></v-btn>
+                                    <v-btn text="Close" class=" w-2/12 mt-4 bg-grey-lighten-3" @click="isActive.value = false"></v-btn>
+                                    <v-btn text="Submit" class="bg-teal-darken-3 w-2/12 mt-4" type="submit"></v-btn>
                                 </span>
                             </v-card-actions>
 

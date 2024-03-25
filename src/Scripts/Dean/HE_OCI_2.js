@@ -655,7 +655,7 @@ export default {
     this.FetchRegistrarhepData();
     this.fetchProgram_Data(userCookies["college_id"]);
     this.FetchData(
-      userCookies["office"],
+      userCookies["position"],
       userCookies["campus_id"],
       userCookies["id"],
     );

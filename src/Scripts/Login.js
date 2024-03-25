@@ -73,17 +73,9 @@ export default{
             catch(function(error){
                 if(error.response){
                     
-                    console.log(error.response.data)
-                    console.log(error.response.status)
 
                     if (error.response.data){
-                       // call the modal
-                       //  this.loginError =false
-                       //  this.addTimeout()
-                       //  $("errorMessage").val();
-                      
-                    //    alert(JSON.stringify(error.response.data.message))
-                    
+        
                        Swal.fire({
                         title: 'Error ',
                         text: JSON.stringify(error.response.data.message),
@@ -112,5 +104,21 @@ export default{
                     // this.addTimeout();
             })
         }
-    }
+    },
+    mounted(){
+
+
+        let userCookies = this.cookies.get('userCookies');
+        let accesstoken = localStorage.getItem('token');
+        let userPosition = this.cookies.get('userPosition');
+        // let userCollege = this.cookies.get('userCollege');
+        // let userCampus = this.cookies.get('userCampus');
+        this.user = userPosition;
+        this.userCookies = userCookies;
+  
+        if (this.user != null && this.userCookies != null){
+            this.$router.push('/home');
+        }
+       
+    },
 }

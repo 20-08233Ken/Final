@@ -20,11 +20,11 @@ export default {
       // in_campus:'',
       // in_department:'',
       in_program: "",
-      in_fname: "",
-      in_mname: "",
-      in_lname: "",
-      in_position: "",
-      in_engagement: "",
+      firstname: "",
+      middlename: "",
+      lastname: "",
+      research_position: "",
+      category: "",
       in_duration: "",
       isIcon: false,
       count: true,
@@ -151,25 +151,25 @@ export default {
         },
       ],
 
-      selectedFile: [
-        {
+      // selectedFile: [
+      //   {
           File1: null,
           File2: null,
           File3: null,
           File4: null,
           File5: null,
-        },
-      ],
+        // },
+      // ],
 
-      updateFile: [
-        {
-          File1: null,
-          File2: null,
-          File3: null,
-          File4: null,
-          File5: null,
-        },
-      ],
+      // updateFile: [
+      //   {
+          UpdatedFile1: null,
+          UpdatedFile2: null,
+          UpdatedFile3: null,
+          UpdatedFile4: null,
+          UpdatedFile5: null,
+      //   },
+      // ],
 
       isDataActive: 1,
 
@@ -209,28 +209,30 @@ export default {
       let userCookies = this.cookies.get("userCookies");
   
       const formData = new FormData();
-      formData.append("supported_file", this.selectedFile);
-
       formData.append("program_id", this.in_program);
-      formData.append("", this.in_fname);
-      formData.append("", this.in_mname);
-      formData.append("", this.in_lname);
-      formData.append("", this.in_position);
-      formData.append("", this.in_engagement);
-      formData.append("", this.in_duration);
       formData.append("campus_id", userCookies["campus_id"]);
       formData.append("college_id", userCookies["college_id"]);
       formData.append("user_id", userCookies["id"]);
+      formData.append("firstname", this.firstname);
+      formData.append("middlename", this.middlename);
+      formData.append("lastname", this.lastname);
+      formData.append("research_position", this.research_position);
+      formData.append("category", this.category);
+      formData.append("copy_of_enrollment_form", this.File1);
+      formData.append("research_conducted", this.File2);
+      formData.append("utilized_technology", this.File3);
+      formData.append("report_of_extension_program", this.File4);
+      formData.append("file", this.File5);
 
       try {
         const response = await axios
-          .post(import.meta.env.VITE_API_CREATE_HEP, formData, {
+          .post(import.meta.env.VITE_API_CREATE_ADVANCED_EDUCATION, formData, {
             headers,
           })
           .then((response) => {
-            // this.collegeProgram = response.data;
+     // this.collegeProgram = response.data;
 
-            if (response.data == "Successfully HEP added!") {
+            if (response.data == "Successfully Advanced Education added!") {
               location.reload();
               // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
@@ -241,11 +243,11 @@ export default {
       } catch (error) {}
 
       this.isDataActive = false;
-      (this.in_program = ""),
-        (this.in_examDate = ""),
-        (this.in_takers = 0),
-        (this.in_passers = 0),
-        (this.selectedFile = null);
+      //  (this.in_program = ""),
+      //   (this.in_examDate = ""),
+      //   (this.in_takers = 0),
+      //   (this.in_passers = 0),
+      //   (this.selectedFile = null);
 
       // }, 2000)
     },
@@ -383,19 +385,19 @@ export default {
       }
     },
     handleFileUpload1(event) {
-      this.selectedFile.File1 = event.target.files[0];
+      this.File1 = event.target.files[0];
     },
     handleFileUpload2(event) {
-      this.selectedFile.File2 = event.target.files[0];
+      this.File2 = event.target.files[0];
     },
     handleFileUpload3(event) {
-      this.selectedFile.File3 = event.target.files[0];
+      this.File3 = event.target.files[0];
     },
     handleFileUpload4(event) {
-      this.selectedFile.File4 = event.target.files[0];
+      this.File4 = event.target.files[0];
     },
     handleFileUpload5(event) {
-      this.selectedFile.File5 = event.target.files[0];
+      this.File5 = event.target.files[0];
     },
 
     changeData(isActive) {
@@ -408,19 +410,19 @@ export default {
     },
 
     editHandleFileUpload1(event) {
-      this.updateFile.File1 = event.target.files[0];
+      this.UpdatedFile1 = event.target.files[0];
     },
     editHandleFileUpload2(event) {
-      this.updateFile.File2 = event.target.files[0];
+      this.UpdatedFile2 = event.target.files[0];
     },
     editHandleFileUpload3(event) {
-      this.updateFile.File3 = event.target.files[0];
+      this.UpdatedFile3 = event.target.files[0];
     },
     editHandleFileUpload4(event) {
-      this.updateFile.File4 = event.target.files[0];
+      this.UpdatedFile4 = event.target.files[0];
     },
     editHandleFileUpload4(event) {
-      this.updateFile.File5 = event.target.files[0];
+      this.UpdatedFile5 = event.target.files[0];
     },
   },
   mount() {
@@ -441,13 +443,13 @@ export default {
       this.$router.push("/");
     }
 
-    this.fetchProgram_Data(userCookies["college_id"], userCampus, userCollege);
-    this.FetchData(
-      userCookies["office"],
-      userCookies["campus_id"],
-      userCookies["id"],
-      userCollege,
-      userCampus
-    );
+    // this.fetchProgram_Data(userCookies["college_id"], userCampus, userCollege);
+    // this.FetchData(
+    //   userCookies["position"],
+    //   userCookies["campus_id"],
+    //   userCookies["id"],
+    //   userCollege,
+    //   userCampus
+    // );
   },
 };

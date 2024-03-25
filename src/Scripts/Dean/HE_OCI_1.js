@@ -186,8 +186,6 @@ export default {
       // Form Data
       const formData = new FormData();
       formData.append("supported_file", this.selectedFile);
-      // formData.append('campus_id', this.data[0].in_campus);
-      // formData.append('college_id',this.data[0].in_department);
       formData.append("program_id", this.in_program);
       formData.append("exam_date", this.in_examDate);
       formData.append("number_of_takers", this.in_takers);
@@ -197,8 +195,7 @@ export default {
       formData.append("user_id", userCookies["id"]);
 
       try {
-        const response = await axios
-          .post(import.meta.env.VITE_API_CREATE_HEP, formData, {
+        const response = await axios.post(import.meta.env.VITE_API_CREATE_HEP, formData, {
             headers,
           })
           .then((response) => {
@@ -485,13 +482,13 @@ export default {
     if (this.user == null && this.userCookies == null) {
       this.$router.push("/");
     }
-    this.userOffice=  userCookies["office"]
+    this.userOffice=  userCookies["position"]
     this.userCampus= userCookies["campus_id"]
     this.userID= userCookies["id"]
 
     this.fetchProgram_Data(userCookies["college_id"], userCampus, userCollege);
     this.FetchData(
-      userCookies["office"],
+      userCookies["position"],
       userCookies["campus_id"],
       userCookies["id"],
       userCollege,

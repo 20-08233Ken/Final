@@ -18,6 +18,8 @@
             <VCs_nav v-if="user === 'VCAA'"/>
             <Chancellor_navVue v-if="user === 'Chancellor'"/> 
             <vpaa_nav v-if="user === 'VPAA'"/> 
+            <vprdes_nav v-if="user === 'VPRDES'"/> 
+            <vcrdes_nav v-if="user === 'VCRDES'"/> 
 
   
                

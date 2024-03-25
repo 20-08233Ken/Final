@@ -254,14 +254,13 @@ export default {
       let userCookies = this.cookies.get("userCookies");
       await axios
         .post(import.meta.env.VITE_API_APPROVE_DISPLAY_TWO_HEP, {
-          office: userCookies["office"],
+          office: userCookies["position"],
           campus_id: userCookies["campus_id"],
           user_id: userCookies["id"],
         })
         .then((response) => {
           if (response.data) {
             this.hepData = response.data;
-            console.log(JSON.stringify(this.hepData))
           }
         })
         .catch(function (error) {
