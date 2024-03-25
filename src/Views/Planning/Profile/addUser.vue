@@ -143,7 +143,7 @@
                 let userCookies = this.cookies.get("userCookies");
                     await axios.post( import.meta.env.VITE_API_GET_CAMPUS, {
                         user_id: userCookies['id'],
-                        position_id: userCookies['position_id']
+                        // position_id: userCookies['position_id']
                     })
                     .then((response) => {
                         // this.myLoading2 = true;
