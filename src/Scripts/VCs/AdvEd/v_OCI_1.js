@@ -219,16 +219,19 @@ export default{
             
         approvedAE(id) {
           this.selectedID = id;
+          console.log(this.selectedID);
         },
 
         rejectedAE(id) {
           this.selectedID = id;
+          console.log(this.selectedID);
         },
 
 
         
         async ApprovedRequest(){
           try{
+            console.log(this.selectedID);
               let users_list = this.cookies.get('userCookies');
               const response = await axios.post(import.meta.env.VITE_API_APPROVE_AE, {
                   "position": users_list.position,

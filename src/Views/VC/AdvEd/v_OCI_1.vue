@@ -38,11 +38,11 @@
                 
                     <span class="flex w-full  gap-2 py-4">
                         <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
-                        @click="approvedAE(item.hep_one_id)"
+                        @click="approvedAE(item.advance_ed_id)"
                         :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCAA'  || this.user == 'VPAA' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator')"> Approved</v-btn>
 
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
-                        @click="rejectedAE(item.hep_one_id)"
+                        @click="rejectedAE(item.advance_ed_id)"
                         :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCAA'  || this.user == 'VPAA'|| this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator') "> Reject</v-btn>
 
                     </span>
@@ -65,7 +65,7 @@
                         Cancel
                     </button>
 
-                    <button class="btn btn-success text-white">
+                    <button class="btn btn-success text-white" @click="ApprovedRequest">
                         Confirm
                     </button>
                 </span>
@@ -74,38 +74,38 @@
             </div>
             </dialog>
 
-
             <dialog id="showRejection" class="modal">
-            <div class="modal-box">
-           
-                <h3 class="font-bold text-lg bg-gray-700 text-white px-4 py-3 font-Header">Reason of Rejection</h3>
-              
-
-                <!-- <Form>
-                    <p class="py-4 text-0.9">Reasons </p>
-                    <Field as="select" placeholder="Type here" name="reason" class="select w-full" style="border:  1px solid #d2d2d2;">
-                        <option v-for=" x in reasonOpt" :value="x.reason" >{{ x.reason }}</option>
-                    </Field>
-                    <ErrorMessage name="reason" class="error_message"/>
-
-                    <p class="py-4 text-0.9">If others, please specify </p>
-                    <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"  style="border:  1px solid #d2d2d2;"/>
-                    <ErrorMessage name="otherReason" class="error_message"/>
-                </Form>
-
-
-                <form method="dialog">
-                    <span class="w-full flex justify-end gap-4 mt-4">
-                    <button class="btn bg-white border-0 shadow-0">
-                        Cancel
-                    </button>
-
-                    <button class="btn btn-success text-white">
-                        Submit
-                    </button>
-                </span>
-                </form> -->
-
-            </div>
+                <div class="modal-box">
+        
+                    <h3 class="font-bold text-lg bg-gray-700 text-white px-4 py-3 font-Header">Reason of Rejection</h3>
+        
+        
+                    <Form @submit="RejectRequest">
+                        <p class="py-4 text-0.9">Reasons </p>
+                        <Field as="select" placeholder="Type here" name="reason" class="select w-full" v-model="reasons"
+                            style="border:  1px solid #d2d2d2;" :rules="validateInput">
+                            <option v-for=" x in reasonOpt" :value="x.reason">{{ x.reason }}</option>
+                        </Field>
+                        <ErrorMessage name="reason" class="error_message" />
+        
+                        <p class="py-4 text-0.9">If others, please specify </p>
+                        <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full" v-model="remarks"
+                            style="border:  1px solid #d2d2d2;" :rules="validateInput" />
+                        <ErrorMessage name="otherReason" class="error_message" />
+                        <span class="w-full flex justify-end gap-4 mt-4">
+                            <form method="dialog">
+        
+                                <button class="btn bg-white border-0 shadow-0">
+                                    Cancel
+                                </button>
+                            </form>
+                            <button class="btn btn-success text-white">
+                                Submit
+                            </button>
+                        </span>
+        
+                    </Form>
+        
+                </div>
             </dialog>
 </template>
