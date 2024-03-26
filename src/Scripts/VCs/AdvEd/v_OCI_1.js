@@ -99,7 +99,7 @@ export default{
                 this.AdvanceEducationData = response.data;
                 })
                 .catch((error) => {
-                console.error("Error fetching hep data", error);
+                console.error("Error fetching AE data", error);
                 })
     
                 .finally(() => {
@@ -208,6 +208,75 @@ export default{
               console.error('Error fetching PDF:', error);
             });
         },
+
+        
+        async ApprovedRequest(){
+          try{
+              let users_list = this.cookies.get('userCookies');
+              const response = await axios.post(import.meta.env.VITE_API_APPROVE_AE, {
+                  "office": users_list.office,
+                  "campus_id": users_list.campus_id,
+                  "user_id": users_list.id,
+                  "id":   this.selectedID
+              })
+              .then(response => {
+                  if (response.data == "This request is already approved by VCAA!"){
+                    
+                    this.$router.push('/VCs');
+                  }
+                  
+                location.reload();
+              })
+              .catch(error => {
+                  console.error('Error fetching AE data', error);
+              });
+
+          }catch (error){
+              // add actions here
+          }
+      },
+
+      async RejectRequest(){
+          try{
+
+              let users_list = this.cookies.get('userCookies');
+              const response = await axios.post(import.meta.env.VITE_API_DISAPPROVE_AE, {
+                  "office": users_list.office,
+                  "campus_id": users_list.campus_id,
+                  "user_id": users_list.id,
+                  "id":   this.selectedID,
+                  "reasons": this.reasons,
+                  "remarks":this.remarks
+              })
+              .then(response => {
+                location.reload();
+      
+              })
+              .catch(error => {
+                  console.error('Error fetching AE data', error);
+              });
+
+          }catch (error){
+              // add actions here
+          }
+      },
+
+      async ViewHistory(id) {
+        this.selectedID = id;
+        let userCookies = this.cookies.get("userCookies");
+        const response = await axios
+          .post(import.meta.env.VITE_API_AE_HISTORY, {
+            id: id,
+            user_id: userCookies["id"],
+          })
+          .then((response) => {
+    
+            this.approvedLogs = response.data;
+          })
+          .catch((error) => {
+            console.error("Error history not found", error);
+          });
+      },
         
     },
     mounted(){

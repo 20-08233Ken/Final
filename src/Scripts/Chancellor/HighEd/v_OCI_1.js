@@ -184,7 +184,7 @@ export default {
         try{
             let users_list = this.cookies.get('userCookies');
             const response = await axios.post(import.meta.env.VITE_API_CHANCELLOR_APPROVE_HEP, {
-                "position": users_list.office,
+                "position": users_list.position,
                 "campus_id": users_list.campus_id,
                 "user_id": users_list.id,
                 "id":   this.selectedIds
@@ -211,7 +211,7 @@ export default {
 
             let users_list = this.cookies.get('userCookies');
             const response = await axios.post(import.meta.env.VITE_API_DISAPPROVE_HEP, {
-                "position": users_list.office,
+                "position": users_list.position,
                 "campus_id": users_list.campus_id,
                 "user_id": users_list.id,
                 "id":   this.selectedID,

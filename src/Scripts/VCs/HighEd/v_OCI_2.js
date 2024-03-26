@@ -259,7 +259,7 @@ export default {
       let userCookies = this.cookies.get("userCookies");
       await axios
         .post(import.meta.env.VITE_API_APPROVE_DISPLAY_TWO_HEP, {
-          office: userCookies["position"],
+          position: userCookies["position"],
           campus_id: userCookies["campus_id"],
           user_id: userCookies["id"],
         })
@@ -299,7 +299,7 @@ export default {
         let users_list = this.cookies.get("userCookies");
         const response = await axios
           .post(import.meta.env.VITE_API_APPROVE_HEP_TWO, {
-            office: users_list.office,
+            position: users_list.position,
             campus_id: users_list.campus_id,
             user_id: users_list.id,
             id: this.selectedID,
@@ -324,7 +324,7 @@ export default {
         let users_list = this.cookies.get("userCookies");
         const response = await axios
           .post(import.meta.env.VITE_API_DISAPPROVE_HEP_TWO, {
-            office: users_list.office,
+            position: users_list.position,
             campus_id: users_list.campus_id,
             user_id: users_list.id,
             id: this.selectedID,

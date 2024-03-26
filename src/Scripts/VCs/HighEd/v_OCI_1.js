@@ -183,7 +183,7 @@ export default {
         try{
             let users_list = this.cookies.get('userCookies');
             const response = await axios.post(import.meta.env.VITE_API_APPROVE_HEP, {
-                "office": users_list.office,
+                "position": users_list.position,
                 "campus_id": users_list.campus_id,
                 "user_id": users_list.id,
                 "id":   this.selectedID
@@ -210,7 +210,7 @@ export default {
 
             let users_list = this.cookies.get('userCookies');
             const response = await axios.post(import.meta.env.VITE_API_DISAPPROVE_HEP, {
-                "office": users_list.office,
+                "position": users_list.position,
                 "campus_id": users_list.campus_id,
                 "user_id": users_list.id,
                 "id":   this.selectedID,
@@ -230,7 +230,6 @@ export default {
         }
     },
 
-
     async ViewHistory(id) {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
@@ -247,6 +246,7 @@ export default {
           console.error("Error history not found", error);
         });
     },
+
     validateInput(value) {
       if (!value) {
         return "This field is required";
