@@ -68,9 +68,9 @@ export default{
                   title: "Actions",
                   value: "actions",
                 },
-              ],
-              AdvanceEducationData: [
-              ],
+            ],
+            AdvanceEducationData: [
+            ],
             reasonOpt:[
                 {
                     reason:'Lack of Supporting Documents'
@@ -215,8 +215,7 @@ export default{
               console.error('Error fetching PDF:', error);
             });
         },
-
-            
+        
         approvedAE(id) {
           this.selectedID = id;
           console.log(this.selectedID);
@@ -229,7 +228,7 @@ export default{
 
 
         
-        async ApprovedRequest(){
+      async ApprovedRequest(){
           try{
             console.log(this.selectedID);
               let users_list = this.cookies.get('userCookies');

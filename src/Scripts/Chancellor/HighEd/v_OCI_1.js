@@ -165,6 +165,7 @@ export default {
     showID(id) {
       console.log(id);
     },
+    
     toogleCheckBox(id){
       const index = this.selectedIds.indexOf(id);
       if (index === -1) {

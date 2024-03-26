@@ -1,190 +1,74 @@
 import {Form, Field, ErrorMessage} from 'vee-validate'
 import { userPosition } from '../../cookies'
+import axios from "axios";
+import { useCookies } from "vue3-cookies";
 export default{
+    setup() {
+        const { cookies } = useCookies();
+        return { cookies };
+    },
     data(){
         return{
-            sampleData:[
+            headers: [
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"     
-
+                  title: "",
+                  value: "check_box",
                 },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
+                  title: "Advance Education Code",
+                  key: "advanced_ed_code",
                 },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
-                }
-                ,
+                  title: "Campus",
+                  value: "campus",
+                  class: "table_header",
+                },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
-                }
-                ,
+                  title: "Department",
+                  value: "college",
+                },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
-                }
-                ,
+                  title: "Name",
+                  value: "fullname",
+                },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
-                }
-                ,
+                  title: "Position",
+                  value: "research_position",
+                },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
-                }
-                ,
+                  title: "Category",
+                  value: "research_category",
+                },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
-                }
-                ,
+                  title: "Scanned copy of Enrollment Form",
+                  value: "copy_of_enrollment_form",
+                  align: "center",
+                },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
-                }
-                ,
+                  title: "Scanned copy of latest research conducted",
+                  value: "research_conducted",
+                  align: "center",
+                },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
-                }
-                ,
+                  title: "Documentation of utilized technology",
+                  value: "utilized_technology",
+                  align: "center",
+                },
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"         
-
-                }
+                  title: "Activity report of extension program	",
+                  value: "report_of_extension_program",
+                  align: "center",
+                },
+                {
+                  title: "Validation Status",
+                  value: "status",
+                },
+                {
+                  title: "Actions",
+                  value: "actions",
+                },
             ],
-
-            headers:[
-                {
-                    title:'Campus',
-                    value:'campus',
-                    class:'table_header',
-                },
-                {
-                    title:'Department',
-                    value:'department',
-                },
-                {
-                    title:'Undergraduate Program',
-                    value:'program',
-                },
-                {
-                    title:'Name',
-                    value:'name',
-                },
-                {
-                    title:'Position',
-                    align:'position',
-                },
-                {
-                    title:'Category',
-                    align:'category',
-                },
-                {
-                    title:'Supporting Documents',
-                    value:'sup_doc',
-                    align:'center'
-                },
-                {
-                    title:'Validation Status',
-                    value:'v_status',
-                },{
-                    title:"Actions",
-                    value:'actions'
-                }
-                
+            AdvanceEducationData: [
             ],
             reasonOpt:[
                 {
@@ -192,38 +76,224 @@ export default{
                 },{
                     reason:'Inconsistent Data'
                 }
-            ]
+            ],
+            selectedID: "",
+            remarks: "",
+            reasons: "",
+            user:null,
+            selectedIds: [],
+            approvedLogs:[],
+            myLoading:true
         }
     },
     components:{
         Form, Field, ErrorMessage
     },
+    methods:{
+            // Fetch Data
+            async FetchData(position, campus, user_id) {
+                try {
+                await axios.post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
+                    position: position,
+                    campus_id: campus,
+                    user_id: user_id,
+                    })
+                    .then((response) => {
+                    // console.log("advance education:",response.data);
+                    // this.myLoading = true;
+                    this.AdvanceEducationData = response.data;
+                    })
+                    .catch((error) => {
+                    console.error("Error fetching AE data", error);
+                    })
+        
+                    .finally(() => {
+                    this.myLoading = false;
+                    });
+                } catch (error) {}
+            },
+            
+            // View Research PDF
+            async viewResearchPDF(id) {
+              this.selectedID = id;
+              let userCookies = this.cookies.get("userCookies");
+              await axios
+                .post(import.meta.env.VITE_API_DISPLAY_RESEARCH_PDF, {
+                  id: id,
+                  user_id: userCookies["id"],
+                  responseType: 'arraybuffer' // Set the response type to arraybuffer
+                })
+                .then(response => {
+                  // Create a Blob object from the response data
+                  const blob = new Blob([response.data], { type: 'application/pdf' });
+                
+                  // Create a URL for the Blob object
+                  const url = URL.createObjectURL(blob);
+                
+                  // Open the URL in a new tab
+                  window.open(url, '_blank');
+                })
+                .catch(error => {
+                  console.error('Error fetching PDF:', error);
+                });
+          
+            },
+    
+            // View Utilized Tech PDF
+            async viewUtilizedTechPDF(id) {
+              this.selectedID = id;
+              let userCookies = this.cookies.get("userCookies");
+              await axios
+                .post(import.meta.env.VITE_API_DISPLAY_UTILIZED_TECHNOLOGY, {
+                  id: id,
+                  user_id: userCookies["id"],
+                  responseType: 'arraybuffer' // Set the response type to arraybuffer
+                })
+                .then(response => {
+                  // Create a Blob object from the response data
+                  const blob = new Blob([response.data], { type: 'application/pdf' });
+                
+                  // Create a URL for the Blob object
+                  const url = URL.createObjectURL(blob);
+                
+                  // Open the URL in a new tab
+                  window.open(url, '_blank');
+                })
+                .catch(error => {
+                  console.error('Error fetching PDF:', error);
+                });
+            },
+            
+            // View Enrollment Form PDF
+            async viewEnrollmentFormPDF(id) {
+              this.selectedID = id;
+              let userCookies = this.cookies.get("userCookies");
+              await axios
+                .post(import.meta.env.VITE_API_DISPLAY_ENROLLMENT_FORM, {
+                  id: id,
+                  user_id: userCookies["id"],
+                  responseType: 'arraybuffer' // Set the response type to arraybuffer
+                })
+                .then(response => {
+                  // Create a Blob object from the response data
+                  const blob = new Blob([response.data], { type: 'application/pdf' });
+                
+                  // Create a URL for the Blob object
+                  const url = URL.createObjectURL(blob);
+                
+                  // Open the URL in a new tab
+                  window.open(url, '_blank');
+                })
+                .catch(error => {
+                  console.error('Error fetching PDF:', error);
+                });
+            },
+            
+            // View Extension Program PDF
+            async viewDisplayExtensionProgram(id) {
+              this.selectedID = id;
+              let userCookies = this.cookies.get("userCookies");
+              await axios
+                .post(import.meta.env.VITE_API_DISPLAY_EXTENSION_PROGRAM, {
+                  id: id,
+                  user_id: userCookies["id"],
+                  responseType: 'arraybuffer' // Set the response type to arraybuffer
+                })
+                .then(response => {
+                  // Create a Blob object from the response data
+                  const blob = new Blob([response.data], { type: 'application/pdf' });
+                
+                  // Create a URL for the Blob object
+                  const url = URL.createObjectURL(blob);
+                
+                  // Open the URL in a new tab
+                  window.open(url, '_blank');
+                })
+                .catch(error => {
+                  console.error('Error fetching PDF:', error);
+                });
+            },
+
+        approvedAE(id) {
+        this.selectedID = id;
+        // console.log(this.selectedID);
+        },
+    
+        rejectedAE(id) {
+        this.selectedID = id;
+        // console.log(this.selectedID);
+        },
+
+        async RejectRequest(){
+            try{
+  
+                let users_list = this.cookies.get('userCookies');
+                const response = await axios.post(import.meta.env.VITE_API_DISAPPROVE_AE, {
+                    "position": users_list.position,
+                    "campus_id": users_list.campus_id,
+                    "user_id": users_list.id,
+                    "id":   this.selectedID,
+                    "reasons": this.reasons,
+                    "remarks":this.remarks
+                })
+                .then(response => {
+                  location.reload();
+        
+                })
+                .catch(error => {
+                    console.error('Error fetching AE data', error);
+                });
+  
+            }catch (error){
+                // add actions here
+            }
+        },
+
+        async ViewHistory(id) {
+            this.selectedID = id;
+            let userCookies = this.cookies.get("userCookies");
+            const response = await axios
+                .post(import.meta.env.VITE_API_AE_HISTORY, {
+                id: id,
+                user_id: userCookies["id"],
+                })
+                .then((response) => {
+        
+                this.approvedLogs = response.data;
+                })
+                .catch((error) => {
+                console.error("Error history not found", error);
+            });
+        },    
+
+        toogleCheckBox(id){
+            const index = this.selectedIds.indexOf(id);
+            if (index === -1) {
+              
+              this.selectedIds.push(id);
+      
+       
+            } else {
+             
+              this.selectedIds.splice(index, 1);
+      
+            }
+        },
+          
+    },
     mounted(){
 
-        const holdCookies = userPosition();
-       
-        if(holdCookies === 'VCAA'){
-            // call the API for VCAA
-            // PASS it to sampleData[]
+        let userCookies = this.cookies.get("userCookies");
+        let userPosition = this.cookies.get("userPosition");
+        this.user = userPosition;
+        this.userCookies = userCookies;
 
-        }else if( holdCookies === 'Planning'){
-            // call the API for Planning
-            // PASS it to sampleData[]
-
-        }    
-        else if( holdCookies === 'Chancellor'){
-            // call the API for Chancellor
-            // PASS it to sampleData[]
-
-        }else if( holdCookies === 'VPAA'){
-            // call the API for VPAA
-            // PASS it to sampleData[]
-
-        }else if( holdCookies === 'IPDO'){
-            // call the API for IPDO
-            // PASS it to sampleData[]
-            
+        if (this.user == null && this.userCookies == null) {
+          this.$router.push("/");
         }
+    
+        this.FetchData(userCookies["position"],userCookies["campus_id"],userCookies["id"]);
+   
     }
     
 }
