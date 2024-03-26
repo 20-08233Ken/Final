@@ -5,6 +5,9 @@
     <main class="w-full flex flex-col">
         <Planning_nav v-if="user === 'Planning'"/>
         <VCAA_nav v-if="user === 'VCAA'"/>
+        <vprdes_nav v-if="user === 'VPRDES'"/> 
+        <vcrdes_nav v-if="user === 'VCRDES'"/> 
+
         <section class="w-full flex gap-16 px-3vw mt-8">
 
             <div class="w-3/12  flex flex-col">

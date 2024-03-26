@@ -19,7 +19,6 @@ export default {
     return {
       // in_campus:'',
       // in_department:'',
-      in_program: "",
       firstname: "",
       middlename: "",
       lastname: "",
@@ -37,8 +36,8 @@ export default {
           value: "check_box",
         },
         {
-          title: "HEP Code",
-          key: "hep_code",
+          title: "Advance Education Code",
+          key: "advanced_ed_code",
         },
         {
           title: "Campus",
@@ -47,73 +46,62 @@ export default {
         },
         {
           title: "Department",
-          value: "department",
-        },
-        {
-          title: "Undergraduate Program",
-          value: "program",
+          value: "college",
         },
         {
           title: "Name",
-          value: "name",
+          value: "fullname",
         },
         {
           title: "Position",
-          align: "position",
+          value: "research_position",
         },
         {
           title: "Category",
-          align: "category",
+          value: "research_category",
         },
         {
-          title: "Supporting Documents",
-          value: "supported_file",
+          title: "Scanned copy of Enrollment Form",
+          value: "copy_of_enrollment_form",
+          align: "center",
+        },
+        {
+          title: "Scanned copy of latest research conducted",
+          value: "research_conducted",
+          align: "center",
+        },
+        {
+          title: "Documentation of utilized technology",
+          value: "utilized_technology",
+          align: "center",
+        },
+        {
+          title: "Activity report of extension program	",
+          value: "report_of_extension_program",
           align: "center",
         },
         {
           title: "Validation Status",
-          value: "v_status",
+          value: "status",
         },
         {
           title: "Actions",
           value: "actions",
         },
       ],
-      sampleData: [
-        {
-          hep_code: "1",
-          campus: "2",
-          department: "3",
-          program: "4",
-          name: "5",
-          position: "6",
-          category: "8",
-          supported_file: "9",
-          v_status: "10",
-        },
+      AdvanceEducationData: [
       ],
       // Data base from the Account Info of Dean
       data: [
         {
-          in_campus: "Alangilan Campus",
-          in_department: "College of Engineering",
+          in_campus: "",
+          in_department: "",
         },
       ],
 
       // Options of Select Program Input
       collegeProgram: [
-        {
-          program: "Bachelor of Science in Computer Engineer",
-        },
-        {
-          program: "Bachelor of Science in Civil Engineer",
-        },
-        {
-          program: "Bachelor of Science in Chemical Engineer",
-        },
-        {
-          program: "Bachelor of Science in Electrical Engineer",
-        },
+ 
       ],
 
       facultyEngagement: [
@@ -200,7 +188,7 @@ export default {
       return true;
     },
     
-    
+  
     // ADD data
     async addData() {
       const headers = {
@@ -209,10 +197,8 @@ export default {
       let userCookies = this.cookies.get("userCookies");
   
       const formData = new FormData();
-      formData.append("program_id", this.in_program);
       formData.append("campus_id", userCookies["campus_id"]);
       formData.append("college_id", userCookies["college_id"]);
-      formData.append("user_id", userCookies["id"]);
       formData.append("firstname", this.firstname);
       formData.append("middlename", this.middlename);
       formData.append("lastname", this.lastname);
@@ -222,7 +208,7 @@ export default {
       formData.append("research_conducted", this.File2);
       formData.append("utilized_technology", this.File3);
       formData.append("report_of_extension_program", this.File4);
-      formData.append("file", this.File5);
+      formData.append("user_id", userCookies["id"]);
 
       try {
         const response = await axios
@@ -230,11 +216,8 @@ export default {
             headers,
           })
           .then((response) => {
-     // this.collegeProgram = response.data;
-
             if (response.data == "Successfully Advanced Education added!") {
               location.reload();
-              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
           })
           .catch((error) => {
@@ -243,7 +226,6 @@ export default {
       } catch (error) {}
 
       this.isDataActive = false;
-      //  (this.in_program = ""),
       //   (this.in_examDate = ""),
       //   (this.in_takers = 0),
       //   (this.in_passers = 0),
@@ -300,7 +282,6 @@ export default {
 
             if (response.data == "Successfully HEP updated!") {
               location.reload();
-              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
           })
           .catch((error) => {
@@ -310,20 +291,17 @@ export default {
     },
 
     // Fetch Data
-    async FetchData(office, campus, user_id) {
+    async FetchData(position, campus, user_id) {
       try {
-        const response = await axios
-          .post(import.meta.env.VITE_API_HEPLIST, {
-            office: office,
+       await axios.post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
+            position: position,
             campus_id: campus,
             user_id: user_id,
           })
           .then((response) => {
-            this.myLoading = true;
-            this.hepData = response.data;
-            // if (response.data == "Successfully HEP added!"){
-            //     this.isDataActive = false;
-            // }
+            // console.log("advance education:",response.data);
+            // this.myLoading = true;
+            this.AdvanceEducationData = response.data;
           })
           .catch((error) => {
             console.error("Error fetching hep data", error);
@@ -335,55 +313,48 @@ export default {
       } catch (error) {}
     },
 
-    // Fetch Program data
-    async fetchProgram_Data(college_id) {
-      try {
-        const response = await axios
-          .post(import.meta.env.VITE_API_GET_PROGRAM, {
-            college_id: college_id,
-          })
-          .then((response) => {
-            this.collegeProgram = response.data;
-          })
-          .catch((error) => {
-            console.error("Error fetching campus", error);
-          });
-        this.collegeProgram = response.data;
-      } catch (error) {
-        // add actions here
-      }
-    },
+    // // Fetch Program data
+    // async fetchProgram_Data(college_id) {
+    //   try {
+    //     const response = await axios
+    //       .post(import.meta.env.VITE_API_GET_PROGRAM, {
+    //         college_id: college_id,
+    //       })
+    //       .then((response) => {
+    //         this.collegeProgram = response.data;
+    //       })
+    //       .catch((error) => {
+    //         console.error("Error fetching campus", error);
+    //       });
+    //     this.collegeProgram = response.data;
+    //   } catch (error) {
+    //     // add actions here
+    //   }
+    // },
 
-    // Fetch College data
-    async fetchCollege_Data(campus_id) {
-      try {
-        const response = await axios
-          .post(import.meta.env.VITE_API_GET_COLLEGE, {
-            campus_id: campus_id,
-          })
-          .then((response) => {
-            this.college = response.data;
-          })
-          .catch((error) => {
-            console.error("Error fetching program", error);
-          });
-      } catch (error) {
-        // add actions here
-      }
-    },
+    // // Fetch College data
+    // async fetchCollege_Data(campus_id) {
+    //   try {
+    //     const response = await axios
+    //       .post(import.meta.env.VITE_API_GET_COLLEGE, {
+    //         campus_id: campus_id,
+    //       })
+    //       .then((response) => {
+    //         this.college = response.data;
+    //       })
+    //       .catch((error) => {
+    //         console.error("Error fetching program", error);
+    //       });
+    //   } catch (error) {
+    //     // add actions here
+    //   }
+    // },
 
     onClose() {
       this.isActive = false;
     },
-    async fetchProgram_Data() {
-      try {
-        const response = await axios.get("");
-        // remove first the data from college program
-        this.collegeProgram = response.data;
-      } catch (error) {
-        // add actions here
-      }
-    },
+
+    
     handleFileUpload1(event) {
       this.File1 = event.target.files[0];
     },
@@ -396,13 +367,9 @@ export default {
     handleFileUpload4(event) {
       this.File4 = event.target.files[0];
     },
-    handleFileUpload5(event) {
-      this.File5 = event.target.files[0];
-    },
 
     changeData(isActive) {
       this.isDataActive = isActive;
-      console.log(this.isDataActive);
     },
 
     openUpdate(item) {
@@ -421,16 +388,12 @@ export default {
     editHandleFileUpload4(event) {
       this.UpdatedFile4 = event.target.files[0];
     },
-    editHandleFileUpload4(event) {
-      this.UpdatedFile5 = event.target.files[0];
-    },
   },
-  mount() {
+  mounted() {
     // call here
     // this.fetchProgram_Data()
 
     let userCookies = this.cookies.get("userCookies");
-    let accesstoken = this.cookies.get("userAccessToken");
     let userPosition = this.cookies.get("userPosition");
     let userCollege = this.cookies.get("userCollege");
     let userCampus = this.cookies.get("userCampus");
@@ -443,13 +406,6 @@ export default {
       this.$router.push("/");
     }
 
-    // this.fetchProgram_Data(userCookies["college_id"], userCampus, userCollege);
-    // this.FetchData(
-    //   userCookies["position"],
-    //   userCookies["campus_id"],
-    //   userCookies["id"],
-    //   userCollege,
-    //   userCampus
-    // );
+    this.FetchData(userCookies["position"],userCookies["campus_id"],userCookies["id"]);
   },
 };

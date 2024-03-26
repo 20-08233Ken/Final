@@ -102,7 +102,6 @@ export default {
 
     async GetHEPData(){
       let userCookies = this.cookies.get('userCookies');
-      console.log("userCookies", userCookies);
       await axios.post(import.meta.env.VITE_API_HEPLIST,{
         "office": userCookies["position"],
         "campus_id": userCookies["campus_id"],
@@ -121,14 +120,14 @@ export default {
       catch(function(error){
           if(error.response){
               
-              if (error.response.data){
+              // if (error.response.data){
                 // call the modal
                 //  this.loginError =false
                 //  this.addTimeout()
                 //  $("errorMessage").val();
 
-                alert(JSON.stringify(error.response.data.message));
-              }
+              //   alert(JSON.stringify(error.response.data.message));
+              // }
               // called modal
               //this.login =false'
               // this.addTimeout();
@@ -190,12 +189,12 @@ export default {
                 "id":   this.selectedID
             })
             .then(response => {
-              location.reload();
-                console.log("response:",response);
                 if (response.data == "This request is already approved by VCAA!"){
                   
                   this.$router.push('/VCs');
                 }
+                
+              location.reload();
             })
             .catch(error => {
                 console.error('Error fetching hep data', error);

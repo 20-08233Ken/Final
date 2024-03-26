@@ -67,9 +67,9 @@ export default{
         VCAA_navVue,
         VCs_nav,
         Chancellor_navVue,
+        vpaa_nav,
         vprdes_nav,
         vcrdes_nav,
-        vpaa_nav
     },  
       methods:{
         showActive(componentName,tabNumber){

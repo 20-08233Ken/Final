@@ -1,6 +1,9 @@
 
     import Planning_nav from '../../components/Others/Navigation/Planning_nav.vue';
     import VCAA_nav from '../../components/Others/Navigation/VCAA_nav.vue'
+    import vprdes_nav from '../../components/Others/Navigation/vprdes_nav.vue'
+    import vcrdes_nav from '../../components/Others/Navigation/vcrdes_nav.vue'
+ 
     import { Form, ErrorMessage, Field } from 'vee-validate';
     import { markRaw } from "vue"
 
@@ -231,6 +234,8 @@
         components:{
             Planning_nav,
             VCAA_nav,
+            vprdes_nav,
+            vcrdes_nav,
             Form,
             ErrorMessage,
             Field,

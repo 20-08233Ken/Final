@@ -190,11 +190,12 @@ export default {
                 "id":   this.selectedIds
             })
             .then(response => {
-                location.reload();
- 
-                if (response.data == "This request is already approved by VCAA!"){
+                // console.log(response);
+                if (response.data == "This request is already approved by Chancellor!"){
                   this.$router.push('/VCs');
                 }
+                
+                location.reload();
             })
             .catch(error => {
                 console.error('Error fetching hep data', error);

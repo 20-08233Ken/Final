@@ -118,18 +118,18 @@ export default {
       selectedID: "",
       forUpdate: [],
       editselectedFile: null,
-      userOffice:null,
+      userposition:null,
       userCampus:null,
       userID:null,
     };
   },
   methods: {
     // fetch data
-    async FetchData(office, campus, user_id) {
+    async FetchData(position, campus, user_id) {
       try {
         const response = await axios
           .post(import.meta.env.VITE_API_HEPLIST, {
-            office: office,
+            position: position,
             campus_id: campus,
             user_id: user_id,
 
@@ -138,7 +138,6 @@ export default {
           .then((response) => {
             this.myLoading = true;
             this.hepData = response.data;
-            console.log('Lpoaded')
             // if (response.data == "Successfully HEP added!"){
             //     this.isDataActive = false;
             // }
@@ -204,7 +203,6 @@ export default {
           
             if (response.data == "Successfully HEP added!") {
               // location.reload();
-              // console.log('added')
               this.isDataActive = 1
               Swal.fire({
                 title: "Success",
@@ -213,8 +211,6 @@ export default {
                 confirmButtonText: "OK",
               });
           
-       
-              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
           })
           .catch((error) => {
@@ -276,8 +272,7 @@ export default {
                 icon: "success",
                 confirmButtonText: "OK",
               });
-              this.changeData(1)
-              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
+              this.changeData(1);
             }
           })
           .catch((error) => {
@@ -323,7 +318,7 @@ export default {
             college_id: college_id,
           })
           .then((response) => {
-            this.collegeProgram = response.data;
+            this.collegerPogram = response.data;
           })
           .catch((error) => {
             console.error("Error fetching campus", error);
@@ -399,7 +394,7 @@ export default {
 
     removeFiles() {
       this.selectedFile = null;
-      console.log(this.selectedFile);
+      // console.log(this.selectedFile);
     },
     // showFile() {
     //   this.isDataActive = false;
@@ -418,7 +413,6 @@ export default {
         })
         .then((response) => {
           this.approvedLogs = response.data;
-          console.log(this.approvedLogs);
         })
         .catch((error) => {
           console.error("Error history not found", error);
@@ -465,10 +459,6 @@ export default {
   // }
 
   mounted() {
-    // call here
-    // this.fetchProgram_Data()
-
-
     let userCookies = this.cookies.get("userCookies");
     let accesstoken = this.cookies.get("userAccessToken");
     let userPosition = this.cookies.get("userPosition");
@@ -482,17 +472,12 @@ export default {
     if (this.user == null && this.userCookies == null) {
       this.$router.push("/");
     }
-    this.userOffice=  userCookies["position"]
+    this.userposition=  userCookies["position"]
     this.userCampus= userCookies["campus_id"]
     this.userID= userCookies["id"]
 
-    this.fetchProgram_Data(userCookies["college_id"], userCampus, userCollege);
-    this.FetchData(
-      userCookies["position"],
-      userCookies["campus_id"],
-      userCookies["id"],
-      userCollege,
-      userCampus
+    this.fetchProgram_Data(userCookies["college_id"]);
+    this.FetchData(userCookies["position"], userCookies["campus_id"],userCookies["id"],
     );
   },
 };

@@ -3,7 +3,7 @@
 </script>
 
 <template>
-            <h1 class="font-Header text-3xl text-Red-Rose">Higher Education Program</h1>
+            <h1 class="font-Header text-3xl text-Red-Rose">Advance Education Program</h1>
             <h2 class="font-Subheader text-lg text-Red-Rose">Outcome Indicator 1 </h2>
             <h2 class="font-Subheader text-1gray-700"> Percentage of graduate school faculty engaged in research work</h2>
 
@@ -14,10 +14,31 @@
                 <v-data-table
                         
                         :headers="headers"
-                        :items="sampleData"
+                        :items="AdvanceEducationData"
                         class="elevation-1"
                         items-per-page="10"   
                 >
+                
+                <template v-slot:item.copy_of_enrollment_form="{ item }">
+                    <span class="flex w-full  gap-2 py-4">
+                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.advance_ed_id)">View PDF</v-btn>
+                    </span>
+                </template>
+                <template v-slot:item.research_conducted="{ item }">
+                    <span class="flex w-full  gap-2 py-4">
+                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.advance_ed_id)">View PDF</v-btn>
+                    </span>
+                </template>
+                <template v-slot:item.utilized_technology="{ item }">
+                    <span class="flex w-full  gap-2 py-4">
+                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.advance_ed_id)">View PDF</v-btn>
+                    </span>
+                </template>
+                <template v-slot:item.report_of_extension_program="{ item }">
+                    <span class="flex w-full  gap-2 py-4">
+                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.advance_ed_id)">View PDF</v-btn>
+                    </span>
+                </template>
 
                 <template v-slot:item.actions="{item}">
                 

@@ -1,63 +1,76 @@
 import {Form, Field, ErrorMessage} from 'vee-validate'
-import { userPosition } from '../../cookies'
+// import { userPosition } from '../../cookies'
+import axios from "axios";
+import { useCookies } from "vue3-cookies";
+
 export default{
+    setup() {
+        const { cookies } = useCookies();
+        return { cookies };
+    },
     data(){
         return{
-            sampleData:[
+            headers: [
                 {
-                   campus:'Alangilan Campus',
-                   department:'College of Engineering',
-                   program:"Bachelor of Science in Civil Engineering",
-                   year_io:'2012',
-                   status:'status',
-                   pov_from:'pov_from',
-                   pov_to:'pov to',
-                   sup_doc:'',
-                   v_status:"Not validated"     
-
-                },
-            ],
-
-            headers:[
-                {
-                    title:'Campus',
-                    value:'campus',
-                    class:'table_header',
+                  title: "",
+                  value: "check_box",
                 },
                 {
-                    title:'Department',
-                    value:'department',
+                  title: "Advance Education Code",
+                  key: "advanced_ed_code",
                 },
                 {
-                    title:'Undergraduate Program',
-                    value:'program',
+                  title: "Campus",
+                  value: "campus",
+                  class: "table_header",
                 },
                 {
-                    title:'Name',
-                    value:'name',
+                  title: "Department",
+                  value: "college",
                 },
                 {
-                    title:'Position',
-                    align:'position',
+                  title: "Name",
+                  value: "fullname",
                 },
                 {
-                    title:'Category',
-                    align:'category',
+                  title: "Position",
+                  value: "research_position",
                 },
                 {
-                    title:'Supporting Documents',
-                    value:'sup_doc',
-                    align:'center'
+                  title: "Category",
+                  value: "research_category",
                 },
                 {
-                    title:'Validation Status',
-                    value:'v_status',
-                },{
-                    title:"Actions",
-                    value:'actions'
-                }
-                
-            ],
+                  title: "Scanned copy of Enrollment Form",
+                  value: "copy_of_enrollment_form",
+                  align: "center",
+                },
+                {
+                  title: "Scanned copy of latest research conducted",
+                  value: "research_conducted",
+                  align: "center",
+                },
+                {
+                  title: "Documentation of utilized technology",
+                  value: "utilized_technology",
+                  align: "center",
+                },
+                {
+                  title: "Activity report of extension program	",
+                  value: "report_of_extension_program",
+                  align: "center",
+                },
+                {
+                  title: "Validation Status",
+                  value: "status",
+                },
+                {
+                  title: "Actions",
+                  value: "actions",
+                },
+              ],
+              AdvanceEducationData: [
+              ],
             reasonOpt:[
                 {
                     reason:'Lack of Supporting Documents'
@@ -70,32 +83,43 @@ export default{
     components:{
         Form, Field, ErrorMessage
     },
+    methods: {
+
+        // Fetch Data
+        async FetchData(position, campus, user_id) {
+            try {
+            await axios.post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
+                position: position,
+                campus_id: campus,
+                user_id: user_id,
+                })
+                .then((response) => {
+                // console.log("advance education:",response.data);
+                // this.myLoading = true;
+                this.AdvanceEducationData = response.data;
+                })
+                .catch((error) => {
+                console.error("Error fetching hep data", error);
+                })
+    
+                .finally(() => {
+                this.myLoading = false;
+                });
+            } catch (error) {}
+        },
+    },
     mounted(){
+        let userCookies = this.cookies.get("userCookies");
+        let userPosition = this.cookies.get("userPosition");
+        this.user = userPosition;
+        this.userCookies = userCookies;
 
-        const holdCookies = userPosition();
-       
-        if(holdCookies === 'VCAA'){
-            // call the API for VCAA
-            // PASS it to sampleData[]
-
-        }else if( holdCookies === 'Planning'){
-            // call the API for Planning
-            // PASS it to sampleData[]
-
-        }    
-        else if( holdCookies === 'Chancellor'){
-            // call the API for Chancellor
-            // PASS it to sampleData[]
-
-        }else if( holdCookies === 'VPAA'){
-            // call the API for VPAA
-            // PASS it to sampleData[]
-
-        }else if( holdCookies === 'IPDO'){
-            // call the API for IPDO
-            // PASS it to sampleData[]
-            
+        if (this.user == null && this.userCookies == null) {
+          this.$router.push("/");
         }
+    
+        this.FetchData(userCookies["position"],userCookies["campus_id"],userCookies["id"]);
+   
     }
     
 }

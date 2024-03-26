@@ -89,7 +89,6 @@ export default{
     <main class="w-full">
         <VCs v-if="user === 'VCAA'"/>
         <vpaa_nav v-if="user === 'VPAA'"/>
-        <vpaa_nav v-if="user === 'VPAA'"/>
         <Planning_navVue v-if="user === 'Planning'" />
         <Planning_navVue v-if="user === 'IPDO'" />
         <vprdes_nav v-if="user === 'VPRDES'"/> 
