@@ -163,18 +163,6 @@ export default {
 
       // Options of Select Program Input
       collegeProgram: [
-        {
-          program: "Bachelor of Science in Computer Engineer",
-        },
-        {
-          program: "Bachelor of Science in Civil Engineer",
-        },
-        {
-          program: "Bachelor of Science in Chemical Engineer",
-        },
-        {
-          program: "Bachelor of Science in Electrical Engineer",
-        },
       ],
 
       selectedFile1: null,
@@ -275,7 +263,6 @@ export default {
             headers,
           })
           .then((response) => {
-            // this.collegeProgram = response.data;
          
             if (response.data == "Student Not Found ") {
 
@@ -412,9 +399,11 @@ export default {
 
     async fetchProgram_Data(college_id) {
       try {
+        let userCookies = this.cookies.get("userCookies");
         const response = await axios
           .post(import.meta.env.VITE_API_GET_PROGRAM, {
             college_id: college_id,
+            user_id: userCookies["id"],
           })
           .then((response) => {
             this.collegeProgram = response.data;
@@ -422,7 +411,6 @@ export default {
           .catch((error) => {
             console.error("Error fetching campus", error);
           });
-        this.collegeProgram = response.data;
       } catch (error) {
         // add actions here
       }
@@ -596,7 +584,6 @@ export default {
             headers,
           })
           .then((response) => {
-            // this.collegeProgram = response.data;
 
             if (response.data == "Student Not Found ") {
 

@@ -69,11 +69,11 @@ export default{
     },
 
     methods: {
-        async FetchData(campus,office,user) {
+        async FetchData(campus,position,user) {
         
             try {
                 const response = await axios.post('http://172.21.131.228:8080/api/hep_list', {
-                        "office": office,
+                        "position": position,
                         "campus_id": campus,
                         "user_id": user
                     })
@@ -107,7 +107,7 @@ export default{
             try{
                 let users_list = this.cookies.get('userCookies');
                 const response = await axios.post('http://172.21.131.228:8080/api/approve_hep', {
-                    "office": users_list.office,
+                    "position": users_list.position,
                     "campus_id": users_list.campus_id,
                     "user_id": users_list.id,
                     "id":   this.selectedID
@@ -132,7 +132,7 @@ export default{
                 console.log(this.reasons);
                 let users_list = this.cookies.get('userCookies');
                 const response = await axios.post('http://172.21.131.228:8080/api/disapprove_hep', {
-                    "office": users_list.office,
+                    "position": users_list.position,
                     "campus_id": users_list.campus_id,
                     "user_id": users_list.id,
                     "id":   this.selectedID,
@@ -170,7 +170,7 @@ export default{
         if (this.user == null && this.userCookies == null){
             this.$router.push('/');
         }
-        this.FetchData(userCookies['campus_id'],userCookies['office'],userCookies['id']);
+        this.FetchData(userCookies['campus_id'],userCookies['position'],userCookies['id']);
         // this.approved(userCookies);
     },
     

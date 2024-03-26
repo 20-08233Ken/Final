@@ -182,22 +182,22 @@
 
                     <template v-slot:item.copy_of_enrollment_form="{ item }">
                         <span class="flex w-full  gap-2 py-4">
-                                <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.advance_ed_id)">View PDF</v-btn>
+                                <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewEnrollmentFormPDF(item.advance_ed_id)">View PDF</v-btn>
                         </span>
                     </template>
                     <template v-slot:item.research_conducted="{ item }">
                         <span class="flex w-full  gap-2 py-4">
-                                <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.advance_ed_id)">View PDF</v-btn>
+                                <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewResearchPDF(item.advance_ed_id)">View PDF</v-btn>
                         </span>
                     </template>
                     <template v-slot:item.utilized_technology="{ item }">
                         <span class="flex w-full  gap-2 py-4">
-                                <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.advance_ed_id)">View PDF</v-btn>
+                                <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewUtilizedTechPDF(item.advance_ed_id)">View PDF</v-btn>
                         </span>
                     </template>
                     <template v-slot:item.report_of_extension_program="{ item }">
                         <span class="flex w-full  gap-2 py-4">
-                                <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.advance_ed_id)">View PDF</v-btn>
+                                <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewDisplayExtensionProgram(item.advance_ed_id)">View PDF</v-btn>
                         </span>
                     </template>
                     <template v-slot:item.actions="{ item }">

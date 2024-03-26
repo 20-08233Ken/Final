@@ -103,7 +103,7 @@ export default {
     async GetHEPData(){
       let userCookies = this.cookies.get('userCookies');
       await axios.post(import.meta.env.VITE_API_HEPLIST,{
-        "office": userCookies["position"],
+        "position": userCookies["position"],
         "campus_id": userCookies["campus_id"],
         "user_id": userCookies["id"],
       }).

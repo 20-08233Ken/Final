@@ -151,11 +151,11 @@ export default {
         onClose() {
             this.isActive = false
         },
-        async FetchData(office, campus, user_id) {
+        async FetchData(campus, position, user_id) {
             try {
               const response = await axios
                 .post(import.meta.env.VITE_API_HEPLIST, {
-                  office: office,
+                  position: position,
                   campus_id: campus,
                   user_id: user_id,
                 })

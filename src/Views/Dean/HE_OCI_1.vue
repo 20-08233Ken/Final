@@ -95,6 +95,13 @@
                                         <p>{{ item.tb_id }}</p>
 
                                         <Form class="mt-4" @submit="submitUpdate">
+                                            <p class="text-0.9 font-Subheader text-gray-500 mt-6">HEP Code</p>
+                                            <Field type="number" placeholder="Type here"
+                                                class="input mt-2 input-bordered w-full" defa
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.hep_code"
+                                                name="hep_code" />
+                                            <ErrorMessage name="hep_code" class="error_message" />
+
 
                                             <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
                                             <Field type="text" name="campus" placeholder="Type here" disabled

@@ -198,8 +198,6 @@ export default {
             headers,
           })
           .then((response) => {
-            // this.collegeProgram = response.data;
-            
           
             if (response.data == "Successfully HEP added!") {
               // location.reload();
@@ -235,6 +233,7 @@ export default {
 
     openUpdate(item) {
       this.forUpdate = item;
+      console.log("forUPDATE:", this.forUpdate);
     },
     async submitUpdate() {
       const headers = {
@@ -247,23 +246,18 @@ export default {
       formEditData.append("program_id", this.forUpdate.program_id);
       formEditData.append("exam_date", this.forUpdate.exam_date);
       formEditData.append("number_of_takers", this.forUpdate.number_of_takers);
-      formEditData.append(
-        "number_of_passers",
-        this.forUpdate.number_of_passers
-      );
+      formEditData.append("number_of_passers",this.forUpdate.number_of_passers);
       formEditData.append("campus_id", userCookies["campus_id"]);
       formEditData.append("college_id", userCookies["college_id"]);
       formEditData.append("user_id", userCookies["id"]);
       formEditData.append("id", this.forUpdate.id);
-
+      console.log(this.EdithandleFileUpload);
       try {
         const response = await axios
           .post(import.meta.env.VITE_API_UPDATE_HEP, formEditData, {
             headers,
           })
           .then((response) => {
-            // this.collegeProgram = response.data;
-
             if (response.data == "Successfully HEP updated!") {
               
               Swal.fire({
@@ -313,17 +307,18 @@ export default {
 
     async fetchProgram_Data(college_id) {
       try {
+        let userCookies = this.cookies.get("userCookies");
         const response = await axios
           .post(import.meta.env.VITE_API_GET_PROGRAM, {
             college_id: college_id,
+            user_id: userCookies["id"],
           })
           .then((response) => {
-            this.collegerPogram = response.data;
+            this.collegeProgram = response.data;
           })
           .catch((error) => {
             console.error("Error fetching campus", error);
           });
-        this.collegeProgram = response.data;
       } catch (error) {
         // add actions here
       }

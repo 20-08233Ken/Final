@@ -102,7 +102,7 @@ export default {
     async GetHEPData(){
       let userCookies = this.cookies.get('userCookies');
       await axios.post(import.meta.env.VITE_API_HEPLIST,{
-        "office": userCookies["position"],
+        "position": userCookies["position"],
         "campus_id": userCookies["campus_id"],
         "user_id": userCookies["id"],
       }).
@@ -184,7 +184,7 @@ export default {
         try{
             let users_list = this.cookies.get('userCookies');
             const response = await axios.post(import.meta.env.VITE_API_CHANCELLOR_APPROVE_HEP, {
-                "office": users_list.office,
+                "position": users_list.office,
                 "campus_id": users_list.campus_id,
                 "user_id": users_list.id,
                 "id":   this.selectedIds
@@ -211,7 +211,7 @@ export default {
 
             let users_list = this.cookies.get('userCookies');
             const response = await axios.post(import.meta.env.VITE_API_DISAPPROVE_HEP, {
-                "office": users_list.office,
+                "position": users_list.office,
                 "campus_id": users_list.campus_id,
                 "user_id": users_list.id,
                 "id":   this.selectedID,

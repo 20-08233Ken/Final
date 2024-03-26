@@ -107,6 +107,108 @@ export default{
                 });
             } catch (error) {}
         },
+        
+        // View Research PDF
+        async viewResearchPDF(id) {
+          this.selectedID = id;
+          let userCookies = this.cookies.get("userCookies");
+          await axios
+            .post(import.meta.env.VITE_API_DISPLAY_RESEARCH_PDF, {
+              id: id,
+              user_id: userCookies["id"],
+              responseType: 'arraybuffer' // Set the response type to arraybuffer
+            })
+            .then(response => {
+              // Create a Blob object from the response data
+              const blob = new Blob([response.data], { type: 'application/pdf' });
+            
+              // Create a URL for the Blob object
+              const url = URL.createObjectURL(blob);
+            
+              // Open the URL in a new tab
+              window.open(url, '_blank');
+            })
+            .catch(error => {
+              console.error('Error fetching PDF:', error);
+            });
+      
+        },
+
+        // View Utilized Tech PDF
+        async viewUtilizedTechPDF(id) {
+          this.selectedID = id;
+          let userCookies = this.cookies.get("userCookies");
+          await axios
+            .post(import.meta.env.VITE_API_DISPLAY_UTILIZED_TECHNOLOGY, {
+              id: id,
+              user_id: userCookies["id"],
+              responseType: 'arraybuffer' // Set the response type to arraybuffer
+            })
+            .then(response => {
+              // Create a Blob object from the response data
+              const blob = new Blob([response.data], { type: 'application/pdf' });
+            
+              // Create a URL for the Blob object
+              const url = URL.createObjectURL(blob);
+            
+              // Open the URL in a new tab
+              window.open(url, '_blank');
+            })
+            .catch(error => {
+              console.error('Error fetching PDF:', error);
+            });
+        },
+        
+        // View Enrollment Form PDF
+        async viewEnrollmentFormPDF(id) {
+          this.selectedID = id;
+          let userCookies = this.cookies.get("userCookies");
+          await axios
+            .post(import.meta.env.VITE_API_DISPLAY_ENROLLMENT_FORM, {
+              id: id,
+              user_id: userCookies["id"],
+              responseType: 'arraybuffer' // Set the response type to arraybuffer
+            })
+            .then(response => {
+              // Create a Blob object from the response data
+              const blob = new Blob([response.data], { type: 'application/pdf' });
+            
+              // Create a URL for the Blob object
+              const url = URL.createObjectURL(blob);
+            
+              // Open the URL in a new tab
+              window.open(url, '_blank');
+            })
+            .catch(error => {
+              console.error('Error fetching PDF:', error);
+            });
+        },
+        
+        // View Extension Program PDF
+        async viewDisplayExtensionProgram(id) {
+          this.selectedID = id;
+          let userCookies = this.cookies.get("userCookies");
+          await axios
+            .post(import.meta.env.VITE_API_DISPLAY_EXTENSION_PROGRAM, {
+              id: id,
+              user_id: userCookies["id"],
+              responseType: 'arraybuffer' // Set the response type to arraybuffer
+            })
+            .then(response => {
+              // Create a Blob object from the response data
+              const blob = new Blob([response.data], { type: 'application/pdf' });
+            
+              // Create a URL for the Blob object
+              const url = URL.createObjectURL(blob);
+            
+              // Open the URL in a new tab
+              window.open(url, '_blank');
+            })
+            .catch(error => {
+              console.error('Error fetching PDF:', error);
+            });
+        },
+        
     },
     mounted(){
         let userCookies = this.cookies.get("userCookies");
