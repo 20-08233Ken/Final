@@ -77,7 +77,14 @@ export default{
                 },{
                     reason:'Inconsistent Data'
                 }
-            ]
+            ],
+            selectedID: "",
+            remarks: "",
+            reasons: "",
+            user:null,
+            selectedIds: [],
+            approvedLogs:[],
+            myLoading:true
         }
     },
     components:{
@@ -209,12 +216,22 @@ export default{
             });
         },
 
+            
+        approvedAE(id) {
+          this.selectedID = id;
+        },
+
+        rejectedAE(id) {
+          this.selectedID = id;
+        },
+
+
         
         async ApprovedRequest(){
           try{
               let users_list = this.cookies.get('userCookies');
               const response = await axios.post(import.meta.env.VITE_API_APPROVE_AE, {
-                  "office": users_list.office,
+                  "position": users_list.position,
                   "campus_id": users_list.campus_id,
                   "user_id": users_list.id,
                   "id":   this.selectedID
@@ -241,7 +258,7 @@ export default{
 
               let users_list = this.cookies.get('userCookies');
               const response = await axios.post(import.meta.env.VITE_API_DISAPPROVE_AE, {
-                  "office": users_list.office,
+                  "position": users_list.position,
                   "campus_id": users_list.campus_id,
                   "user_id": users_list.id,
                   "id":   this.selectedID,

@@ -271,15 +271,15 @@ export default {
         })
         .catch(function (error) {
           if (error.response) {
-            if (error.response.data) {
-              alert(JSON.stringify(error.response.data.message));
-            }
+            // if (error.response.data) {
+            //   alert(JSON.stringify(error.response.data.message));
+            // }
           } else if (error.request) {
             console.log(error.request);
           } else {
             console.log("Error", error.message);
           }
-          console.log(error.config);
+          // console.log(error.config);
         })
 
         .finally(() => {
