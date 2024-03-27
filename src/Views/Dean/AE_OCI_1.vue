@@ -163,7 +163,7 @@
                 </table>
 
                 <span class="w-full flex items-center justify-end gap-2 mt-5">
-                    <button class="btn  bg-emerald-600 w-2/12 text-white border-0" @click="showFiles()">Add</button>
+                    <button class="btn  bg-emerald-600 w-2/12 text-white border-0" >Add</button>
                 </span>
             </Form>
         </div>
@@ -207,54 +207,44 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" :disabled='item.approval != `Returned`'
+                                        text="Edit" variant="flat" :disabled='item.status != `Returned to Dean`'
                                         @click="openUpdate(item)"></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
                                     <v-card class="px-8 py-8">
                                         <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
-                                            Edit Record</h3>
-                                        <p>{{ item.tb_id }}</p>
+                                            Edit Record 
+                                        </h3>
+                           
 
-                                        <Form @submit="addData">
+                                        <Form @submit="submitUpdate">
+                                            
+                                            <p class="text-0.9 font-Subheader text-gray-500 mt-6">Advanced Ed Code</p>
+                                            <Field type="text" name="advanced_ed_code" placeholder="Type here" class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;" v-model="forUpdate.advanced_ed_code" disabled />
+
+
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-4">Campus</p>
-                                            <Field type="text" name="campus" placeholder="Type here" disabled
-                                                class="input mt-2 input-bordered w-full "
-                                                v-model="data[0].campus_id" :rules="validateData" />
-
+                                            <Field type="text" name="campus" placeholder="Type here" disabled class="input mt-2 input-bordered w-full " v-model="forUpdate.campus" :rules="validateData" />
+                                            
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
-                                            <Field type="text" name="department" placeholder="Type here" disabled
-                                                class="input mt-2 input-bordered w-full "
-                                                v-model="data[0].college_id" :rules="validateData" />
+                                            <Field type="text" name="department" placeholder="Type here" disabled class="input mt-2 input-bordered w-full " v-model="forUpdate.college" :rules="validateData" />
 
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Firstname</p>
-                                            <Field type="text" name="fname" placeholder="Type here"
-                                                class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.firstname"
-                                                :rules="validateData" />
+                                            <Field type="text" name="fname" placeholder="Type here" class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;" v-model="forUpdate.ad_firstname" :rules="validateData" />
                                             <ErrorMessage name="fname" class="error_message" />
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Lastname</p>
-                                            <Field type="text" name="lname" placeholder="Type here"
-                                                class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.lastname"
-                                                :rules="validateData" />
+                                            <Field type="text" name="lname" placeholder="Type here" class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;" v-model="forUpdate.ad_lastname" :rules="validateData" />
                                             <ErrorMessage name="lname" class="error_message" />
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Middle Initial</p>
-                                            <Field type="text" name="m_initial" placeholder="Type here"
-                                                class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.middlename"
-                                                :rules="validateData" />
+                                            <Field type="text" name="m_initial" placeholder="Type here" class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;" v-model="forUpdate.ad_middlename" :rules="validateData" />
                                             <ErrorMessage name="m_initial" class="error_message" />
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6"> Position</p>
-                                            <Field type="text" name="position" placeholder="Type here"
-                                                class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;"
-                                                v-model="forUpdate.research_position" :rules="validateData" />
+                                            <Field type="text" name="position" placeholder="Type here" class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;" v-model="forUpdate.research_position" :rules="validateData" />
                                             <ErrorMessage name="position" class="error_message" />
 
                                             <span class="flex items-center mt-6 gap-2">
@@ -271,7 +261,7 @@
                                             </span>
                                             <Field as='select' name="engagement"
                                                 class="select select-bordered w-full mt-2"
-                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.a"
+                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.research_category"
                                                 :rules="validateData">
                                                 <option disabled selected>Select Engagement ...</option>
                                                 <option v-for="x in facultyEngagement" :value="x.key"> {{ x.engagement
@@ -321,7 +311,7 @@
                                                             Scanned copy of enrollment form</td>
                                                         <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
                                                             <input type="file" class="ml-5"
-                                                                @change="handleFileUpload1">
+                                                                @change="editHandleFileUpload1"  accept=".pdf">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -331,7 +321,7 @@
                                                             Scanned copy of latest research conducted</td>
                                                         <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
                                                             <input type="file" class="ml-5"
-                                                                @change="handleFileUpload2">
+                                                                @change="editHandleFileUpload2"  accept=".pdf">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -341,7 +331,7 @@
                                                             Documentation of utilized technlogy</td>
                                                         <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
                                                             <input type="file" class="ml-5"
-                                                                @change="handleFileUpload3">
+                                                                @change="editHandleFileUpload3"  accept=".pdf">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -352,27 +342,20 @@
                                                             report of extension program</td>
                                                         <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
                                                             <input type="file" class="ml-5"
-                                                                @change="handleFileUpload4">
+                                                                @change="editHandleFileUpload4"  accept=".pdf">
                                                         </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
 
-                                            <!-- <span class="w-full flex items-center justify-end gap-2 mt-5">
-                                            <button class="btn  bg-emerald-600 w-2/12 text-white border-0"
-                                                @click="showFiles()">Add</button>
-                                        </span> -->
-                                        </Form>
-                                        <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <span class="w-full flex items-center justify-end gap-4 mt-5">
-
-
-                                                <v-btn text="Close" @click="isActive.value = false"></v-btn>
-                                                <button
-                                                    class="btn btn-accent  w-2/12 text-white border-0">Update</button>
-                                            </span>
-                                        </v-card-actions>
+                                            <v-card-actions>
+                                                <v-spacer></v-spacer>
+                                                <span class="w-full flex items-center justify-end gap-4 mt-5">
+                                                    <v-btn text="Close" @click="isActive.value = false"></v-btn>
+                                                    <button class="btn btn-accent  w-2/12 text-white border-0" type="submit" @click="isActive.value = false">Update</button>
+                                                </span>
+                                            </v-card-actions>
+                                    </Form>
                                     </v-card>
                                 </template>
                             </v-dialog>

@@ -27,7 +27,7 @@ export default {
       in_duration: "",
       isIcon: false,
       count: true,
-      isActive: false,
+      isActive: 1,
       isAdd: false,
       search: "",
       headers: [
@@ -163,18 +163,7 @@ export default {
 
       // For View
       approvedLogs: [
-        {
-          status: "Approved ",
-          role: "VCAA",
-          remarks: "remarks",
-          reason: "Comment",
-        },
-        {
-          status: "Approved ",
-          role: "VCAA",
-          remarks: "remarks",
-          reason: "Comment",
-        },
+
       ],
     };
   },
@@ -188,6 +177,40 @@ export default {
       return true;
     },
     
+      
+    handleFileUpload1(event) {
+      this.File1 = event.target.files[0];
+    },
+    handleFileUpload2(event) {
+      this.File2 = event.target.files[0];
+    },
+    handleFileUpload3(event) {
+      this.File3 = event.target.files[0];
+    },
+    handleFileUpload4(event) {
+      this.File4 = event.target.files[0];
+    },
+
+    changeData(isActive) {
+      this.isDataActive = isActive;
+    },
+
+    openUpdate(item) {
+      this.forUpdate = item;
+    },
+
+    editHandleFileUpload1(event) {
+      this.UpdatedFile1 = event.target.files[0];
+    },
+    editHandleFileUpload2(event) {
+      this.UpdatedFile2 = event.target.files[0];
+    },
+    editHandleFileUpload3(event) {
+      this.UpdatedFile3 = event.target.files[0];
+    },
+    editHandleFileUpload4(event) {
+      this.UpdatedFile4 = event.target.files[0];
+    },
   
     // ADD data
     async addData() {
@@ -216,9 +239,9 @@ export default {
             headers,
           })
           .then((response) => {
-            if (response.data == "Successfully Advanced Education added!") {
-              location.reload();
-            }
+            // if (response.data == "Successfully Advanced Education added!") {
+            //   location.reload();
+            // }
           })
           .catch((error) => {
             console.error("Error fetching campus", error);
@@ -253,28 +276,32 @@ export default {
 
     // Edit
     async submitUpdate() {
+      console.log("zwq");
       const headers = {
         "Content-Type": "multipart/form-data",
       };
       let userCookies = this.cookies.get("userCookies");
       // Form Data
       const formEditData = new FormData();
-      formEditData.append("supported_file", this.editselectedFile);
-      formEditData.append("program_id", this.forUpdate.program_id);
-      formEditData.append("exam_date", this.forUpdate.exam_date);
-      formEditData.append("number_of_takers", this.forUpdate.number_of_takers);
-      formEditData.append(
-        "number_of_passers",
-        this.forUpdate.number_of_passers
-      );
+  
+
       formEditData.append("campus_id", userCookies["campus_id"]);
       formEditData.append("college_id", userCookies["college_id"]);
+      formEditData.append("firstname", this.forUpdate.firstname);
+      formEditData.append("middlename", this.forUpdate.middlename);
+      formEditData.append("lastname", this.forUpdate.lastname);
+      formEditData.append("position", this.forUpdate.research_position);
+      formEditData.append("category", this.forUpdate.research_category);
+      formEditData.append("copy_of_enrollment_form", this.UpdatedFile1);
+      formEditData.append("research_conducted", this.UpdatedFile2);
+      formEditData.append("utilized_technology", this.UpdatedFile3);
+      formEditData.append("report_of_extension_program", this.UpdatedFile4);
       formEditData.append("user_id", userCookies["id"]);
       formEditData.append("id", this.forUpdate.id);
 
       try {
         const response = await axios
-          .post(import.meta.env.VITE_API_UPDATE_HEP, formEditData, {
+          .post(import.meta.env.VITE_API_UPDATE_AE, formEditData, {
             headers,
           })
           .then((response) => {
@@ -318,41 +345,7 @@ export default {
       this.isActive = false;
     },
 
-    
-    handleFileUpload1(event) {
-      this.File1 = event.target.files[0];
-    },
-    handleFileUpload2(event) {
-      this.File2 = event.target.files[0];
-    },
-    handleFileUpload3(event) {
-      this.File3 = event.target.files[0];
-    },
-    handleFileUpload4(event) {
-      this.File4 = event.target.files[0];
-    },
-
-    changeData(isActive) {
-      this.isDataActive = isActive;
-    },
-
-    openUpdate(item) {
-      // this.forUpdate = item
-    },
-
-    editHandleFileUpload1(event) {
-      this.UpdatedFile1 = event.target.files[0];
-    },
-    editHandleFileUpload2(event) {
-      this.UpdatedFile2 = event.target.files[0];
-    },
-    editHandleFileUpload3(event) {
-      this.UpdatedFile3 = event.target.files[0];
-    },
-    editHandleFileUpload4(event) {
-      this.UpdatedFile4 = event.target.files[0];
-    },
-
+  
     // View Research PDF
     async viewResearchPDF(id) {
       this.selectedID = id;
@@ -454,6 +447,24 @@ export default {
         });
     },
     
+    
+    async ViewHistory(id) {
+      this.selectedID = id;
+      console.log("id:", id);
+      let userCookies = this.cookies.get("userCookies");
+      const response = await axios
+          .post(import.meta.env.VITE_API_AE_HISTORY, {
+          id: id,
+          user_id: userCookies["id"],
+          })
+          .then((response) => {
+            console.log(response);
+          this.approvedLogs = response.data;
+          })
+          .catch((error) => {
+          console.error("Error history not found", error);
+      });
+    },    
   },
   mounted() {
     // call here

@@ -39,11 +39,11 @@
                     <span class="flex w-full  gap-2 py-4">
                         <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
                         @click="approvedAE(item.advance_ed_id)"
-                        :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCAA'  || this.user == 'VPAA' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator')"> Approved</v-btn>
+                        :disabled="(item.status != 'For VPRDES Approval' && this.user == 'VPRDES') || (this.user == 'VCAA'  || this.user == 'VPAA' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator')"> Approved</v-btn>
 
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
                         @click="rejectedAE(item.advance_ed_id)"
-                        :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCAA'  || this.user == 'VPAA'|| this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator') "> Reject</v-btn>
+                        :disabled="(item.status != 'For VPRDES Approval' && this.user == 'VPRDES') || (this.user == 'VCAA'  || this.user == 'VPAA'|| this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator') "> Reject</v-btn>
 
                     </span>
                 </template>

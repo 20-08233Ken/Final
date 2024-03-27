@@ -206,8 +206,7 @@
 
 
                                                 <v-btn text="Close" @click="isActive.value = false"></v-btn>
-                                                <button
-                                                    class="btn btn-accent  w-2/12 text-white border-0" type="submit" @click="isActive.value = false">Update</button>
+                                                <button class="btn btn-accent  w-2/12 text-white border-0" type="submit" @click="isActive.value = false">Update</button>
                                             </span>
                                         </v-card-actions>
 

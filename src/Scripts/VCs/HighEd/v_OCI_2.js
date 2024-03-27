@@ -275,9 +275,9 @@ export default {
             //   alert(JSON.stringify(error.response.data.message));
             // }
           } else if (error.request) {
-            console.log(error.request);
+            // console.log(error.request);
           } else {
-            console.log("Error", error.message);
+            // console.log("Error", error.message);
           }
           // console.log(error.config);
         })
@@ -339,7 +339,7 @@ export default {
           });
       } catch (error) {
         // add actions here
-        console.log(error);
+        // console.log(error);
       }
     },
 
@@ -386,7 +386,7 @@ export default {
 
     //Viewing File xls
     async viewFileXLS(id, filename) {
-      console.log(filename);
+      // console.log(filename);
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
       await axios

@@ -93,23 +93,23 @@ export default{
             // Fetch Data
             async FetchData(position, campus, user_id) {
                 try {
-                await axios.post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
+                  await axios.post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
                     position: position,
                     campus_id: campus,
                     user_id: user_id,
-                    })
-                    .then((response) => {
+                  })
+                  .then((response) => {
                     // console.log("advance education:",response.data);
                     // this.myLoading = true;
-                    this.AdvanceEducationData = response.data;
-                    })
-                    .catch((error) => {
+                      this.AdvanceEducationData = response.data;
+                  })
+                  .catch((error) => {
                     console.error("Error fetching AE data", error);
-                    })
+                  })
         
-                    .finally(() => {
+                  .finally(() => {
                     this.myLoading = false;
-                    });
+                  });
                 } catch (error) {}
             },
             
@@ -214,71 +214,97 @@ export default{
                 });
             },
 
-        approvedAE(id) {
-        this.selectedID = id;
-        // console.log(this.selectedID);
-        },
-    
-        rejectedAE(id) {
-        this.selectedID = id;
-        // console.log(this.selectedID);
-        },
-
-        async RejectRequest(){
-            try{
-  
-                let users_list = this.cookies.get('userCookies');
-                const response = await axios.post(import.meta.env.VITE_API_DISAPPROVE_AE, {
-                    "position": users_list.position,
-                    "campus_id": users_list.campus_id,
-                    "user_id": users_list.id,
-                    "id":   this.selectedID,
-                    "reasons": this.reasons,
-                    "remarks":this.remarks
-                })
-                .then(response => {
-                  location.reload();
-        
-                })
-                .catch(error => {
-                    console.error('Error fetching AE data', error);
-                });
-  
-            }catch (error){
-                // add actions here
-            }
-        },
-
-        async ViewHistory(id) {
+            approvedAE(id) {
             this.selectedID = id;
-            let userCookies = this.cookies.get("userCookies");
-            const response = await axios
-                .post(import.meta.env.VITE_API_AE_HISTORY, {
-                id: id,
-                user_id: userCookies["id"],
-                })
-                .then((response) => {
-        
-                this.approvedLogs = response.data;
-                })
-                .catch((error) => {
-                console.error("Error history not found", error);
-            });
-        },    
+            // console.log(this.selectedID);
+            },
+            
+            rejectedAE(id) {
+            this.selectedID = id;
+            // console.log(this.selectedID);
+            },
 
-        toogleCheckBox(id){
-            const index = this.selectedIds.indexOf(id);
-            if (index === -1) {
-              
-              this.selectedIds.push(id);
+            async ApprovedRequest(){
+              try{
+                  let users_list = this.cookies.get('userCookies');
+                  const response = await axios.post(import.meta.env.VITE_API_CHANCELLOR_APPROVE_AE, {
+                      "position": users_list.position,
+                      "campus_id": users_list.campus_id,
+                      "user_id": users_list.id,
+                      "id":   this.selectedIds
+                  })
+                  .then(response => {
+                      // console.log(response);
+                      if (response.data == "This request is already approved by Chancellor!"){
+                        this.$router.push('/VCs');
+                      }
+                      
+                      location.reload();
+                  })
+                  .catch(error => {
+                      console.error('Error fetching hep data', error);
+                  });
       
-       
-            } else {
-             
-              this.selectedIds.splice(index, 1);
+              }catch (error){
+                  // add actions here
+              }
+          },
+
+            async RejectRequest(){
+                try{
       
-            }
-        },
+                    let users_list = this.cookies.get('userCookies');
+                    const response = await axios.post(import.meta.env.VITE_API_DISAPPROVE_AE, {
+                        "position": users_list.position,
+                        "campus_id": users_list.campus_id,
+                        "user_id": users_list.id,
+                        "id":   this.selectedID,
+                        "reasons": this.reasons,
+                        "remarks":this.remarks
+                    })
+                    .then(response => {
+                      location.reload();
+            
+                    })
+                    .catch(error => {
+                        console.error('Error fetching AE data', error);
+                    });
+      
+                }catch (error){
+                    // add actions here
+                }
+            },
+
+            async ViewHistory(id) {
+                this.selectedID = id;
+                let userCookies = this.cookies.get("userCookies");
+                const response = await axios
+                    .post(import.meta.env.VITE_API_AE_HISTORY, {
+                    id: id,
+                    user_id: userCookies["id"],
+                    })
+                    .then((response) => {
+            
+                    this.approvedLogs = response.data;
+                    })
+                    .catch((error) => {
+                    console.error("Error history not found", error);
+                });
+            },    
+
+            toogleCheckBox(id){
+                const index = this.selectedIds.indexOf(id);
+                if (index === -1) {
+                  
+                  this.selectedIds.push(id);
+          
+          
+                } else {
+                
+                  this.selectedIds.splice(index, 1);
+          
+                }
+            },
           
     },
     mounted(){

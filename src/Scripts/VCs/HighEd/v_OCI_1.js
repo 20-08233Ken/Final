@@ -133,12 +133,12 @@ export default {
               // this.addTimeout();
           }else if(error.request){
 
-              console.log(error.request)
+              // console.log(error.request)
               // called modal
               //this.login =false'
               // this.addTimeout();
           }else{
-              console.log('Error', error.message)
+              // console.log('Error', error.message)
               // called modal
               //this.login =false'
               // this.addTimeout();

@@ -22,25 +22,39 @@
         <div class="w-full flex justify-end">
 
         </div> -->
-        <v-data-table :headers="headers" :items="hepData" loading-text="Loading... Please wait" :loading="myLoading"
+        <v-data-table :headers="headers" :items="AdvanceEducationData" loading-text="Loading... Please wait" :loading="myLoading"
             class="elevation-1 " items-per-page="10" style="width:100%; overflow-x: scroll;">
             <template v-slot:item.check_box="{ item }" v-if="user === 'Chancellor'">
                 <input type='checkbox' :id="item.advance_ed_id" :value="item.advance_ed_id"
                     @change="toogleCheckBox(item.advance_ed_id)">
             </template>
-            <template v-slot:item.supported_file="{ item }">
-
+         
+            <template v-slot:item.copy_of_enrollment_form="{ item }">
                 <span class="flex w-full  gap-2 py-4">
-                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.advance_ed_id)">View
-                        PDF</v-btn>
+                        <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewEnrollmentFormPDF(item.advance_ed_id)">View PDF</v-btn>
+                </span>
+            </template>
+            <template v-slot:item.research_conducted="{ item }">
+                <span class="flex w-full  gap-2 py-4">
+                        <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewResearchPDF(item.advance_ed_id)">View PDF</v-btn>
+                </span>
+            </template>
+            <template v-slot:item.utilized_technology="{ item }">
+                <span class="flex w-full  gap-2 py-4">
+                        <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewUtilizedTechPDF(item.advance_ed_id)">View PDF</v-btn>
+                </span>
+            </template>
+            <template v-slot:item.report_of_extension_program="{ item }">
+                <span class="flex w-full  gap-2 py-4">
+                        <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewDisplayExtensionProgram(item.advance_ed_id)">View PDF</v-btn>
                 </span>
             </template>
             <template v-slot:item.actions="{ item }">
                 <span class="flex w-full flex-col  gap-2 py-4">
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
-                        @click="approvedHEP(item.advance_ed_id)" v-if="user != 'Chancellor'"> Approved</v-btn>
+                        @click="approvedAE(item.advance_ed_id)" v-if="user != 'Chancellor'"> Approved</v-btn>
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
-                        @click="rejectedHEP(item.advance_ed_id)"> Reject</v-btn>
+                        @click="rejectedAE(item.advance_ed_id)"> Reject</v-btn>
 
                     <v-dialog max-width="700">
                         <template v-slot:activator="{ props: activatorProps }">

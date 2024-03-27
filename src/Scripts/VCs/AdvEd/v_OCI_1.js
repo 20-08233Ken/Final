@@ -218,19 +218,19 @@ export default{
         
         approvedAE(id) {
           this.selectedID = id;
-          console.log(this.selectedID);
+          // console.log(this.selectedID);
         },
 
         rejectedAE(id) {
           this.selectedID = id;
-          console.log(this.selectedID);
+          // console.log(this.selectedID);
         },
 
 
         
       async ApprovedRequest(){
           try{
-            console.log(this.selectedID);
+            // console.log(this.selectedID);
               let users_list = this.cookies.get('userCookies');
               const response = await axios.post(import.meta.env.VITE_API_APPROVE_AE, {
                   "position": users_list.position,
@@ -239,12 +239,13 @@ export default{
                   "id":   this.selectedID
               })
               .then(response => {
-                  if (response.data == "This request is already approved by VCAA!"){
-                    
-                    this.$router.push('/VCs');
-                  }
-                  
-                location.reload();
+                  // if (response.data == "This request is already approved by VPRDES!"){ 
+                  //   this.$router.push('/VCs');
+                  // }else{
+
+                  // }
+                  this.$router.push('/VCs');
+                  location.reload();
               })
               .catch(error => {
                   console.error('Error fetching AE data', error);
