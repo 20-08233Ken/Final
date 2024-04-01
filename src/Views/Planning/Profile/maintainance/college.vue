@@ -27,7 +27,8 @@ export default {
         {
             updateCampus:null
         }
-      ]
+      ],
+      college:null
     };
   },
 
@@ -36,10 +37,42 @@ export default {
     Field,
     ErrorMessage,
   },
+
+  methods: {
+    validateInput(value) {
+      if (!value) {
+        return "This field is required";
+      }
+
+      return true;
+    },
+  },
 };
 </script>
 
 <template>
+  <div class="w-full">
+    <Form class="flex w-full mb-2 items-center gap-4">
+      <span class="w-full flex-col">
+        <Field
+          type="text"
+          name="college"
+          placeholder="Add New College"
+          class="input mt-2 input-bordered w-full"
+          style="border: 1px solid #d2d2d2"
+          v-model="college"
+          :rules="validateInput"
+        />
+        <ErrorMessage name="college" class="error_message" />
+      </span>
+
+      <v-btn elevation="0" class="mt-2" type="submit">
+        <v-icon class="mr-2" color="teal-darken-3">mdi-account-plus</v-icon>
+        <p class="text-0.7 text-teal-700 font-Header">Add</p>
+      </v-btn>
+    </Form>
+  </div>
+
   <v-data-table :headers="headers" :items="sampleData">
     <template v-slot:item.action="{ item }">
       <span class="w-full flex items-center justify-center gap-3">
@@ -130,3 +163,11 @@ export default {
     </template>
   </v-data-table>
 </template>
+
+<style scoped>
+.error_message {
+  color: red;
+  font-size: 0.9rem;
+}
+</style>
+

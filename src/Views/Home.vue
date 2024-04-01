@@ -15,7 +15,7 @@
             <QAM_nav  v-if="user === 'QAM'"/>
             <Extension_nav  v-if="user === 'Extension'"/>
             <Research_nav v-if="user === 'Research'"/>
-            <VCs_nav v-if="user === 'VCAA'"/>
+            <VCAA_navVue v-if="user === 'VCAA'"/>
             <Chancellor_navVue v-if="user === 'Chancellor'"/> 
             <vpaa_nav v-if="user === 'VPAA'"/> 
 

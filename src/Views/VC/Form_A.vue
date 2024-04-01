@@ -1,5 +1,6 @@
 <script>
 import VCs from '../../components/Others/Navigation/VCs_nav.vue'
+import VCAA_nav from '../../components/Others/Navigation/VCAA_nav.vue';
 import Planning_navVue from '../../components/Others/Navigation/Planning_nav.vue';
 import { useCookies } from "vue3-cookies";
 import { userPosition } from '../../Scripts/cookies';
@@ -13,7 +14,8 @@ export default {
     },
     components: {
         VCs,
-        Planning_navVue
+        Planning_navVue,
+        VCAA_nav
     },
 
     mounted() {
@@ -29,7 +31,7 @@ export default {
     <main class="w-full">
       
         <Planning_navVue  v-if="user== 'IPDO' || user == 'Planning'"/>
-        <VCs v-if="user == 'VCAA' || user == 'Chancellor' || user == 'VPAA'"  />
+        <VCAA_nav v-if="user == 'VCAA' || user == 'Chancellor' || user == 'VPAA'"  />
         <section class='w-full'>
             <div class="w-full flex justify-center">
 

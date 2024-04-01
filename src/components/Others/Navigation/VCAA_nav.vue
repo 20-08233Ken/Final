@@ -20,12 +20,31 @@
                 <router-link to="/home"> MIS</router-link>
             </li>
 
-             <!-- <li 
+             <li 
                 class="w-1/12 py-6 hover:bg-red-800 text-center md:hidden sm:hidden xm:hidden"
                 style="font-size: clamp(14px , 2vw , 16px);"
             >
-                <router-link to="/validateMain">Validate</router-link>
-            </li> -->
+                <router-link to="/VCs">Validate</router-link>
+            </li>
+
+            <li 
+                class="w-1/12 py-6 hover:bg-red-800 text-center md:hidden sm:hidden xm:hidden"
+                style="font-size: clamp(14px , 2vw , 16px);"
+            >
+                <router-link to="/vcaa">VCAA</router-link>
+            </li>
+            <li 
+                class="w-1/12 py-6 hover:bg-red-800 text-center md:hidden sm:hidden xm:hidden"
+                style="font-size: clamp(14px , 2vw , 16px);"
+            >
+                <router-link to="/v_FormA">Form A</router-link>
+            </li>
+            <li 
+                class="w-1/12 py-6 hover:bg-red-800 text-center md:hidden sm:hidden xm:hidden"
+                style="font-size: clamp(14px , 2vw , 16px);"
+            >
+                <router-link to="/v_FormA1">Form A-1</router-link>
+            </li>
 
             <!-- <li 
                 class="w-1/12 py-6 hover:bg-red-800 text-center md:hidden sm:hidden xm:hidden"

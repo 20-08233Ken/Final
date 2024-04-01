@@ -49,6 +49,7 @@
         </v-btn>
     </div>
     <div class="w-full overflow-x-auto shadow-card2  px-8 rounded-lg">
+        
         <div class="w-full flex flex-col mt-3 overflow-x-auto " v-if="isDataActive === 1">
             <v-card class="overflow-x-auto">
                 <template v-slot:text>

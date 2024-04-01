@@ -5,7 +5,6 @@ export default {
   data() {
     return {
       headers: [
-
         {
           title: "Campus ",
           value: "campus_name",
@@ -23,11 +22,13 @@ export default {
         },
       ],
 
-      forUpdate:[
+      forUpdate: [
         {
-            updateCampus:null
-        }
-      ]
+          updateCampus: null,
+        },
+      ],
+
+      campus: null,
     };
   },
 
@@ -36,10 +37,42 @@ export default {
     Field,
     ErrorMessage,
   },
+
+  methods: {
+    validateInput(value) {
+      if (!value) {
+        return "This field is required";
+      }
+
+      return true;
+    },
+  },
 };
 </script>
 
 <template>
+  <div class="w-full">
+    <Form class="flex w-full mb-2 items-center gap-4">
+      <span class="w-full flex-col">
+        <Field
+          type="text"
+          name="campus"
+          placeholder="Add New Campus"
+          class="input mt-2 input-bordered w-full"
+          style="border: 1px solid #d2d2d2"
+          v-model="campus"
+          :rules="validateInput"
+        />
+        <ErrorMessage name="campus" class="error_message" />
+      </span>
+
+      <v-btn elevation="0" class="mt-2" type="submit">
+        <v-icon class="mr-2" color="teal-darken-3">mdi-account-plus</v-icon>
+        <p class="text-0.7 text-teal-700 font-Header">Add</p>
+      </v-btn>
+    </Form>
+  </div>
+  
   <v-data-table :headers="headers" :items="sampleData">
     <template v-slot:item.action="{ item }">
       <span class="w-full flex items-center justify-center gap-3">
@@ -82,7 +115,7 @@ export default {
                       @click="isActive.value = false"
                     ></v-btn>
 
-                    <v-btn  class=" bg-teal-darken-3" >Submit</v-btn>
+                    <v-btn class="bg-teal-darken-3">Submit</v-btn>
                   </span>
                 </v-card-actions>
               </Form>
@@ -110,19 +143,18 @@ export default {
                 Delete Record
               </h3>
 
-              <p class="py-3 px-3">Are you sure you want to delete this record?</p>
+              <p class="py-3 px-3">
+                Are you sure you want to delete this record?
+              </p>
 
               <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <span class="w-full flex justify-end mt-4">
-                    <v-btn
-                      text="Cancel"
-                      @click="isActive.value = false"
-                    ></v-btn>
+                <v-spacer></v-spacer>
+                <span class="w-full flex justify-end mt-4">
+                  <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
 
-                    <v-btn  class=" bg-teal-darken-3" >Delete</v-btn>
-                  </span>
-                </v-card-actions>
+                  <v-btn class="bg-teal-darken-3">Delete</v-btn>
+                </span>
+              </v-card-actions>
             </v-card>
           </template>
         </v-dialog>
@@ -130,3 +162,10 @@ export default {
     </template>
   </v-data-table>
 </template>
+
+<style scoped>
+.error_message {
+  color: red;
+  font-size: 0.9rem;
+}
+</style>

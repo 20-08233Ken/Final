@@ -41,7 +41,7 @@ import Research from "../Views/Research/Research.vue";
 import VCs from '../Views/VC/vcs.vue'
 import v_FormA from '../Views/VC/Form_A.vue'
 import v_FormA1 from '../Views/VC/Form_A1.vue'
-
+import VCAA from '../Views/VC/VCAA/vcaa.vue'
 
 import Chancellor from '../Views/Chancellor/chancellor_vue.vue'
 
@@ -221,6 +221,11 @@ const router = createRouter ({
             path:'/v_FormA1',
             name:'v_FormA1',
             component:v_FormA1
+        },
+        {
+            path:'/vcaa',
+            name:'vcaa',
+            component:VCAA
         }
      
 

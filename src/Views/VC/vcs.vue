@@ -1,5 +1,6 @@
 <script>
     import VCs from '../../components/Others/Navigation/VCs_nav.vue'
+    import VCAA_nav from '../../components/Others/Navigation/VCAA_nav.vue'
     import vpaa_nav from '../../components/Others/Navigation/vpaa_nav.vue'
     import Planning_navVue from '../../components/Others/Navigation/Planning_nav.vue'
 
@@ -61,7 +62,8 @@ export default{
         OC,
         OPI_2,
         Research,
-        vpaa_nav
+        vpaa_nav,
+        VCAA_nav
     },
     data(){
         return{
@@ -83,7 +85,7 @@ export default{
 <template>
 
     <main class="w-full">
-        <VCs v-if="user === 'VCAA'"/>
+        <VCAA_nav v-if="user === 'VCAA'"/>
         <vpaa_nav v-if="user === 'VPAA'"/>
         <Planning_navVue v-if="user === 'Planning'" />
         <Planning_navVue v-if="user === 'IPDO'" />
