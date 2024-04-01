@@ -98,7 +98,13 @@ export default {
 
   // METHODS 
   methods: {
+    validateInput(value) {
+      if (!value) {
+        return "This field is required";
+      }
 
+      return true;
+    },
     async GetHEPData(){
       let userCookies = this.cookies.get('userCookies');
       await axios.post(import.meta.env.VITE_API_HEPLIST,{

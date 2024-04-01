@@ -250,6 +250,13 @@ export default {
   },
 
   methods: {
+    validateInput(value) {
+      if (!value) {
+        return "This field is required";
+      }
+
+      return true;
+    },
     async GetHEPData() {
       let userCookies = this.cookies.get("userCookies");
       await axios

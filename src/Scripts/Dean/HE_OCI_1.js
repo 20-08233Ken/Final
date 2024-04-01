@@ -138,6 +138,7 @@ export default {
           .then((response) => {
             this.myLoading = true;
             this.hepData = response.data;
+            console.log('Lpoaded')
             // if (response.data == "Successfully HEP added!"){
             //     this.isDataActive = false;
             // }
@@ -185,6 +186,8 @@ export default {
       // Form Data
       const formData = new FormData();
       formData.append("supported_file", this.selectedFile);
+      // formData.append('campus_id', this.data[0].in_campus);
+      // formData.append('college_id',this.data[0].in_department);
       formData.append("program_id", this.in_program);
       formData.append("exam_date", this.in_examDate);
       formData.append("number_of_takers", this.in_takers);
@@ -194,13 +197,17 @@ export default {
       formData.append("user_id", userCookies["id"]);
 
       try {
-        const response = await axios.post(import.meta.env.VITE_API_CREATE_HEP, formData, {
+        const response = await axios
+          .post(import.meta.env.VITE_API_CREATE_HEP, formData, {
             headers,
           })
           .then((response) => {
+            // this.collegeProgram = response.data;
+            
           
             if (response.data == "Successfully HEP added!") {
               // location.reload();
+              // console.log('added')
               this.isDataActive = 1
               Swal.fire({
                 title: "Success",
@@ -209,6 +216,8 @@ export default {
                 confirmButtonText: "OK",
               });
           
+       
+              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
           })
           .catch((error) => {
@@ -233,7 +242,6 @@ export default {
 
     openUpdate(item) {
       this.forUpdate = item;
-      console.log("forUPDATE:", this.forUpdate);
     },
     async submitUpdate() {
       const headers = {
@@ -246,18 +254,23 @@ export default {
       formEditData.append("program_id", this.forUpdate.program_id);
       formEditData.append("exam_date", this.forUpdate.exam_date);
       formEditData.append("number_of_takers", this.forUpdate.number_of_takers);
-      formEditData.append("number_of_passers",this.forUpdate.number_of_passers);
+      formEditData.append(
+        "number_of_passers",
+        this.forUpdate.number_of_passers
+      );
       formEditData.append("campus_id", userCookies["campus_id"]);
       formEditData.append("college_id", userCookies["college_id"]);
       formEditData.append("user_id", userCookies["id"]);
       formEditData.append("id", this.forUpdate.id);
-      console.log(this.EdithandleFileUpload);
+
       try {
         const response = await axios
           .post(import.meta.env.VITE_API_UPDATE_HEP, formEditData, {
             headers,
           })
           .then((response) => {
+            // this.collegeProgram = response.data;
+
             if (response.data == "Successfully HEP updated!") {
               
               Swal.fire({
@@ -266,7 +279,8 @@ export default {
                 icon: "success",
                 confirmButtonText: "OK",
               });
-              this.changeData(1);
+              this.changeData(1)
+              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
           })
           .catch((error) => {
@@ -307,11 +321,9 @@ export default {
 
     async fetchProgram_Data(college_id) {
       try {
-        let userCookies = this.cookies.get("userCookies");
         const response = await axios
           .post(import.meta.env.VITE_API_GET_PROGRAM, {
             college_id: college_id,
-            user_id: userCookies["id"],
           })
           .then((response) => {
             this.collegeProgram = response.data;
@@ -319,6 +331,7 @@ export default {
           .catch((error) => {
             console.error("Error fetching campus", error);
           });
+        this.collegeProgram = response.data;
       } catch (error) {
         // add actions here
       }
@@ -389,7 +402,7 @@ export default {
 
     removeFiles() {
       this.selectedFile = null;
-      // console.log(this.selectedFile);
+      console.log(this.selectedFile);
     },
     // showFile() {
     //   this.isDataActive = false;
@@ -408,6 +421,7 @@ export default {
         })
         .then((response) => {
           this.approvedLogs = response.data;
+          console.log(this.approvedLogs);
         })
         .catch((error) => {
           console.error("Error history not found", error);
@@ -454,6 +468,10 @@ export default {
   // }
 
   mounted() {
+    // call here
+    // this.fetchProgram_Data()
+
+
     let userCookies = this.cookies.get("userCookies");
     let accesstoken = this.cookies.get("userAccessToken");
     let userPosition = this.cookies.get("userPosition");
@@ -467,12 +485,11 @@ export default {
     if (this.user == null && this.userCookies == null) {
       this.$router.push("/");
     }
-    this.userposition=  userCookies["position"]
+    this.userposition= userCookies["position"]
     this.userCampus= userCookies["campus_id"]
     this.userID= userCookies["id"]
 
     this.fetchProgram_Data(userCookies["college_id"]);
-    this.FetchData(userCookies["position"], userCookies["campus_id"],userCookies["id"],
-    );
+    this.FetchData(userCookies["position"], userCookies["campus_id"],userCookies["id"]);
   },
 };

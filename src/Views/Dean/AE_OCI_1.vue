@@ -456,5 +456,11 @@
 </template>
 
 <style scoped>
+
     @import url('../../style//Dean/AE_OCI_1_style.css');
+
+        :deep(.v-table .v-table__wrapper > table > thead > tr > th){
+            border: 1px solid white;   
+
+        }
 </style>

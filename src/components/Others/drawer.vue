@@ -5,9 +5,6 @@ import {userCollege }from '../../Scripts/cookies';
 import {Form, Field, ErrorMessage} from 'vee-validate'
 import { ref } from 'vue';
 import { useCookies } from 'vue3-cookies';
-import Swal from 'sweetalert2'
-
-import axios from 'axios';
 export default {
     setup() {
         const { cookies } = useCookies();
@@ -76,24 +73,15 @@ export default {
         ErrorMessage
     },  
     methods: {
-        async logout() {
+        logout() {
+            this.cookies.remove('userCookies')
+            this.cookies.remove('userPosition')
+            this.$router.push('/')
 
-            await axios.post(import.meta.env.VITE_API_LOGOUT).then(() => {
-                // Remove the JWT token from local storage
-                localStorage.removeItem('token');
-                // Redirect to the login page
-                this.cookies.remove('userCookies');
-                localStorage.removeItem('token');
-                this.cookies.remove('userPosition');
-                this.cookies.remove('userCampus');
+        console.log(this.cookies.get('userPosition'))
             
-                this.$router.push('/');
-            })
-            .catch(error => {
-                console.error('Logout failed:', error);
-            });
         },
-        
+
         validateData(value){
             if(!value){
                 return 'This Field is Required'

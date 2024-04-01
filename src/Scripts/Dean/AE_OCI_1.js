@@ -61,25 +61,32 @@ export default {
           value: "research_category",
         },
         {
-          title: "Scanned copy of Enrollment Form",
-          value: "copy_of_enrollment_form",
-          align: "center",
+          title:'Supported Documents',
+          align:'center',
+          children:[
+            {
+              title: "Scanned copy of Enrollment Form",
+              value: "copy_of_enrollment_form",
+              align: "center",
+            },
+            {
+              title: "Scanned copy of latest research conducted",
+              value: "research_conducted",
+              align: "center",
+            },
+            {
+              title: "Documentation of utilized technology",
+              value: "utilized_technology",
+              align: "center",
+            },
+            {
+              title: "Activity report of extension program	",
+              value: "report_of_extension_program",
+              align: "center",
+            },
+          ]
         },
-        {
-          title: "Scanned copy of latest research conducted",
-          value: "research_conducted",
-          align: "center",
-        },
-        {
-          title: "Documentation of utilized technology",
-          value: "utilized_technology",
-          align: "center",
-        },
-        {
-          title: "Activity report of extension program	",
-          value: "report_of_extension_program",
-          align: "center",
-        },
+
         {
           title: "Validation Status",
           value: "status",

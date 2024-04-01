@@ -34,7 +34,7 @@
                         @click="approvedHEP(item.hep_one_id)"
                         :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCRDES' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator')"> Approved</v-btn>
 
-                    <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
+                        <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
                         @click="rejectedHEP(item.hep_one_id)"
                         :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCRDES' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator') "> Reject</v-btn>
 

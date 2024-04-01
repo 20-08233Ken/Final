@@ -92,16 +92,9 @@
                                         <h3
                                             class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
                                             Edit Record</h3>
-                                        <p>{{ item.tb_id }}</p>
+                                     
 
                                         <Form class="mt-4" @submit="submitUpdate">
-                                            <p class="text-0.9 font-Subheader text-gray-500 mt-6">HEP Code</p>
-                                            <Field type="number" placeholder="Type here"
-                                                class="input mt-2 input-bordered w-full" defa
-                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.hep_code"
-                                                name="hep_code" />
-                                            <ErrorMessage name="hep_code" class="error_message" />
-
 
                                             <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
                                             <Field type="text" name="campus" placeholder="Type here" disabled
@@ -206,7 +199,8 @@
 
 
                                                 <v-btn text="Close" @click="isActive.value = false"></v-btn>
-                                                <button class="btn btn-accent  w-2/12 text-white border-0" type="submit" @click="isActive.value = false">Update</button>
+                                                <button
+                                                    class="btn btn-accent  w-2/12 text-white border-0" type="submit" @click="isActive.value = false">Update</button>
                                             </span>
                                         </v-card-actions>
 

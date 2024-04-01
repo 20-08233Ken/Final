@@ -90,6 +90,13 @@ export default{
         Form, Field, ErrorMessage
     },
     methods:{
+        validateInput(value) {
+            if (!value) {
+              return "This field is required";
+            }
+      
+            return true;
+          },
             // Fetch Data
             async FetchData(position, campus, user_id) {
                 try {

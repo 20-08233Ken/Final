@@ -22,8 +22,6 @@ import Research_nav from '../components/Others/Navigation/Research_nav.vue'
 import vpaa_nav from '../components/Others/Navigation/vpaa_nav.vue'
 import VCs_nav from '../components/Others/Navigation/VCs_nav.vue'
 import Chancellor_navVue from '../components/Others/Navigation/Chancellor_nav.vue'
-import vcrdes_nav from '../components/Others/Navigation/vcrdes_nav.vue'
-import vprdes_nav from '../components/Others/Navigation/vprdes_nav.vue'
 
 
 import { useCookies } from 'vue3-cookies';
@@ -67,9 +65,7 @@ export default{
         VCAA_navVue,
         VCs_nav,
         Chancellor_navVue,
-        vpaa_nav,
-        vprdes_nav,
-        vcrdes_nav,
+        vpaa_nav
     },  
       methods:{
         showActive(componentName,tabNumber){
@@ -82,13 +78,35 @@ export default{
 
 
     mounted(){
+        // userCookies Value
+        // [1] Dean , [2] Registrar, [3] QAM
+        // [4] Planning
+
+
+        // this.cookies
+        // .set('userCookies','random_key','1hr')
+        // .set('userPosition','Dean','1hr');
+
+        // let userCookies = this.cookies.get('userCookies');
+        // let userPosition = this.cookies.get('userPosition');
+        // console.log("userCookies",userCookies)
+        // console.log("userPosition",userPosition)
+
+        // //
+        // this.user = userPosition
+        // this.userCookies = userCookies
+
+        // console.log(import.meta.env.VITE_SOME_KEY) // "123"
+        // console.log(import.meta.env.VITE_API_TEST) // "123"
 
 
         let userCookies = this.cookies.get('userCookies');
-        // let accesstoken = this.cookies.get('userAccessToken');
+        let accesstoken = this.cookies.get('userAccessToken');
         let userPosition = this.cookies.get('userPosition');
-        // let userCollege = this.cookies.get('userCollege');
-        // let userCampus = this.cookies.get('userCampus');
+        let userCollege = this.cookies.get('userCollege');
+        let userCampus = this.cookies.get('userCampus');
+        // console.log(userCookies);
+        // console.log(userPosition);
         this.user = userPosition;
         this.userCookies = userCookies;
   
