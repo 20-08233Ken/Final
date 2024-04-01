@@ -176,7 +176,7 @@ export default {
 
               <Form class="mt-4 px-3" @submit="submitUpdate">
                 <p class="text-0.9 font-Subheader text-gray-500">Office</p>
-                <Field type="text" name="Office" placeholder="Type here" class="input mt-2 input-bordered w-full" style="border: 1px solid #d2d2d2" v-model="item.office" />
+                <Field type="text" name="Office" placeholder="Type here" class="input mt-2 input-bordered w-full" style="border: 1px solid #d2d2d2" v-model="forUpdate.office" />
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <span class="w-full flex justify-end mt-4">
@@ -196,7 +196,7 @@ export default {
               icon="mdi-delete"
               size="xs"
               elevation="0"
-              v-bind="activatorProps"
+              v-bind="activatorProps"   @click="forDelete(item)"
             >
               <v-icon color="red-darken-3"></v-icon>
             </v-btn>
