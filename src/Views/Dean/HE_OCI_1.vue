@@ -49,7 +49,6 @@
         </v-btn>
     </div>
     <div class="w-full overflow-x-auto shadow-card2  px-8 rounded-lg">
-        
         <div class="w-full flex flex-col mt-3 overflow-x-auto " v-if="isDataActive === 1">
             <v-card class="overflow-x-auto">
                 <template v-slot:text>
@@ -93,7 +92,7 @@
                                         <h3
                                             class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4 ">
                                             Edit Record</h3>
-                                     
+                                        <p>{{ item.tb_id }}</p>
 
                                         <Form class="mt-4" @submit="submitUpdate">
 
@@ -332,7 +331,7 @@
                 <ErrorMessage name="exam_date" class="error_message" />
 
                 <p class="text-0.9 font-Subheader text-gray-500 mt-6">Number of First-time Takers</p>
-                <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full" defa
+                <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full" 
                     style="border:  1px solid #d2d2d2;" v-model="in_takers" name="no_takers" :rules="checkNegative" />
                 <ErrorMessage name="no_takers" class="error_message" />
 

@@ -13,7 +13,7 @@ export default {
     return {
       headers: [
         {
-          title: "Name",
+          title: "Location",
           value: "campus_name",
         },
         {
@@ -28,13 +28,12 @@ export default {
 
       CampusData: [],
 
-      forUpdate: [
-        {
-          updateCampus: null,
-        },
-      ],
+      forUpdate: [],
 
       campus: null,
+      myLoading: true,
+
+      newCampus: [],
     };
   },
 
@@ -63,9 +62,10 @@ export default {
           .then((response) => {
             // this.myLoading2 = true;
             this.CampusData = response.data;
+            this.myLoading = false
           })
           .catch((error) => {
-            console.error("Error fetching hep data", error);
+            console.error("Error fetching data", error);
           })
 
           .finally(() => {
@@ -73,6 +73,7 @@ export default {
           });
       } catch (error) {}
     },  
+    
     openUpdate(item) {
       this.forUpdate = item;
     },
@@ -135,6 +136,33 @@ export default {
       } catch (error) {}
     },
 
+    async AddData(){
+      try {
+        let userCookies = this.cookies.get("userCookies");
+          await axios.post(import.meta.env.VITE_API_CREATE_CAMPUS,{
+            'campus' : this.newCampus.campus,
+            'campus_name' : this.newCampus.campus_name,
+            'user_id' : userCookies['id'],
+          })
+          .then((response) => {
+            if (response.data.message == "Campus Successfully Created") {
+              
+              Swal.fire({
+                title: "Success",
+                text: "Data Created successfully.",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then(function() {
+                  this.$router.go();
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching Campus", error);
+          });
+      } catch (error) {}
+    }
+
   },
 
   
@@ -156,82 +184,78 @@ export default {
 
 <template>
   <div class="w-full">
-    <Form class="flex w-full mb-2 items-center gap-4">
-      <span class="w-full flex-col">
-        <Field
-          type="text"
-          name="campus"
-          placeholder="Add New Campus"
-          class="input mt-2 input-bordered w-full"
-          style="border: 1px solid #d2d2d2"
-          v-model="campus"
-          :rules="validateInput"
-        />
-        <ErrorMessage name="campus" class="error_message" />
-      </span>
+    <v-dialog max-width="500">
+      <template v-slot:activator="{ props: activatorProps }">
+        <span class="w-full flex justify-end">
+          <v-btn elevation="0" class="mt-2" v-bind="activatorProps">
+            <v-icon class="mr-2" color="teal-darken-3">mdi-account-plus</v-icon>
+            <p class="text-0.7 text-teal-700 font-Header">Add</p>
+          </v-btn>
+        </span>
+      </template>
 
-      <v-btn elevation="0" class="mt-2" type="submit">
-        <v-icon class="mr-2" color="teal-darken-3">mdi-account-plus</v-icon>
-        <p class="text-0.7 text-teal-700 font-Header">Add</p>
-      </v-btn>
-    </Form>
+      <template v-slot:default="{ isActive }">
+        <v-card class="px-3 py-3">
+          <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
+            Add Record
+          </h3>
+          <Form class="mt-4 px-3" @submit="AddData">
+
+            <p class="text-0.9 font-Subheader text-gray-500">Campus</p>
+            <Field type="text" name="campus" placeholder="Type here" class="input mt-2 input-bordered w-full"
+              style="border: 1px solid #d2d2d2" v-model="newCampus.campus" />
+
+            <p class="text-0.9 font-Subheader text-gray-500 mt-4">Location</p>
+            <Field type="text" name="campus_name" placeholder="Type here" class="input mt-2 input-bordered w-full"
+              style="border: 1px solid #d2d2d2" v-model="newCampus.campus_name" />
+
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <span class="w-full flex justify-end mt-4">
+                <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
+                <v-btn class=" bg-teal-darken-3" type="submit" @click="isActive.value = false">Add</v-btn>
+              </span>
+            </v-card-actions>
+          </Form>
+        </v-card>
+      </template>
+    </v-dialog>
   </div>
-  
-  <v-data-table :headers="headers" :items="CampusData">
+
+  <v-data-table :headers="headers" :items="CampusData" loading-text="Loading... Please wait" :loading="myLoading">
     <template v-slot:item.action="{ item }">
       <span class="w-full flex items-center justify-center gap-3">
         <v-dialog max-width="500">
           <template v-slot:activator="{ props: activatorProps }">
-            <v-btn
-              icon="mdi-pencil"
-              size="xs"
-              elevation="0"
-              v-bind="activatorProps" @click="openUpdate(item)"
-            >
+            <v-btn icon="mdi-pencil" size="xs" elevation="0" v-bind="activatorProps" @click="openUpdate(item)">
               <v-icon color="light-blue-darken-2"></v-icon>
             </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
             <v-card class="px-3 py-3">
-              <h3
-                class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4"
-              >
+              <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
                 Edit Record
               </h3>
 
-              <Form class="mt-4 px-3"  @submit="submitUpdate">
-          
-                <p class="text-0.9 font-Subheader text-gray-500">Name</p>
-                <Field
-                  type="text"
-                  name="campus_name"
-                  placeholder="Type here"
-                  class="input mt-2 input-bordered w-full"
-                  style="border: 1px solid #d2d2d2"
-                  v-model="forUpdate.campus_name"
-                />
+              <Form class="mt-4 px-3" @submit="submitUpdate">
 
-                
-                <p class="text-0.9 font-Subheader text-gray-500">Campus Name</p>
-                <Field
-                  type="text"
-                  name="campus"
-                  placeholder="Type here"
-                  class="input mt-2 input-bordered w-full"
-                  style="border: 1px solid #d2d2d2"
-                  v-model="forUpdate.campus"
-                />
+                <p class="text-0.9 font-Subheader text-gray-500">Location</p>
+                <Field type="text" name="campus_name" placeholder="Type here" class="input mt-2 input-bordered w-full"
+                  style="border: 1px solid #d2d2d2" v-model="forUpdate.campus_name" />
+
+
+                <p class="text-0.9 font-Subheader text-gray-500">Campus</p>
+                <Field type="text" name="campus" placeholder="Type here" class="input mt-2 input-bordered w-full"
+                  style="border: 1px solid #d2d2d2" v-model="forUpdate.campus" />
 
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <span class="w-full flex justify-end mt-4">
-                    <v-btn
-                      text="Cancel"
-                      @click="isActive.value = false"
-                    ></v-btn>
-
-                    <v-btn class="bg-teal-darken-3"  type="submit"   @click="isActive.value = false">Submit</v-btn>
+                    <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
+                    <v-btn class="bg-teal-darken-3" type="submit" @click="isActive.value = false">
+                      Submit
+                    </v-btn>
                   </span>
                 </v-card-actions>
               </Form>
@@ -241,21 +265,14 @@ export default {
 
         <v-dialog max-width="500">
           <template v-slot:activator="{ props: activatorProps }">
-            <v-btn
-              icon="mdi-delete"
-              size="xs"
-              elevation="0"
-              v-bind="activatorProps"  @click="forDelete(item)"
-            >
+            <v-btn icon="mdi-delete" size="xs" elevation="0" v-bind="activatorProps" @click="forDelete(item)">
               <v-icon color="red-darken-3"></v-icon>
             </v-btn>
           </template>
 
           <template v-slot:default="{ isActive }">
             <v-card class="px-3 py-3">
-              <h3
-                class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4"
-              >
+              <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
                 Delete Record
               </h3>
               <Form class="mt-4 px-3" @submit="submitDelete">
@@ -268,7 +285,7 @@ export default {
                   <span class="w-full flex justify-end mt-4">
                     <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
 
-                    <v-btn  class=" bg-teal-darken-3"  type="submit"   @click="isActive.value = false" >Delete</v-btn>
+                    <v-btn class=" bg-teal-darken-3" type="submit" @click="isActive.value = false">Delete</v-btn>
                   </span>
                 </v-card-actions>
               </Form>

@@ -54,17 +54,18 @@
     </div>
 
     <div class="w-full overflow-x-auto shadow-card2 mt-1 px-8 py-4 rounded-lg">
+
+        <!-- Registrar -->
         <div class="w-full flex flex-col mt-3 overflow-x-auto" v-if="isDataActive === 1">
             <h1 class="font-Subheader mb-4">PRC: List of Graduates by Institution, Program, and Sex</h1>
 
             <v-data-table-server :headers="headersRegistrar" :items="registrarData" class="elevation-1 "
                 items-per-page="10" :items-length="0" :loading="myLoading" loading-text="Loading... Please wait"
                 style="width:100%;">
-
-
             </v-data-table-server>
         </div>
 
+        <!-- Form -->
         <div class="w-full flex flex-col mt-8" v-if="isDataActive === 2">
             <Form @submit="addData">
 
@@ -170,7 +171,8 @@
                             <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">2
                             </td>
                             <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                                Official list of FY 2021 Graduates <span class="text-Red-Rose font-Header">(.xlsx)</span></td>
+                                Official list of FY 2021 Graduates <span
+                                    class="text-Red-Rose font-Header">(.xlsx)</span></td>
                             <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
                                 <input type="file" class="ml-5" @change="handleFileUpload2">
                             </td>
@@ -186,38 +188,40 @@
             </Form>
         </div>
 
+        <!-- Table -->
         <div class="w-full flex flex-col mt-3 overflow-x-auto" v-if="isDataActive === 3">
             <v-card>
                 <template v-slot:text>
 
                     <div class='w-full flex items-center gap-12'>
-                    <v-text-field v-model="search" label="Search" prepend-inner-icon="mdi-magnify" variant="outlined"
-                        hide-details single-line ></v-text-field>
-                                    
-                    <v-btn elevation="0" ize="small" class="bg-teal-darken-3 flex ">
-                        <v-icon>mdi-refresh</v-icon>
-                        <p class="ml-3">Reload Table</p>
-                    </v-btn>
-                    
-                    </div>
-              </template>
+                        <v-text-field v-model="search" label="Search" prepend-inner-icon="mdi-magnify"
+                            variant="outlined" hide-details single-line></v-text-field>
 
-                <v-data-table :headers="headersDean" :items="deansData" class="elevation-1 "
-                    items-per-page="10"  :loading="myLoading2" loading-text="Loading... Please wait" :search="search"
+                        <v-btn elevation="0" ize="small" class="bg-teal-darken-3 flex ">
+                            <v-icon>mdi-refresh</v-icon>
+                            <p class="ml-3">Reload Table</p>
+                        </v-btn>
+
+                    </div>
+                </template>
+
+                <v-data-table :headers="headersDean" :items="deansData" class="elevation-1 " items-per-page="10"
+                    :loading="myLoading2" loading-text="Loading... Please wait" :search="search"
                     style="width:100%; overflow-x: scroll;">
 
                     <template v-slot:item.graduate_files="{ item }">
-                <span class="flex w-full flex-col  gap-2 py-4">
-                    <!-- <v-btn size="x-small" class="bg-light-blue-darken-3"><a :href=item.supported_file
+                        <span class="flex w-full flex-col  gap-2 py-4">
+                            <!-- <v-btn size="x-small" class="bg-light-blue-darken-3"><a :href=item.supported_file
                                 target="_blank">View PDF</a> </v-btn> -->
-                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFilePDF(item.hep_two_id)">
-                      View PDF
-                    </v-btn>
+                            <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFilePDF(item.hep_two_id)">
+                                View PDF
+                            </v-btn>
 
-                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFileXLS(item.hep_two_id, item.official_list)">View Excel</v-btn>
+                            <v-btn size="x-small" class="bg-light-blue-darken-3"
+                                @click="viewFileXLS(item.hep_two_id, item.official_list)">View Excel</v-btn>
 
-                </span>
-            </template>
+                        </span>
+                    </template>
 
                     <template v-slot:item.actions="{ item }">
                         <span class="flex w-full flex-col  gap-2 py-4">
@@ -226,10 +230,10 @@
                             <v-dialog max-width="700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant"
-                                        text="Edit" variant="flat" @click="openUpdate(item)" :disabled='item.status != `Returned to Dean`'
-                                       ></v-btn>
+                                        text="Edit" variant="flat" @click="openUpdate(item)"
+                                        :disabled='item.status != `Returned to Dean`'></v-btn>
 
-                                        <!-- ></v-btn> -->
+                                    <!-- ></v-btn> -->
                                 </template>
                                 <template v-slot:default="{ isActive }">
                                     <v-card class="px-8 py-8">
@@ -264,8 +268,8 @@
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Firstname</p>
                                             <Field type="text" name="firstname" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.student_firstname"
-                                                :rules="validateData" />
+                                                style="border:  1px solid #d2d2d2;"
+                                                v-model="forUpdate.student_firstname" :rules="validateData" />
                                             <ErrorMessage name="firstname" class="error_message" />
 
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Lastname</p>
@@ -278,8 +282,8 @@
                                             <p class="text-0.9 font-Subheader text-gray-500 mt-6">Middle Initial</p>
                                             <Field type="text" name="m_initial" placeholder="Type here"
                                                 class="input mt-2 input-bordered w-full "
-                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.student_middlename"
-                                                :rules="validateData" />
+                                                style="border:  1px solid #d2d2d2;"
+                                                v-model="forUpdate.student_middlename" :rules="validateData" />
                                             <ErrorMessage name="m_initial" class="error_message" />
 
 
@@ -299,8 +303,8 @@
 
                                             <Field as="select" name="statuses"
                                                 class="select select-bordered w-full mt-2"
-                                                style="border:  1px solid #d2d2d2;" v-model="forUpdate.graduate_tracer_status"
-                                                :rules="validateData">
+                                                style="border:  1px solid #d2d2d2;"
+                                                v-model="forUpdate.graduate_tracer_status" :rules="validateData">
                                                 <option disabled selected> ...</option>
                                                 <option value="Employed">Employed</option>
                                                 <option value="Unemployed">Unemployed</option>
@@ -381,15 +385,15 @@
                                             </table>
 
                                             <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <span class="w-full flex items-center justify-end gap-4 mt-5">
+                                                <v-spacer></v-spacer>
+                                                <span class="w-full flex items-center justify-end gap-4 mt-5">
 
 
-                                                <v-btn text="Close" @click="isActive.value = false"></v-btn>
-                                                <button
-                                                    class="btn btn-accent  w-2/12 text-white border-0" type="submit">Update</button>
-                                            </span>
-                                        </v-card-actions>
+                                                    <v-btn text="Close" @click="isActive.value = false"></v-btn>
+                                                    <button class="btn btn-accent  w-2/12 text-white border-0"
+                                                        type="submit">Update</button>
+                                                </span>
+                                            </v-card-actions>
 
                                         </Form>
 
@@ -403,10 +407,11 @@
 
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant"
-                                        text="Delete" variant="flat" :disabled='item.status != `Returned to Dean`'></v-btn>
-                               
-                                        <!-- :disabled='item.status != `Returned to Dean`' -->
-                                    </template>
+                                        text="Delete" variant="flat"
+                                        :disabled='item.status != `Returned to Dean`'></v-btn>
+
+                                    <!-- :disabled='item.status != `Returned to Dean`' -->
+                                </template>
 
                                 <template v-slot:default="{ isActive }">
 

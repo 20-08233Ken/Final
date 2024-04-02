@@ -33,6 +33,92 @@ export default {
                     comment:"Comment"
                 },
             ],
+            headers:[
+                {
+                    title:'Details of Research Outputs',
+                    children:[
+                        {
+                            title:'Research Title'
+                        },
+                        {
+                            title:'Name of Faculty Researcher / Author'
+                        },
+                        {
+                            title:'Status of Research'
+                        },
+                        {
+                            title:'Duration of Research',
+                            children:[
+                                {
+                                    title:'Date Started'
+                                },
+                                {
+                                    title:'Date of Completion'
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title:'Details of Presentation',
+                    children:[
+                        {
+                            title:'Title of Forum'
+                        },
+                        {
+                            title:'Venue'
+                        },
+                        {
+                            title:'Forum Type'
+                        },
+                        {
+                            title:'Date of Presentation'
+                        }
+                    ]
+                },
+                {
+                    title:'Details of Publication',
+                    children:[
+                        {
+                            title:'Published Title'
+                        },
+                        {
+                            title:'Date of Publication'
+                        },
+                        {
+                            title:'Title of Journal / Publication'
+                        },
+                        {
+                            title:'Volume & Issue'
+                        },
+                        {
+                            title:'ISSN / ISBN'
+                        },
+                        {
+                            title:'Index'
+                        }
+                    ]
+                },
+                {
+                    title:'Details of Utilized Output',
+                    children:[
+                        {
+                            title:'Product Name / Methods / Process / Technology'
+                        },
+                        {
+                            title:'Patent Number / Product Description'
+                        },
+                        {
+                            title:'Benefitiyng Industry / Community'
+                        }
+                    ]
+                }
+            ],
+
+            // Input
+            campus:null,
+            sdg:null,
+            researchers:[]
 
         }
     },

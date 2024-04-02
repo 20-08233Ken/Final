@@ -236,6 +236,7 @@ async ViewHistory(id) {
 
       return true;
     },
+
     submitData() {
       if (this.count === true) {
         this.isActive = true;
@@ -245,6 +246,7 @@ async ViewHistory(id) {
         this.isActive = false;
       }
     },
+    
     onClose() {
       this.isActive = false;
     },

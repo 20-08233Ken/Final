@@ -1,32 +1,75 @@
 <script>
 import VCAA_nav from "../../../components/Others/Navigation/VCAA_nav.vue";
-import HE_OCI_1 from "../../Dean/HE_OCI_1.vue";
-import HE_OCI_2 from "../../Dean/HE_OCI_2.vue";
+
 import activityList from "../../../components/Others/activityList.vue";
-import form1 from "./form1.vue";
-import table1 from "./table1.vue";
+
+import Swal from "sweetalert2";
+import axios from "axios";
+import { useCookies } from "vue3-cookies";
+
+import { Form, Field, ErrorMessage } from "vee-validate";
+import HE_OCI_1 from './HE_OCI_1.vue'
+import HE_OCI_2 from './HE_OCI_2.vue'
+
+import { markRaw } from "vue"
+
+const raw_HE_OCI_1 = markRaw(HE_OCI_1)
 
 export default {
+
+  setup() {
+    const { cookies } = useCookies();
+    return { cookies };
+  },
+
   components: {
+    Form,
+    Field,
+    ErrorMessage,
     VCAA_nav,
     activityList,
     HE_OCI_1,
-    HE_OCI_2,
-    form1,
-    table1
+    HE_OCI_2
+
+
   },
   data() {
     return {
-      currentComponent: form1,
+      currentComponent: HE_OCI_1,
       currentBtn: 1,
-      user: null,
+     
     };
   },
   methods: {
+   
+
     showComponent(myComponent, myBtn1) {
       this.currentComponent = myComponent;
       this.currentBtn = myBtn1;
     },
+
+
+  },
+
+
+  mounted() {
+    // call here
+    // this.fetchProgram_Data()
+
+
+    let userCookies = this.cookies.get("userCookies");
+    let accesstoken = this.cookies.get("userAccessToken");
+    let userPosition = this.cookies.get("userPosition");
+    let userCollege = this.cookies.get("userCollege");
+    let userCampus = this.cookies.get("userCampus");
+    this.user = userPosition;
+    this.userCookies = userCookies;
+
+    if (this.user == null && this.userCookies == null) {
+      this.$router.push("/");
+    }
+
+
   },
 };
 </script>
@@ -34,44 +77,34 @@ export default {
   <main class="w-full">
     <VCAA_nav />
 
-    <section class=" w-full flex justify-between gap-1 ">
-      <div class="flex flex-col pl-8 h-dvh mt-4" style="width: 20%;">
-            <h3 class="w-full flex px-4 py-1 font-Subheader bg-gray-700 text-white">
-            Performace Indicator
-            </h3>
-            <h4 class="w-full text-white bg-Red-Darken px-4 py-1">
-            Higher Education
-            </h4>
+    <section class="w-full flex justify-between gap-1 pl-3vw ">
+      <div class="w-9/12 flex flex-col">
 
-            <h5
-            class="ml-2 px-2 py-1 mt-2"
-            @click="showComponent('form1', 1)"
-            :class="{ isActive: currentBtn === 1 }"
-            >
+        <span class="w-full flex gap-4 mt-8">
+          <button class="btn btn-ghost font-Subheader text-gray-600 " :class="{isBtnActive: currentBtn === 1}" @click="showComponent('HE_OCI_1',1)">
+            <v-icon color="teal-darken-3">mdi-numeric-1-box</v-icon>HighEd:
             Outcome Indicator 1
-            </h5>
-            <h5
-            class="ml-2 px-2 py-1"
-            @click="showComponent('table1', 2)"
-            :class="{ isActive: currentBtn === 2 }"
-            >
+          </button>
+          <button class="btn btn-ghost font-Subheader text-gray-600 " :class="{isBtnActive: currentBtn === 2}" @click="showComponent('HE_OCI_2',2)">
+            <v-icon color="teal-darken-3">mdi-numeric-2-box</v-icon>HighEd:
             Outcome Indicator 2
-            </h5>
+          </button>
+        </span>
+
+        <div class="w-full flex flex-col shadow-lg px-8 py-2 mt-2">
+           <component :is="currentComponent"></component>
+        </div>
       </div>
 
-      <div class="flex flex-col w-7/12 shadow-card2 px-3vw py-8 rounded-lg gap-4">
-            <component :is="currentComponent"></component>
-      </div>
-
-
-      <activityList/>
    
+        <activityList/>
+     
     </section>
   </main>
 </template>
 
 <style scoped>
-    .isActive{
-        background-color:rgb(255, 240, 221);
-    }
+  .isBtnActive{
+      background-color: #e5e7eb;
+  }
 </style>
