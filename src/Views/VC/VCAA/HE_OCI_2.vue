@@ -568,7 +568,7 @@ export default {
         this.userCookies = userCookies;
         this.data[0].in_campus = userCampus;
         this.data[0].in_department = userCollege;
-
+        this.userCampus = userCookies["campus_id"]
         if (this.user == null && this.userCookies == null) {
             this.$router.push("/");
         }
@@ -609,7 +609,7 @@ export default {
                 <v-icon>mdi-table</v-icon>Table
             </button>
             <button class="btn btn-sm w-5/12 font-Subheader text-xs" @click="changeData(2)"
-                :class="{ isBtnActive: isDataActive === 2 }"   :disabled="(this.userCampus < 6 && this.userCampus >=1)">
+                :class="{ isBtnActive: isDataActive === 2 }"  :disabled="(this.userCampus < 6 && this.userCampus >=1)">
                 <v-icon>mdi-form-select</v-icon> Form
             </button>
         </span>
