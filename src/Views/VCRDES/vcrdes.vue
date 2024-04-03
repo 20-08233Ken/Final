@@ -289,7 +289,7 @@ export default {
             <button
               class="btn btn-sm w-4/12 font-Subheader text-xs"
               @click="changeData(2)"
-              :class="{ isBtnActive: isDataActive === 2 }"
+              :class="{ isBtnActive: isDataActive === 2 }" :disabled="(this.userCampus < 6 && this.userCampus >=1)"
             >
               <v-icon>mdi-form-select</v-icon> Form
             </button>
