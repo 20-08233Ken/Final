@@ -465,8 +465,6 @@ export default {
     this.userCookies = userCookies;
     this.data[0].in_campus = userCampus;
     this.data[0].in_department = userCollege;
-    console.log(userCampus);
-    console.log(userCollege);
 
     if (this.user == null && this.userCookies == null) {
       this.$router.push("/");

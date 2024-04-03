@@ -32,7 +32,8 @@ export default {
             up_selectedFile2: null,
             selectedFile1: null,
             selectedFile2: null,
-
+            userCampus: null,
+            userPosition: null,
 
             headersDean: [
                 {
