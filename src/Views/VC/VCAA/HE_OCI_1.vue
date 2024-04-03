@@ -19,6 +19,7 @@ export default {
 
 
   },
+
   data() {
     return {
       currentComponent: null,
@@ -91,8 +92,8 @@ export default {
       // Data base from the Account Info of Dean
       data: [
         {
-          in_campus: null,
-          in_department: null,
+          in_campus: "",
+          in_department: "",
         },
       ],
       hepData: [],
@@ -128,6 +129,7 @@ export default {
       userID:null,
     };
   },
+
   methods: {
     validateInput(value) {
       if (!value) {
@@ -164,12 +166,15 @@ export default {
             position: position,
             campus_id: campus,
             user_id: user_id,
+
+
           })
           .then((response) => {
             this.myLoading = true;
-            if (response.data){
-              this.hepData = response.data;
-            }
+            this.hepData = response.data;
+            // if (response.data == "Successfully HEP added!"){
+            //     this.isDataActive = false;
+            // }
           })
           .catch((error) => {
             console.error("Error fetching hep data", error);
@@ -204,7 +209,6 @@ export default {
     },
 
     async addData() {
-      console.log("YO");
       const headers = {
         "Content-Type": "multipart/form-data",
       };
@@ -213,16 +217,15 @@ export default {
       const formData = new FormData();
       formData.append("supported_file", this.selectedFile);
       formData.append("program_id", this.in_program);
-      formData.append("exam_date", this.in_examDate);
+      formData.append("exam_date", this.exam_date);
       formData.append("number_of_takers", this.in_takers);
       formData.append("number_of_passers", this.in_passers);
       formData.append("campus_id", userCookies["campus_id"]);
       formData.append("college_id", userCookies["college_id"]);
       formData.append("user_id", userCookies["id"]);
 
-      console.log("FormData:", formData);
       try {
-          await axios
+        const response = await axios
           .post(import.meta.env.VITE_API_CREATE_HEP, formData, {
             headers,
           })
@@ -233,7 +236,7 @@ export default {
             if (response.data == "Successfully HEP added!") {
               // location.reload();
               // console.log('added')
-              // this.isDataActive = 1;
+              this.isDataActive = 1
               Swal.fire({
                 title: "Success",
                 text: "Data added successfully. Please reload the table",
@@ -246,7 +249,7 @@ export default {
             }
           })
           .catch((error) => {
-            console.error("Error fetching hep", error);
+            console.error("Error fetching campus", error);
           })
           
           .finally(() =>{
@@ -254,6 +257,13 @@ export default {
           })
           ;
       } catch (error) {}
+
+  
+      (this.in_program = ""),
+        (this.in_examDate = ""),
+        (this.in_takers = 0),
+        (this.in_passers = 0),
+        (this.selectedFile = null);
 
       // }, 2000)
     },
@@ -391,7 +401,6 @@ export default {
 
     removeFiles() {
       this.selectedFile = null;
-      console.log(this.selectedFile);
     },
     // showFile() {
     //   this.isDataActive = false;
@@ -410,7 +419,6 @@ export default {
         })
         .then((response) => {
           this.approvedLogs = response.data;
-          console.log(this.approvedLogs);
         })
         .catch((error) => {
           console.error("Error history not found", error);
@@ -448,9 +456,6 @@ export default {
   },
 
   mounted() {
-    // this.fetchProgram_Data()
-
-
     let userCookies = this.cookies.get("userCookies");
     let accesstoken = this.cookies.get("userAccessToken");
     let userPosition = this.cookies.get("userPosition");
@@ -460,6 +465,9 @@ export default {
     this.userCookies = userCookies;
     this.data[0].in_campus = userCampus;
     this.data[0].in_department = userCollege;
+    console.log(userCampus);
+    console.log(userCollege);
+
     if (this.user == null && this.userCookies == null) {
       this.$router.push("/");
     }
@@ -493,8 +501,9 @@ export default {
                 :class="{ isBtnActive: isDataActive === 1 }">
                 <v-icon>mdi-table</v-icon>Table
             </button>
-            <button class="btn btn-sm w-4/12 font-Subheader text-xs" @click="changeData(2)"
-                :class="{ isBtnActive: isDataActive === 2 }">
+            <button class="btn btn-sm w-4/12 font-Subheader text-xs" @click="changeData(2)" 
+            :disabled="(this.userCampus < 6 && this.userCampus >=1)"
+                :class="{ isBtnActive: isDataActive === 2 }" >
                 <v-icon>mdi-form-select</v-icon> Form
             </button>
         </span>
@@ -737,100 +746,102 @@ export default {
 
     <!-- Form -->
     <span class="w-full flex flex-col px-4 mt-8" v-if="isDataActive === 2">
-      <Form @submit="addData">
+        <Form @submit="addData">
+            <p class="text-0.9 font-Subheader text-gray-500">Campus</p>
+            <Field type="text" name="campus_id" placeholder="Type here" disabled class="input mt-2 input-bordered w-full"
+                style="border: 1px solid #d2d2d2" :rules="validateInput"   v-model="data[0].in_campus"/>
 
-        <p class="text-0.9 font-Subheader text-gray-500 ">Campus</p>
-        <Field type="text" name="campus" placeholder="Type here" disabled
-            class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-            v-model="data[0].in_campus" :rules="validateInput" />
+            <p class="text-0.9 font-Subheader text-gray-500 mt-6">
+                Department
+            </p>
+            <Field type="text" placeholder="Type here" name="college_id" disabled
+                class="input mt-2 input-bordered w-full" style="border: 1px solid #d2d2d2" :rules="validateInput"   v-model="data[0].in_department"/>
 
-        <p class="text-0.9 font-Subheader text-gray-500 mt-6">Department</p>
-        <Field type="text" placeholder="Type here" name="department" disabled
-            class="input mt-2 input-bordered w-full " style="border:  1px solid #d2d2d2;"
-            v-model="data[0].in_department" :rules="validateInput" />
+            <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
+            <Field as="select" class="select select-bordered w-full mt-2" style="border: 1px solid #d2d2d2"
+                name="in_program" :rules="validateInput"   v-model="in_program">
+                <option disabled selected>Select Program ...</option>
+                <option v-for="x in collegeProgram" :value="x.id">
+                    {{ x.program }}
+                </option>
+            </Field>
+            <ErrorMessage name="program" class="error_message" />
 
+            <p class="text-0.9 font-Subheader text-gray-500 mt-6">
+                Exam Date
+            </p>
+            <Field type="date" placeholder="Type here" class="input mt-2 input-bordered w-full" name="exam_date"
+                style="border: 1px solid #d2d2d2" :rules="validateInput"  v-model="exam_date" />
+            <ErrorMessage name="exam_date" class="error_message" />
 
-        <p class="text-0.9 font-Subheader text-gray-500 mt-6">Program</p>
-        <Field as="select" class="select select-bordered w-full mt-2" style="border:  1px solid #d2d2d2;"
-            v-model="in_program" name="program" :rules="validateInput">
-            <option disabled selected>Select Program ...</option>
-            <option v-for="x in collegeProgram" :value="x.id">{{ x.program }}</option>
-        </Field>
-        <ErrorMessage name="program" class="error_message" />
+            <p class="text-0.9 font-Subheader text-gray-500 mt-6">
+                Number of First-time Takers
+            </p>
+            <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full" defa
+                style="border: 1px solid #d2d2d2" name="in_takers" :rules="checkNegative"   v-model="in_takers"  />
+            <ErrorMessage name="in_takers" class="error_message" />
 
-        <p class="text-0.9 font-Subheader text-gray-500 mt-6">Exam Date</p>
-        <Field type="date" placeholder="Type here" class="input mt-2 input-bordered w-full" name="exam_date"
-            style="border:  1px solid #d2d2d2;" v-model="in_examDate" :rules="validateInput" />
-        <ErrorMessage name="exam_date" class="error_message" />
+            <p class="text-0.9 font-Subheader text-gray-500 mt-6">
+                Number of First-time Passers
+            </p>
+            <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full"
+                style="border: 1px solid #d2d2d2" name="in_passers" :rules="checkNegative" v-model="in_passers"/>
+            <ErrorMessage name="in_passers" class="error_message" />
 
-        <p class="text-0.9 font-Subheader text-gray-500 mt-6">Number of First-time Takers</p>
-        <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full" 
-            style="border:  1px solid #d2d2d2;" v-model="in_takers" name="no_takers" :rules="checkNegative" />
-        <ErrorMessage name="no_takers" class="error_message" />
+            <span class="flex items-center mt-6 gap-2">
+                <p class="text-0.9 font-Subheader text-gray-500">
+                    Upload Supported File
+                </p>
+                <i class="tooltip" tooltip-right
+                    data-tip=" Provide the supporting documentation used in reference to the information. You may also provide links to the scanned copies for easier reference">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
+                    </svg>
+                </i>
+            </span>
 
-        <p class="text-0.9 font-Subheader text-gray-500 mt-6">Number of First-time Passers</p>
-        <Field type="number" placeholder="Type here" class="input mt-2 input-bordered w-full"
-            style="border:  1px solid #d2d2d2;" v-model="in_passers" name="no_passers" :rules="checkNegative" />
-        <ErrorMessage name="no_passers" class="error_message" />
+            <span clas="w-full flex">
+                <table class="w-full mt-4">
+                    <thead>
+                        <tr class="bg-gray-700 text-white">
+                            <th class="py-2 border-2 text-white"></th>
+                            <th class="border-2 text-white text-center text-0.9 font-Subheader">
+                                Required Files
+                            </th>
+                            <th class="py-2 border-2 text-white text-center text-0.9 font-Subheader" colspan="2">
+                                Upload Files
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
 
+                    <tbody>
+                        <tr>
+                            <td class="text-center py-2 w-1/12 border-2 text-0.9 text-Subheader text-gray-700">
+                                1
+                            </td>
+                            <td class="py-2 w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                PRC Official Results
+                                <span class="text-Red-Rose font-Header">(.pdf)</span>
+                            </td>
+                            <td class="py-2 flex-1 border-2 text-0.9 text-Subheader text-gray-700 px-4">
+                                <input type="file" class="ml-5" accept=".pdf" @change="handleFileUpload" />
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </span>
 
-        <span class="flex items-center mt-6 gap-2">
-            <p class="text-0.9 font-Subheader text-gray-500 ">Upload Supported File</p>
-            <i class="tooltip" tooltip-right
-                data-tip=" Provide the supporting documentation used in reference to the information. You may also provide links to the scanned copies for easier reference">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                    stroke="currentColor" class="w-5 h-5">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="m11.25 11.25.041-.02a.75.75 0 0 1 1.063.852l-.708 2.836a.75.75 0 0 0 1.063.853l.041-.021M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9-3.75h.008v.008H12V8.25Z" />
-                </svg>
-            </i>
-        </span>
-
-        <span clas="w-full flex">
-            <table class="w-full mt-4">
-                <thead>
-                    <tr class="bg-gray-700 text-white">
-                        <th class="border-2 text-white"></th>
-                        <th class="border-2 text-white text-center text-0.9 font-Subheader ">
-                            Required Files</th>
-                        <th class="border-2 text-white text-center text-0.9 font-Subheader " colspan="2">
-                            Upload Files
-                        </th>
-                        <th>
-
-                        </th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    <tr>
-                        <td class="w-1/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
-                        </td>
-                        <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
-                            PRC Official Results <span class="text-Red-Rose font-Header">(.pdf)</span></td>
-                        <td class="flex-1 text-0.9 text-Subheader text-gray-700  px-4">
-                            <input type="file" class="ml-5" accept=".pdf" @change="handleFileUpload" >
-
-                        </td>
-                        <!-- <td class="px-4" v-if="selectedFileName != null">                  
-                            <v-btn class="rounded-full font-Subheader bg-red-darken-4 text-0.8" size="small" @click="removeFiles" >Remove file</v-btn>
-                        </td> -->
-                    </tr>
-
-                </tbody>
-            </table>
-
-        </span>
-
-
-
-        <span class="w-full flex items-center justify-end gap-2 mt-5">
-            <button class="btn bg-emerald-600 text-white w-2/12 " type="submit" >Add</button>
-        </span>
-    </Form>
+            <span class="w-full flex items-center justify-end gap-2 mt-5">
+                <button class="btn bg-emerald-600 text-white w-2/12" type="submit">
+                    Add
+                </button>
+            </span>
+        </Form>
     </span>
 </template>
-
 
 <style scoped>
 .isActive {

@@ -250,8 +250,7 @@ export default {
   </div>
 
 
-  <v-data-table :headers="headers" :items="OfficeData" :sort-by.sync="sortBy" :sort-desc.sync="sortDesc"
-    loading-text="Loading... Please wait" :loading="myLoading">
+  <v-data-table :headers="headers" :items="OfficeData" loading-text="Loading... Please wait" :loading="myLoading">
     <template v-slot:item.action="{ item }">
       <span class="w-full flex items-center justify-center gap-3">
         <v-dialog max-width="500">

@@ -15,10 +15,12 @@ export default {
         {
           title: "Location",
           value: "campus_name",
+          sortable: true,
         },
         {
           title: "Campus",
           value: "campus",
+          sortable: true,
         },
         {
           title: "Action",
@@ -222,7 +224,7 @@ export default {
     </v-dialog>
   </div>
 
-  <v-data-table :headers="headers" :items="CampusData" loading-text="Loading... Please wait" :loading="myLoading">
+  <v-data-table :headers="headers" :items="CampusData"  loading-text="Loading... Please wait" :loading="myLoading">
     <template v-slot:item.action="{ item }">
       <span class="w-full flex items-center justify-center gap-3">
         <v-dialog max-width="500">

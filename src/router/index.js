@@ -45,6 +45,8 @@ import VCAA from '../Views/VC/VCAA/vcaa.vue'
 
 import Chancellor from '../Views/Chancellor/chancellor_vue.vue'
 
+import VCRDES from '../Views/VCRDES/vcrdes.vue'
+
 const router = createRouter ({
 
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -226,7 +228,14 @@ const router = createRouter ({
             path:'/vcaa',
             name:'vcaa',
             component:VCAA
+        },
+
+        {
+            path:'/vcrdes',
+            name:'vcrdes',
+            component:VCRDES
         }
+     
      
 
         

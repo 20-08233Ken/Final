@@ -43,7 +43,7 @@
 
     <div class="w-full flex gap-4">
       <span class="w-3/12 flex flex-col">
-        <p class="text-lg font-Header text-Red-Darken">Maintainance</p>
+        <p class="text-lg font-Header text-Red-Darken">Maintenance</p>
         <ul class="mt-2">
           <li class="text-sm px-2 py-2" @click="showComponent('campus',1) " :class="{activeBtn: isActive ===1}">Campus</li>
           <li class="text-sm px-2 py-2" @click="showComponent('program',3) " :class="{activeBtn: isActive ===3}">Program</li>

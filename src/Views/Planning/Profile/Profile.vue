@@ -35,10 +35,11 @@
           <p class="font-Subheader mt-3 text-lg">Campus: Central</p>
 
           <span class="w-full flex gap-2 mt-8 justify-end " style="width: 91%">
-            <v-btn
-                class="w-1/12 bg-gray-100 rounded-full"
+            <button
+                class=" bg-gray-100 rounded-lg flex items-center py-3"
                 @click="showComponent('MainProfile', 0)"
                 :class="{ active: isActive === 0 }"
+                style="width: 13%;"
               >
                 <span class="w-full flex items-center justify-center gap-1">
                   <v-icon
@@ -46,52 +47,59 @@
                       activeBtn: isActive === 0,
                       isNotActiveBtn: isActive != 0,
                     }"
+                    size="sm"
                     >mdi-home</v-icon
                   >
-                  <h6 class="text-0.6 font-Subheader">Home</h6>
+                  <h6 class="text-xs font-Subheader">Home</h6>
                 </span>
-              </v-btn>
+              </button>
 
 
-              <v-btn
-                class="w-1/12 bg-gray-100 rounded-full"
+              <button
+                class=" bg-gray-100 rounded-md py-3"
                 @click="showComponent('addUser', 1)"
                 :class="{ active: isActive === 1 }"
+                style="width: 13%;"
               >
-                <span class="w-full flex items-center justify-center gap-1">
+                <span class="w-full flex items-center justify-center gap-2">
                   <v-icon
                     :class="{
                       activeBtn: isActive === 1,
                       isNotActiveBtn: isActive != 1,
                     }"
+                    size="xs"
                     >mdi-account-plus</v-icon
                   >
-                  <h6 class="text-0.6 font-Subheader">Add</h6>
+                  <h6 class="text-xs font-Subheader">Add</h6>
                 </span>
-              </v-btn>
+              </button>
 
-              <v-btn
-                class="w-1/12 bg-gray-100 rounded-full"
+              <button
+                class=" bg-gray-100 rounded-md py-3"
                 @click="showComponent('user_management', 2)"
                 :class="{ active: isActive === 2 }"
+                style="width: 13%;"
               >
-                <span class="w-full flex items-center justify-center gap-1">
+                <span class="w-full flex items-center justify-center gap-2">
                   <v-icon
                     :class="{
                       activeBtn: isActive === 2,
                       isNotActiveBtn: isActive != 2,
                     }"
+                    
+                    size="xs"
                     >mdi-cogs</v-icon
                   >
-                  <h6 class="text-0.6 font-Subheader">Manage</h6>
+                  <h6 class="text-xs font-Subheader">Manage</h6>
                 </span>
-              </v-btn>
+              </button>
 
               
-              <v-btn
-                class="w-1/12 bg-gray-100 rounded-full"
+              <button
+                class=" bg-gray-100 rounded-md py-3"
                 @click="showComponent('Maintain', 3)"
                 :class="{ active: isActive === 3 }"
+                style="width: 13%;"
               >
                 <span class="w-full flex items-center justify-center gap-1">
                   <v-icon
@@ -99,13 +107,14 @@
                       activeBtn: isActive === 3,
                       isNotActiveBtn: isActive != 3,
                     }"
+                    size="xs"
                     >mdi-wrench</v-icon
                   >
-                  <h6 class="text-0.6 font-Subheader">Maintain</h6>
+                  <h6 class="text-xs font-Subheader">Maintenance</h6>
                 </span>
-              </v-btn>
+              </button>
 
-
+<!-- 
               <v-btn class="bg-gray-100 rounded-full">
                 <v-icon
                   :class="{
@@ -114,7 +123,7 @@
                   }"
                   >mdi-plus-circle-outline</v-icon
                 >
-              </v-btn>
+              </v-btn> -->
 
 
           </span>

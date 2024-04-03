@@ -204,7 +204,7 @@ export default {
         async FetchData(position, campus, user_id) {
             try {
                 const response = await axios
-                    .post(import.meta.env.VITE_API_APPROVE_DISPLAY_TWO_HEP, {
+                    .post(import.meta.env.VITE_API_APPROVE_DISPLAY_TWO_HEP_VCAA, {
                         position: position,
                         campus_id: campus,
                         user_id: user_id,
@@ -608,7 +608,7 @@ export default {
                 <v-icon>mdi-table</v-icon>Table
             </button>
             <button class="btn btn-sm w-5/12 font-Subheader text-xs" @click="changeData(2)"
-                :class="{ isBtnActive: isDataActive === 2 }">
+                :class="{ isBtnActive: isDataActive === 2 }"   :disabled="(this.userCampus < 6 && this.userCampus >=1)">
                 <v-icon>mdi-form-select</v-icon> Form
             </button>
         </span>

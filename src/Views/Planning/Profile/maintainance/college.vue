@@ -9,20 +9,24 @@ export default {
     const { cookies } = useCookies();
     return { cookies };
   },
+
   data() {
     return {
       headers: [
         {
           title: "Campus ",
           value: "campus",
+          sortable: true,
         },
         {
           title: "College ",
           value: "college",
+          sortable: true,
         },
         {
           title: "College Code",
           value: "collegecode",
+          sortable: true,
         },
         {
           title: "Action",
@@ -33,10 +37,9 @@ export default {
       CollegeData: [],
       EditCollegeData: [],
       CampusData: [],
-
-      forUpdate:[
-      ],
-      
+      forUpdate:[],
+      deleteCollege: [],
+      newCollege: [],
       college:null,
       myLoading: true,
     };
@@ -57,6 +60,35 @@ export default {
       return true;
     },
 
+    // Add College
+    async AddData(){
+      try {
+        
+        let userCookies = this.cookies.get("userCookies");
+          await axios.post(import.meta.env.VITE_API_CREATE_COLLEGE,{
+            'college' : this.newCollege.college,
+            'collegecode' : this.newCollege.collegecode,
+            'campus_id' : this.newCollege.campus_id,
+            'user_id' : userCookies['id'],
+          })
+          .then((response) => {
+            if (response.data.message == "Program Successfully Created") {
+              
+              Swal.fire({
+                title: "Success",
+                text: "Data Created successfully.",
+                icon: "success",
+                confirmButtonText: "OK",
+              }).then(function() {
+                  this.$router.go();
+              });
+            }
+          })
+          .catch((error) => {
+            console.error("Error fetching Office", error);
+          });
+      } catch (error) {}
+    },
     // Fetch Campus
     async FetchCampus() {
       try {
@@ -126,33 +158,8 @@ export default {
       } catch (error) {}
     },
 
-    // Get College
-    async GetCollege(campus_id) {
-      try {
-        let userCookies = this.cookies.get("userCookies");
-        await axios
-          .post(import.meta.env.VITE_API_GET_COLLEGE, {
-            // user_id: userCookies["id"],
-            campus_id: campus_id,
-          })
-          .then((response) => {
-            // this.myLoading2 = true;
-            this.EditCollegeData = response.data;
-            this.myLoading = false
-          })
-          .catch((error) => {
-            console.error("Error fetching data", error);
-          })
-
-          .finally(() => {
-            this.myLoading2 = false;
-          });
-      } catch (error) {}
-    },
-    
     openUpdate(item) {
       this.forUpdate = item;
-      this.GetCollege(item.college_id);
     },
 
     forDelete(item) {
@@ -167,7 +174,7 @@ export default {
           .post(import.meta.env.VITE_API_UPDATE_COLLEGE,{
             'id' : this.forUpdate.college_id,
             'campus_id': this.forUpdate.campus_id,
-            'college_id': this.forUpdate.college_id,
+            'college': this.forUpdate.college,
             'collegecode': this.forUpdate.collegecode,
             'user_id' : userCookies['id'],
           })
@@ -194,7 +201,7 @@ export default {
     async submitDelete() {
       try {
         let userCookies = this.cookies.get("userCookies");
-          await axios.post(import.meta.env.VITE_API_REMOVE_College,{
+          await axios.post(import.meta.env.VITE_API_REMOVE_COLLEGE,{
             'id' : this.deleteCollege.college_id,
             'user_id' : userCookies['id'],
           })
@@ -216,7 +223,7 @@ export default {
           });
       } catch (error) {}
     },
-  
+
     
   },
 
@@ -239,17 +246,49 @@ export default {
 
 <template>
   <div class="w-full">
-    <Form class="flex w-full mb-2 items-center gap-4">
-      <span class="w-full flex-col">
-        <Field type="text" name="college" placeholder="Add New College" class="input mt-2 input-bordered w-full" style="border: 1px solid #d2d2d2" v-model="college" :rules="validateInput" />
-        <ErrorMessage name="college" class="error_message" />
-      </span>
+    <v-dialog max-width="500">
+      <template v-slot:activator="{ props: activatorProps }">
+        <span class="w-full flex justify-end">
+          <v-btn elevation="0" class="mt-2" v-bind="activatorProps">
+            <v-icon class="mr-2" color="teal-darken-3">mdi-account-plus</v-icon>
+            <p class="text-0.7 text-teal-700 font-Header">Add</p>
+          </v-btn>
+        </span>
+      </template>
 
-      <v-btn elevation="0" class="mt-2" type="submit">
-        <v-icon class="mr-2" color="teal-darken-3">mdi-account-plus</v-icon>
-        <p class="text-0.7 text-teal-700 font-Header">Add</p>
-      </v-btn>
-    </Form>
+      <template v-slot:default="{ isActive }">
+        <v-card class="px-3 py-3">
+          <h3 class="font-bold text-lg font-Header w-full bg-gray-700 text-white px-4 py-4">
+            Add Record
+          </h3>
+          <Form class="mt-4 px-3" @submit="AddData">
+            <p class="text-0.9 font-Subheader text-gray-500 mt-4">Campus</p>
+            <Field as="select" name="campus_id" class="w-full select select-bordered mt-2"
+              style="border: 1px solid #d2d2d2" :rules="validateInput" v-model="newCollege.campus_id">
+              <option disabled selected>Select Campus ...</option>
+              <option v-for="items in CampusData" :value="items.campus_id">
+                {{ items.campus }}
+              </option>
+            </Field>
+            <ErrorMessage name="campus" class="error_message" />
+
+            <p class="text-0.9 font-Subheader text-gray-500 mt-4">College</p>
+            <Field type="text" name="college" placeholder="Type here" class="input mt-2 input-bordered w-full" style="border: 1px solid #d2d2d2" v-model="newCollege.college" />
+            
+            <p class="text-0.9 font-Subheader text-gray-500 mt-4">Collegecode</p>
+            <Field type="text" name="collegecode" placeholder="Type here" class="input mt-2 input-bordered w-full" style="border: 1px solid #d2d2d2" v-model="newCollege.collegecode" />
+
+            <v-card-actions>
+            <v-spacer></v-spacer>
+              <span class="w-full flex justify-end mt-4">
+                <v-btn text="Cancel" @click="isActive.value = false"></v-btn>
+                <v-btn class=" bg-teal-darken-3" type="submit" @click="isActive.value = false">Add</v-btn>
+              </span>
+            </v-card-actions>
+          </Form>
+        </v-card>
+      </template>
+    </v-dialog>
   </div>
 
   <v-data-table :headers="headers" :items="CollegeData" loading-text="Loading... Please wait" :loading="myLoading">
@@ -268,7 +307,7 @@ export default {
                 Edit Record
               </h3>
 
-              <Form class="mt-4 px-3">
+              <Form class="mt-4 px-3"  @submit="submitUpdate">
                 <p class="text-0.9 font-Subheader text-gray-500 mt-4">Campus</p>
                 <Field as="select" name="campus_id" class="w-full select select-bordered mt-2" style="border: 1px solid #d2d2d2" :rules="validateInput" v-model="forUpdate.campus_id" @change="changeCollege(item.campus_id)"> 
                   <option disabled selected>Select Campus ...</option>
@@ -279,16 +318,13 @@ export default {
                 <ErrorMessage name="campus" class="error_message" />
                 
 
-                <p class="text-0.9 font-Subheader text-gray-500 mt-4">College</p>
-                <Field as="select" name="college_id" class="w-full select select-bordered mt-2":rules="validateInput" v-model="forUpdate.college_id" style="border: 1px solid #d2d2d2">
-                  <option disabled selected>Select College ...</option>
-                  <option v-for="items in EditCollegeData" :value="items.id">
-                    {{ items.college }}
-                  </option>
-                </Field>
+                <p class="text-0.9 font-Subheader text-gray-500">College</p>
+                <Field type="text" name="college" placeholder="Type here" class="input mt-2 input-bordered w-full" style="border: 1px solid #d2d2d2" v-model="forUpdate.college" />
 
                 <p class="text-0.9 font-Subheader text-gray-500">College Code</p>
                 <Field type="text" name="collegecode" placeholder="Type here" class="input mt-2 input-bordered w-full" style="border: 1px solid #d2d2d2" v-model="forUpdate.collegecode" />
+
+
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <span class="w-full flex justify-end mt-4">

@@ -22,6 +22,7 @@ import Research_nav from '../components/Others/Navigation/Research_nav.vue'
 import vpaa_nav from '../components/Others/Navigation/vpaa_nav.vue'
 import VCs_nav from '../components/Others/Navigation/VCs_nav.vue'
 import Chancellor_navVue from '../components/Others/Navigation/Chancellor_nav.vue'
+import VCRDES_nav from '../components/Others/Navigation/VCRDES_nav.vue'
 
 
 import { useCookies } from 'vue3-cookies';
@@ -65,7 +66,8 @@ export default{
         VCAA_navVue,
         VCs_nav,
         Chancellor_navVue,
-        vpaa_nav
+        vpaa_nav,
+        VCRDES_nav
     },  
       methods:{
         showActive(componentName,tabNumber){
