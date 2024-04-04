@@ -3,6 +3,8 @@ import notification from "../../components/Others/notification.vue";
 import axios from "axios";
 import { useCookies } from "vue3-cookies";
 import Swal from 'sweetalert2'
+import PDFViewer from 'pdf-viewer-vue'
+
 export default {
   setup() {
     const { cookies } = useCookies();
@@ -13,6 +15,7 @@ export default {
     Field,
     ErrorMessage,
     notification,
+    PDFViewer
   },
   data() {
     return {
@@ -35,6 +38,7 @@ export default {
       disableSubmit: false,
       search: "",
       myLoading: true,
+      pdfBase64:'',
 
       forUpdate:[
       ],
@@ -477,29 +481,22 @@ async ViewHistory(id) {
 
 
     //Viewing File PDF
-    async viewFilePDF(id) {
+    async viewFile(id) {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
       await axios
         .post(import.meta.env.VITE_API_FETCH_PDF, {
           id: id,
           user_id: userCookies["id"],
-          responseType: 'arraybuffer' // Set the response type to arraybuffer
+          // responseType: 'arraybuffer',
         })
-        .then(response => {
-          // Create a Blob object from the response data
-          const blob = new Blob([response.data], { type: 'application/pdf' });
-        
-          // Create a URL for the Blob object
-          const url = URL.createObjectURL(blob);
-        
-          // Open the URL in a new tab
-          window.open(url, '_blank');
+        .then((response) => {
+          this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
+
         })
-        .catch(error => {
-          console.error('Error fetching PDF:', error);
+        .catch((error) => {
+          console.error('Error loading PDF:', error);
         });
- 
     },
 
     //Viewing File xls

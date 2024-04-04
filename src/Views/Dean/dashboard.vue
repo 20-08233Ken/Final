@@ -47,19 +47,19 @@
 
         <Dean_nav/>
 
-        <section class="w-full flex flex-col px-3vw ">
+        <section class="w-full flex flex-col px-3vw items-center ">
 
-            <div class="w-5/12  mt-12 flex  gap-4 items-center">
+            <div class="w-10/12  mt-12 flex  gap-4 items-center">
                 <v-icon size="large">mdi-school-outline</v-icon>
                 <h1 class="text-red-darken-3 font-Header text-xl" v-html="college"></h1>
             </div>
 
-            <div class="w-full flex flex-col mt-8 ml-11 shadow-card2 pt-8 items-center gap-12 ">
+            <div class="w-10/12 flex flex-col mt-8  shadow-card2 pt-8 items-center gap-12 ">
                     <h1 class="font-Subheader text-teal-darken-3 ">Graduate Tracer Status</h1>
                     <Dashboard_tracer/>
             </div>
 
-            <div class="w-full flex flex-col mt-8 ml-11 shadow-card2 pt-8 items-center gap-12 ">
+            <div class="w-10/12 flex flex-col mt-8 shadow-card2 pt-8 items-center gap-12 ">
                     <h1 class="font-Subheader text-teal-darken-3 ">Licensure Exam First Time Takers</h1>
                     <Dashboard_takers />
             </div>

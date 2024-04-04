@@ -2,7 +2,7 @@ import { Form, Field,ErrorMessage } from 'vee-validate';
 import notification from '../../components/Others/notification.vue';
 import axios from "axios";
 import { useCookies } from "vue3-cookies";
-
+import PDFViewer from 'pdf-viewer-vue'
 
 export default {
   setup() {
@@ -14,6 +14,8 @@ export default {
     Field,
     ErrorMessage,
     notification,
+    PDFViewer
+
   },
   data() {
     return {
@@ -31,6 +33,7 @@ export default {
       isAdd: false,
       myLoading: true,
       search: "",
+      pdfBase64:'',
       headers: [
         {
           title: "",
@@ -355,105 +358,82 @@ export default {
 
   
     // View Research PDF
-    async viewResearchPDF(id) {
+    async viewFile1(id) {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
       await axios
-        .post(import.meta.env.VITE_API_DISPLAY_RESEARCH_PDF, {
+        .post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
           id: id,
           user_id: userCookies["id"],
-          responseType: 'arraybuffer' // Set the response type to arraybuffer
+          // responseType: 'arraybuffer',
         })
-        .then(response => {
-          // Create a Blob object from the response data
-          const blob = new Blob([response.data], { type: 'application/pdf' });
-        
-          // Create a URL for the Blob object
-          const url = URL.createObjectURL(blob);
-        
-          // Open the URL in a new tab
-          window.open(url, '_blank');
+        .then((response) => {
+          this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
+
         })
-        .catch(error => {
-          console.error('Error fetching PDF:', error);
+        .catch((error) => {
+          console.error('Error loading PDF:', error);
         });
-  
     },
 
     // View Utilized Tech PDF
-    async viewUtilizedTechPDF(id) {
+    async viewFile2(id) {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
       await axios
-        .post(import.meta.env.VITE_API_DISPLAY_UTILIZED_TECHNOLOGY, {
+        .post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
           id: id,
           user_id: userCookies["id"],
-          responseType: 'arraybuffer' // Set the response type to arraybuffer
+          // responseType: 'arraybuffer',
         })
-        .then(response => {
-          // Create a Blob object from the response data
-          const blob = new Blob([response.data], { type: 'application/pdf' });
-        
-          // Create a URL for the Blob object
-          const url = URL.createObjectURL(blob);
-        
-          // Open the URL in a new tab
-          window.open(url, '_blank');
+        .then((response) => {
+          this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
+
         })
-        .catch(error => {
-          console.error('Error fetching PDF:', error);
+        .catch((error) => {
+          console.error('Error loading PDF:', error);
         });
     },
     
     // View Enrollment Form PDF
-    async viewEnrollmentFormPDF(id) {
+
+    async viewFile3(id) {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
       await axios
-        .post(import.meta.env.VITE_API_DISPLAY_ENROLLMENT_FORM, {
+        .post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
           id: id,
           user_id: userCookies["id"],
-          responseType: 'arraybuffer' // Set the response type to arraybuffer
+          // responseType: 'arraybuffer',
         })
-        .then(response => {
-          // Create a Blob object from the response data
-          const blob = new Blob([response.data], { type: 'application/pdf' });
-        
-          // Create a URL for the Blob object
-          const url = URL.createObjectURL(blob);
-        
-          // Open the URL in a new tab
-          window.open(url, '_blank');
+        .then((response) => {
+          this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
+
         })
-        .catch(error => {
-          console.error('Error fetching PDF:', error);
+        .catch((error) => {
+          console.error('Error loading PDF:', error);
         });
     },
     
     // View Extension Program PDF
-    async viewDisplayExtensionProgram(id) {
+     async viewFile4(id) {
       this.selectedID = id;
       let userCookies = this.cookies.get("userCookies");
       await axios
-        .post(import.meta.env.VITE_API_DISPLAY_EXTENSION_PROGRAM, {
+        .post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
           id: id,
           user_id: userCookies["id"],
-          responseType: 'arraybuffer' // Set the response type to arraybuffer
+          // responseType: 'arraybuffer',
         })
-        .then(response => {
-          // Create a Blob object from the response data
-          const blob = new Blob([response.data], { type: 'application/pdf' });
-        
-          // Create a URL for the Blob object
-          const url = URL.createObjectURL(blob);
-        
-          // Open the URL in a new tab
-          window.open(url, '_blank');
+        .then((response) => {
+          this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
+
         })
-        .catch(error => {
-          console.error('Error fetching PDF:', error);
+        .catch((error) => {
+          console.error('Error loading PDF:', error);
         });
     },
+    
     
     
     async ViewHistory(id) {
