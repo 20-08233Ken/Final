@@ -31,7 +31,7 @@ export default {
       isAdd: false,
       receivedProgam: null,
       search: "",
-      myLoading: false,
+      myLoading: true,
       headers: [
         {
           title: "",
@@ -136,9 +136,9 @@ export default {
 
           })
           .then((response) => {
-            this.myLoading = true;
+        
             this.hepData = response.data;
-            console.log('Lpoaded')
+            this.myLoading = true;
             // if (response.data == "Successfully HEP added!"){
             //     this.isDataActive = false;
             // }

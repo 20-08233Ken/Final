@@ -34,8 +34,8 @@ export default {
       id: 1,
       disableSubmit: false,
       search: "",
-      myLoading: false,
-      myLoading2: false,
+      myLoading: true,
+
       forUpdate:[
       ],
    

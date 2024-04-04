@@ -1,51 +1,42 @@
 <script src="../../Scripts/Dean/AE_OCI_1.js"> </script>
 
 <template>
-    <div v-if="isAdd" role="alert"
-        class="alert alert-success w-5/12 text-white fixed top-20 z-50 transition-transform">
-        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none"
-            viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
-        <span class="text-white">Data Addedd Successfully!</span>
-    </div>
 
+
+    <div class="w-full flex shadow-card2 py-5 px-8 gap-4 bg-gray-700 mt-8">
+            <span class="flex flex-col justify-center w-9/12">
+                <h1 class="w-full font-Header text-white">
+                    Percentage of graduates (2 years prior) that are employed
+                </h1>
+
+                <p class="w-full text-sm text-gray-400">
+                    Higher Education Program: Outcome Indicator 2
+                </p>
+                <p class="w-full text-sm text-gray-400">College of Engineering</p>
+            </span>
+
+            <span class="flex w-3/12 items-center justify-end gap-3">
+
+
+
+                <button class="btn btn-sm w-4/12 font-Subheader text-xs" @click="changeData(1)":class="{ isBtnActive: isDataActive === 2 }">
+                    <v-icon>mdi-table</v-icon>Table
+                </button>
+
+                <button class="btn btn-sm w-4/12 font-Subheader text-xs" @click="changeData(2)" :class="{ isBtnActive: isDataActive === 1 }">
+                    <v-icon>mdi-form-select</v-icon> Form
+                </button>
+                
+            </span>
+    </div>
     <!-- <h1 class="self-center w-9/12  text-center font-Header text-xl text-Red-Rose"> Percentage of graduate school faculty engaged in research work</h1>
 <p class="w-full text-center text-gray-400">Advanced Education Program: Outcome Indicator 1</p>
 <p class="w-full text-center text-gray-400">College of Engineering</p> -->
 
-    <div class="flex  shadow-card2 py-8 px-8 rounded-lg gap-4 bg-gray-700">
-        <i class="mt-4" style="color: #BEFFF7;">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                stroke="currentColor" class="w-7 h-7">
-                <path stroke-linecap="round" stroke-linejoin="round"
-                    d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
-            </svg>
-        </i>
-        <span class="flex flex-col justify-center w-9/12">
-            <h1 class="w-full  font-Header text-lg text-white">Graduate school faculty engaged in research work
-            </h1>
-            <p class="w-full text-0.9 text-gray-400">Advanced Education Program: Outcome Indicator 1</p>
-            <p class="w-full text-0.9 text-gray-400">College of Engineering</p>
-        </span>
 
-        <span class="flex w-3/12 items-center justify-end">
-            <notification />
-        </span>
-    </div>
 
-    <div class="w-full flex justify-center gap-2">
-        <v-btn class="btn   w-6/12" :class="{ 'isDataActive': isDataActive === 1 }" @click="changeData(1)">
-            Table
-        </v-btn>
 
-        <v-btn class="btn   w-6/12" :class="{ 'isDataNotActive': isDataActive === 2 }" @click="changeData(2)">
-            Form
-        </v-btn>
-    </div>
-
-    <div class="w-full overflow-x-auto shadow-card2 mt-1 px-8  rounded-lg">
+    <div class="w-full overflow-x-auto shadow-card2 px-8 ">
 
         <div class="w-full flex flex-col mt-8" v-if="isDataActive === 2">
             <Form @submit="addData">
@@ -113,10 +104,10 @@
                 <table class="w-full mt-4">
                     <thead>
                         <tr class="bg-gray-700 text-white">
-                            <th class="border-2 text-white"></th>
-                            <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                            <th class="border-2 py-2  text-white"></th>
+                            <th class="border-2 py-2  text-white text-center text-0.9 font-Subheader ">
                                 Required Files</th>
-                            <th class="border-2 text-white text-center text-0.9 font-Subheader ">
+                            <th class="border-2 py-2  text-white text-center text-0.9 font-Subheader ">
                                 Upload Files
                             </th>
                             <th>
@@ -127,35 +118,35 @@
 
                     <tbody>
                         <tr>
-                            <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">1
+                            <td class="w-2/12 py-2 border-2 text-center text-0.9 text-Subheader text-gray-700 ">1
                             </td>
-                            <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                            <td class="w-7/12 py-2 px-3 border-2 text-0.9 text-Subheader text-gray-700">
                                 Scanned copy of enrollment form</td>
-                            <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                            <td class="w-3/12 py-2 border-2 text-0.9 text-Subheader text-gray-700 ">
                                 <input type="file" class="ml-5" @change="handleFileUpload1" accept=".pdf"> 
                             </td>
                         </tr>
                         <tr>
-                            <td class="border-2 text-0.9 text-Subheader text-gray-700">2</td>
-                            <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">Scanned copy of latest
+                            <td class="border-2 py-2 text-0.9 text-center text-Subheader text-gray-700">2</td>
+                            <td class="px-3 border-2 py-2 text-0.9 text-Subheader text-gray-700">Scanned copy of latest
                                 research conducted</td>
-                            <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                            <td class="w-3/12 border-2 py-2 text-0.9 text-Subheader text-gray-700 ">
                                 <input type="file" class="ml-5" @change="handleFileUpload2" accept=".pdf">
                             </td>
                         </tr>
                         <tr>
-                            <td class="border-2 text-0.9 text-Subheader text-gray-700">3</td>
-                            <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                            <td class="border-2 text-0.9 py-2 text-center text-Subheader text-gray-700">3</td>
+                            <td class="px-3 border-2 text-0.9 py-2  text-Subheader text-gray-700">
                                 Documentation of utilized technlogy</td>
-                            <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                            <td class="w-3/12 border-2 py-2  text-0.9 text-Subheader text-gray-700 ">
                                 <input type="file" class="ml-5" @change="handleFileUpload3"  accept=".pdf">
                             </td>
                         </tr>
                         <tr>
-                            <td class="border-2 text-0.9 text-Subheader text-gray-700">4</td>
-                            <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">Activity report of
+                            <td class="border-2 text-0.9 py-2 text-center  text-Subheader text-gray-700">4</td>
+                            <td class="px-3 border-2 text-0.9 py-2  text-Subheader text-gray-700">Activity report of
                                 extension program</td>
-                            <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                            <td class="w-3/12 border-2 text-0.9 py-2  text-Subheader text-gray-700 ">
                                 <input type="file" class="ml-5" @change="handleFileUpload4"  accept=".pdf">
                             </td>
                         </tr>
@@ -178,7 +169,7 @@
                 </template>
 
                 <v-data-table :headers="headers" :items="AdvanceEducationData" class="elevation-1 " items-per-page="10"
-                    :search="search" style="width:100%; overflow-x: scroll;">
+                    :search="search" :loading="myLoading" loading-text="Loading... Please wait" style="width:100%; overflow-x: scroll;" >
 
                     <template v-slot:item.copy_of_enrollment_form="{ item }">
                         <span class="flex w-full  gap-2 py-4">
@@ -290,13 +281,13 @@
 
                                             <table class="w-full mt-4">
                                                 <thead>
-                                                    <tr class="bg-gray-700 text-white">
-                                                        <th class="border-2 text-white"></th>
+                                                    <tr class="bg-gray-700 py-2 text-white">
+                                                        <th class="border-2 py-2 text-white"></th>
                                                         <th
-                                                            class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                                            class="border-2 py-2 text-white text-center text-0.9 font-Subheader ">
                                                             Required Files</th>
                                                         <th
-                                                            class="border-2 text-white text-center text-0.9 font-Subheader ">
+                                                            class="border-2 py-2 text-white text-center text-0.9 font-Subheader ">
                                                             Upload Files
                                                         </th>
                                                         <th>
@@ -307,40 +298,40 @@
 
                                                 <tbody>
                                                     <tr>
-                                                        <td class="w-2/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                        <td class="w-2/12 py-2 border-2 text-0.9 text-Subheader text-gray-700 ">
                                                             1
                                                         </td>
-                                                        <td class="w-7/12 px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                                        <td class="w-7/12 py-2 px-3 border-2 text-0.9 text-Subheader text-gray-700">
                                                             Scanned copy of enrollment form</td>
-                                                        <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                        <td class="w-3/12 py-2 border-2 text-0.9 text-Subheader text-gray-700 ">
                                                             <input type="file" class="ml-5"
                                                                 @change="editHandleFileUpload1"  accept=".pdf">
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="border-2 text-0.9 text-Subheader text-gray-700">2
+                                                        <td class="border-2 py-2 text-0.9 text-Subheader text-gray-700">2
                                                         </td>
-                                                        <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                                        <td class="px-3 border-2 py-2 text-0.9 text-Subheader text-gray-700">
                                                             Scanned copy of latest research conducted</td>
-                                                        <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                        <td class="w-3/12 border-2 py-2 text-0.9 text-Subheader text-gray-700 ">
                                                             <input type="file" class="ml-5"
                                                                 @change="editHandleFileUpload2"  accept=".pdf">
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="border-2 text-0.9 text-Subheader text-gray-700">3
+                                                        <td class="border-2 py-2 text-0.9 text-Subheader text-gray-700">3
                                                         </td>
-                                                        <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                                        <td class="px-3 border-2 py-2 text-0.9 text-Subheader text-gray-700">
                                                             Documentation of utilized technlogy</td>
-                                                        <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
+                                                        <td class="w-3/12 border-2 py-2 text-0.9 text-Subheader text-gray-700 ">
                                                             <input type="file" class="ml-5"
                                                                 @change="editHandleFileUpload3"  accept=".pdf">
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td class="border-2 text-0.9 text-Subheader text-gray-700">4
+                                                        <td class="border-2 py-2 text-0.9 text-Subheader text-gray-700">4
                                                         </td>
-                                                        <td class="px-3 border-2 text-0.9 text-Subheader text-gray-700">
+                                                        <td class="px-3 border-2 py-2 text-0.9 text-Subheader text-gray-700">
                                                             Activity
                                                             report of extension program</td>
                                                         <td class="w-3/12 border-2 text-0.9 text-Subheader text-gray-700 ">
@@ -466,4 +457,9 @@
             border: 1px solid white;   
 
         }
+
+        .isBtnActive {
+        background-color: #6b7280;
+        color: white;
+    }
 </style>

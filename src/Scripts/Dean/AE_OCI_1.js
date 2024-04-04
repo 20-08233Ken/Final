@@ -29,6 +29,7 @@ export default {
       count: true,
       isActive: 1,
       isAdd: false,
+      myLoading: true,
       search: "",
       headers: [
         {
@@ -334,7 +335,7 @@ export default {
           })
           .then((response) => {
             // console.log("advance education:",response.data);
-            // this.myLoading = true;
+            this.myLoading = true;
             this.AdvanceEducationData = response.data;
           })
           .catch((error) => {

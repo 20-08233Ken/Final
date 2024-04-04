@@ -19,7 +19,12 @@ import PBB_Research from '../Views/Planning/PBB/PBB_Research.vue'
 import Login from '../Views/Login.vue'
 
 import Offices from '../Views/Planning/Offices.vue'
+
+// Deans
 import Dean from '../Views/Dean/Dean.vue'
+import deanDashboard from '../Views/Dean/dashboard.vue'
+
+
 import Profile from '../Views/Planning//Profile/Profile.vue'
 // import FormA from '../components/Form/ModifiedFormA.vue'
 // import FormA_1 from '../components/Form/ModifiedFormA_1.vue'
@@ -68,10 +73,18 @@ const router = createRouter ({
 
 
         },  
+
+        // Dean
         {
             path:'/dean',
             name:'dean',
             component:Dean
+
+        },
+        {
+            path:'/deanDashboard',
+            name:'deanDashboard',
+            component:deanDashboard
 
         },
         {

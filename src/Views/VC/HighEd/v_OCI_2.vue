@@ -1,4 +1,3 @@
-<!-- <script src="../../../Scripts/Chancellor/HighEd/v_OCI_2.js"> -->
 <script src="../../../Scripts/VCs/HighEd/v_OCI_2.js">
 
 </script>
@@ -23,9 +22,11 @@
         </span>
         <v-data-table :headers="headersDean" :items="hepData" class="elevation-1" items-per-page="10">
 
-            <template v-slot:item.check_box="{ item }" v-if="user == 'Chancellor'">
+            <template v-slot:item.check_box="{ item }" v-if="user === 'Chancellor'">
                 <input type='checkbox' :id="item.hep_two_id" :value="item.hep_two_id"
                     @change="toogleCheckBox(item.hep_two_id)">
+
+
             </template>
 
             <template v-slot:item.graduate_files="{ item }">
@@ -107,13 +108,13 @@
             <h3 class="font-bold text-lg bg-gray-700 text-white px-4 py-3 font-Header">Approval</h3>
             <p class="py-4">Are you sure you want to approve this record? </p>
 
-            <form method="dialog" @submit="ApprovedRequest">
+            <form method="dialog">
                 <span class="w-full flex justify-end gap-4 mt-4">
                     <button class="btn bg-white border-0 shadow-0">
                         Cancel
                     </button>
 
-                    <button class="btn btn-success text-white" type="submit">
+                    <button class="btn btn-success text-white" @click="ApprovedRequest">
                         Confirm
                     </button>
                 </span>

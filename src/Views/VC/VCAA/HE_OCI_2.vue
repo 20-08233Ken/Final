@@ -14,7 +14,8 @@ export default {
             isActive: 1,
             isDataActive: 0,
             search: "",
-            myLoading: false,
+            myLoading: true,
+            myLoading2: true,
             in_program: "",
             in_fname: "",
             in_mname: "",
@@ -32,8 +33,7 @@ export default {
             up_selectedFile2: null,
             selectedFile1: null,
             selectedFile2: null,
-            userCampus: null,
-            userPosition: null,
+
 
             headersDean: [
                 {
@@ -211,7 +211,7 @@ export default {
                         user_id: user_id,
                     })
                     .then((response) => {
-                        
+                        this.myLoading2 = false;
                         this.deansData = response.data;
                      
                         // if (response.data == "Successfully HEP added!"){
@@ -223,7 +223,7 @@ export default {
                     })
 
                     .finally(() => {
-                      
+                       
                     });
             } catch (error) { }
         },
@@ -566,9 +566,10 @@ export default {
         let userCampus = this.cookies.get("userCampus");
         this.user = userPosition;
         this.userCookies = userCookies;
+        this.userCampus = userCookies["campus_id"]
         this.data[0].in_campus = userCampus;
         this.data[0].in_department = userCollege;
-        this.userCampus = userCookies["campus_id"]
+
         if (this.user == null && this.userCookies == null) {
             this.$router.push("/");
         }
@@ -588,12 +589,11 @@ export default {
     <span class="w-full flex shadow-card2 py-5 px-8 gap-4 bg-gray-700 mt-8">
         <span class="flex flex-col justify-center w-9/12">
             <h1 class="w-full font-Header text-white">
-                Percentage of first-time licensure exam takers that pass the
-                licensure exams
+                Percentage of graduates (2 years prior) that are employed
             </h1>
 
             <p class="w-full text-sm text-gray-400">
-                Higher Education Program: Outcome Indicator 1
+                Higher Education Program: Outcome Indicator 2
             </p>
             <p class="w-full text-sm text-gray-400">College of Engineering</p>
         </span>
@@ -601,15 +601,15 @@ export default {
         <span class="flex w-3/12 items-center justify-end gap-3">
             <!-- <notification /> -->
             <button class="btn btn-sm w-5/12 font-Subheader text-xs" @click="changeData(0)"
-                :class="{ isBtnActive: isDataActive === 0 }">
+                :class="{ isBtnActive: isDataActive === 0 ,notBtnActive:isDataActive !=0}">
                 <v-icon>mdi-account</v-icon>Registrar
             </button>
             <button class="btn btn-sm w-5/12 font-Subheader text-xs" @click="changeData(1)"
-                :class="{ isBtnActive: isDataActive === 1 }">
+                :class="{ isBtnActive: isDataActive === 1,notBtnActive:isDataActive !=1 }">
                 <v-icon>mdi-table</v-icon>Table
             </button>
             <button class="btn btn-sm w-5/12 font-Subheader text-xs" @click="changeData(2)"
-                :class="{ isBtnActive: isDataActive === 2 }"  :disabled="(this.userCampus < 6 && this.userCampus >=1)">
+                :class="{ isBtnActive: isDataActive === 2,notBtnActive:isDataActive !=2}">
                 <v-icon>mdi-form-select</v-icon> Form
             </button>
         </span>
@@ -631,7 +631,7 @@ export default {
     <span class="w-full flex flex-col" v-if="isDataActive === 1">
 
         <v-data-table :headers="headersDean" :items="deansData" class="elevation-1 " items-per-page="10"
-            :loading="myLoading" loading-text="Loading... Please wait" :search="search"
+            :loading="myLoading2" loading-text="Loading... Please wait" :search="search"
             style="width:100%; overflow-x: scroll;">
 
             <template v-slot:item.graduate_files="{ item }">
@@ -1061,6 +1061,11 @@ export default {
 }
 
 .isBtnActive {
+    background-color: white;
+    color: #111827;
+}
+
+.notBtnActive {
     background-color: #6b7280;
     color: white;
 }

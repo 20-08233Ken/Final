@@ -8,24 +8,36 @@
 
         <span class="flex flex-col justify-center w-9/12">
             <h1 class="w-full font-Header text-white">
-                Percentage of first-time licensure exam takers that pass the
-                licensure exams
+                Research Program
             </h1>
+<p class="w-full text-sm text-gray-400">College of Engineering</p>
+            <p class="w-full text-xs text-gray-400">
 
-            <p class="w-full text-sm text-gray-400">
-                Higher Education Program: Outcome Indicator 1
+            <ul>
+                <li>Outcome Indicator 1: Number of research outputs in the last three years (FY 2021-2023) utilized by
+                    the industry or by other beneficiaries
+                </li>
+                <li>Output Indicator 1: Number of research outputs completed within the year
+                </li>
+                <li>Output Indicator 2 (For State Universities): Percentage of researches published within the year (FY
+                    2023) in internationally-refereed journal
+                </li>
+                <li>Output Indicator 2 (For State Colleges and Professional Institutes): Percentage of researches
+                    presented within the year (FY 2023) in national, regional, and international fora
+                </li>
+            </ul>
             </p>
-            <p class="w-full text-sm text-gray-400">College of Engineering</p>
+            
         </span>
 
         <span class="flex w-3/12 items-center justify-end gap-3">
             <!-- <notification /> -->
             <button class="btn btn-sm w-4/12 font-Subheader text-xs" @click="changeData(1)"
-                :class="{ isBtnActive: isDataActive === 1 }">
+                :class="{ isBtnActive: isDataActive === 2 }">
                 <v-icon>mdi-table</v-icon>Table
             </button>
             <button class="btn btn-sm w-4/12 font-Subheader text-xs" @click="changeData(2)"
-                :class="{ isBtnActive: isDataActive === 2 }">
+                :class="{ isBtnActive: isDataActive === 1 }">
                 <v-icon>mdi-form-select</v-icon> Form
             </button>
         </span>
@@ -42,7 +54,7 @@
 
                         <template v-slot:activator="{ props: activatorProps }">
                             <v-btn size="x-small" block v-bind="activatorProps" color="surface-variant" text="Edit"
-                                variant="flat"   @click="openUpdate(item)"></v-btn>
+                                variant="flat" @click="openUpdate(item)"></v-btn>
                         </template>
 
                         <template v-slot:default="{ isActive }">
@@ -122,8 +134,8 @@
                                                         </svg>
                                                     </button>
                                                     <p class="font-Subheader text-0.8 text-gray-600">{{ item.fname }} {{
-                    item.mname }} {{
-                    item.lname }}</p>
+                                                        item.mname }} {{
+                                                        item.lname }}</p>
                                                 </div>
                                             </span>
 

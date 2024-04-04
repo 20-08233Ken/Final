@@ -36,7 +36,7 @@ export default {
 
       receivedProgam: null,
       search: "",
-      myLoading: false,
+      myLoading: true,
 
       headers: [
         {
@@ -234,8 +234,8 @@ export default {
             
           
             if (response.data == "Successfully HEP added!") {
-              // location.reload();
-              // console.log('added')
+
+        
               this.isDataActive = 1
               Swal.fire({
                 title: "Success",
@@ -369,8 +369,7 @@ export default {
         event.target.value = "";
       } else {
         this.selectedFile = event.target.files[0];
-        // this.selectedFileName = event.target.files[0].name
-        // console.log(JSON.stringify(this.selectedFileName))
+
       }
     },
 
@@ -466,6 +465,8 @@ export default {
     this.data[0].in_campus = userCampus;
     this.data[0].in_department = userCollege;
 
+    
+
     if (this.user == null && this.userCookies == null) {
       this.$router.push("/");
     }
@@ -496,12 +497,12 @@ export default {
         <span class="flex w-3/12 items-center justify-end gap-3">
             <!-- <notification /> -->
             <button class="btn btn-sm w-4/12 font-Subheader text-xs" @click="changeData(1)"
-                :class="{ isBtnActive: isDataActive === 1 }">
+                :class="{ isBtnActive: isDataActive === 2 }">
                 <v-icon>mdi-table</v-icon>Table
             </button>
             <button class="btn btn-sm w-4/12 font-Subheader text-xs" @click="changeData(2)" 
-            :disabled="(this.userCampus < 6 && this.userCampus >=1)"
-                :class="{ isBtnActive: isDataActive === 2 }" >
+            v-if="(this.userCampus < 6 && this.userCampus >=1)"
+                :class="{ isBtnActive: isDataActive === 1 }" >
                 <v-icon>mdi-form-select</v-icon> Form
             </button>
         </span>
@@ -769,7 +770,7 @@ export default {
                 Exam Date
             </p>
             <Field type="date" placeholder="Type here" class="input mt-2 input-bordered w-full" name="exam_date"
-                style="border: 1px solid #d2d2d2" :rules="validateInput"  v-model="exam_date" />
+                style="border: 1px solid #d2d2d2" :rules="validateInput"  v-model="in_examDate" />
             <ErrorMessage name="exam_date" class="error_message" />
 
             <p class="text-0.9 font-Subheader text-gray-500 mt-6">

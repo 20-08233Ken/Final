@@ -87,7 +87,11 @@ export default{
         showComponent(componentName, btnNumber){
             this.currentComponent = componentName
             this.activeBtn = btnNumber
-        }
+        },
+
+        changeData(isActive) {
+            this.isDataActive = isActive;
+          },
     },
 
     

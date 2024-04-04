@@ -143,7 +143,7 @@
                             Cancel
                         </button>
                     </form>
-                    <button class="btn btn-success text-white" type="submit">
+                    <button class="btn btn-success text-white">
                         Submit
                     </button>
                 </span>
