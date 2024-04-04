@@ -3,7 +3,7 @@ import notification from "../../components/Others/notification.vue";
 import edit_1 from "../../Views/Dean/edit/edit_1.vue";
 import axios from "axios";
 import { useCookies } from "vue3-cookies";
-
+import PDFViewer from 'pdf-viewer-vue'
 import Swal from "sweetalert2";
 
 export default {
@@ -17,6 +17,7 @@ export default {
     ErrorMessage,
     notification,
     edit_1,
+    PDFViewer,
   },
   data() {
     return {
@@ -121,6 +122,9 @@ export default {
       userposition:null,
       userCampus:null,
       userID:null,
+      pdfUrl: null,
+      pdfBase64: null,
+      
     };
   },
   methods: {
@@ -383,20 +387,19 @@ export default {
         .post(import.meta.env.VITE_API_FETCH_PDF, {
           id: id,
           user_id: userCookies["id"],
-          responseType: "arraybuffer", // Set the response type to arraybuffer
+          // responseType: 'arraybuffer',
         })
         .then((response) => {
+          this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
+          // console.log( response.request.responseURL);
           // Create a Blob object from the response data
-          const blob = new Blob([response.data], { type: "application/pdf" });
-
-          // Create a URL for the Blob object
-          const url = URL.createObjectURL(blob);
+          // this.pdfBase64 = response.data.pdfBase64;
 
           // Open the URL in a new tab
-          window.open(url, "_blank");
+          // window.open(url, "_blank");
         })
         .catch((error) => {
-          console.error("Error fetching PDF:", error);
+          console.error('Error loading PDF:', error);
         });
     },
 
@@ -431,30 +434,6 @@ export default {
       this.EditselectedFile = event.target.files[0];
     },
 
-    async DownloadFile(id) {
-      this.selectedID = id;
-      let userCookies = this.cookies.get("userCookies");
-      const response = await axios
-        .post(import.meta.env.VITE_API_FETCH_PDF, {
-          id: id,
-          user_id: userCookies["id"],
-          responseType: "blob",
-        })
-        .then((response) => {
-          const url = window.URL.createObjectURL(new Blob([response.data]));
-          // window.open(url, '_blank');
-        })
-        // .then(response => response.blob())
-        // .then(blob => {
-        //     const url = window.URL.createObjectURL(new Blob([response.data]));
-        //     window.open(url, '_blank');
-        //     // If you want to embed the PDF in your page, you can use an <iframe> instead:
-        //     // document.getElementById('pdfViewer').src = url;
-        // })
-        .catch((error) => {
-          console.error("Error fetching PDF:", error);
-        });
-    },
   },
 
   // watch:{
