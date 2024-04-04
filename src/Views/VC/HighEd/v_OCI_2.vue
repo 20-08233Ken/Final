@@ -1,4 +1,5 @@
-<script src="../../../Scripts/Chancellor/HighEd/v_OCI_2.js">
+<!-- <script src="../../../Scripts/Chancellor/HighEd/v_OCI_2.js"> -->
+<script src="../../../Scripts/VCs/HighEd/v_OCI_2.js">
 
 </script>
 
@@ -22,11 +23,9 @@
         </span>
         <v-data-table :headers="headersDean" :items="hepData" class="elevation-1" items-per-page="10">
 
-            <template v-slot:item.check_box="{ item }" v-if="user === 'Chancellor'">
+            <template v-slot:item.check_box="{ item }" v-if="user == 'Chancellor'">
                 <input type='checkbox' :id="item.hep_two_id" :value="item.hep_two_id"
                     @change="toogleCheckBox(item.hep_two_id)">
-
-
             </template>
 
             <template v-slot:item.graduate_files="{ item }">
@@ -41,15 +40,15 @@
 
                 <span class="flex w-full flex-col  gap-2 py-4">
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
-                        @click="approvedHEP(item.hep_one_id)" v-if="user != 'Chancellor'"> Approved</v-btn>
+                        @click="approvedHEP(item.hep_two_id)" v-if="user != 'Chancellor'"> Approved</v-btn>
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
-                        @click="rejectedHEP(item.hep_one_id)"> Reject</v-btn>
+                        @click="rejectedHEP(item.hep_two_id)"> Reject</v-btn>
 
 
                     <v-dialog max-width="700">
                         <template v-slot:activator="{ props: activatorProps }">
                             <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant" text="View"
-                                variant="flat" @click="ViewHistory(item.hep_one_id)"></v-btn>
+                                variant="flat" @click="ViewHistory(item.hep_two_id)"></v-btn>
                         </template>
 
                         <template v-slot:default="{ isActive }" class="w-full">
@@ -108,13 +107,13 @@
             <h3 class="font-bold text-lg bg-gray-700 text-white px-4 py-3 font-Header">Approval</h3>
             <p class="py-4">Are you sure you want to approve this record? </p>
 
-            <form method="dialog">
+            <form method="dialog" @submit="ApprovedRequest">
                 <span class="w-full flex justify-end gap-4 mt-4">
                     <button class="btn bg-white border-0 shadow-0">
                         Cancel
                     </button>
 
-                    <button class="btn btn-success text-white" @click="ApprovedRequest">
+                    <button class="btn btn-success text-white" type="submit">
                         Confirm
                     </button>
                 </span>
