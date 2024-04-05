@@ -2,7 +2,7 @@ import {Form, Field, ErrorMessage} from 'vee-validate'
 // import { userPosition } from '../../cookies'
 import axios from "axios";
 import { useCookies } from "vue3-cookies";
-
+import PDFViewer from 'pdf-viewer-vue'
 export default{
     setup() {
         const { cookies } = useCookies();
@@ -84,11 +84,12 @@ export default{
             user:null,
             selectedIds: [],
             approvedLogs:[],
-            myLoading:true
+            myLoading:true,
+            pdfBase64: null,
         }
     },
     components:{
-        Form, Field, ErrorMessage
+        Form, Field, ErrorMessage, PDFViewer
     },
     methods: {
         validateInput(value) {
@@ -133,14 +134,7 @@ export default{
               responseType: 'arraybuffer' // Set the response type to arraybuffer
             })
             .then(response => {
-              // Create a Blob object from the response data
-              const blob = new Blob([response.data], { type: 'application/pdf' });
-            
-              // Create a URL for the Blob object
-              const url = URL.createObjectURL(blob);
-            
-              // Open the URL in a new tab
-              window.open(url, '_blank');
+              this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
             })
             .catch(error => {
               console.error('Error fetching PDF:', error);
@@ -159,14 +153,7 @@ export default{
               responseType: 'arraybuffer' // Set the response type to arraybuffer
             })
             .then(response => {
-              // Create a Blob object from the response data
-              const blob = new Blob([response.data], { type: 'application/pdf' });
-            
-              // Create a URL for the Blob object
-              const url = URL.createObjectURL(blob);
-            
-              // Open the URL in a new tab
-              window.open(url, '_blank');
+              this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
             })
             .catch(error => {
               console.error('Error fetching PDF:', error);
@@ -185,13 +172,7 @@ export default{
             })
             .then(response => {
               // Create a Blob object from the response data
-              const blob = new Blob([response.data], { type: 'application/pdf' });
-            
-              // Create a URL for the Blob object
-              const url = URL.createObjectURL(blob);
-            
-              // Open the URL in a new tab
-              window.open(url, '_blank');
+              this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
             })
             .catch(error => {
               console.error('Error fetching PDF:', error);
@@ -209,14 +190,7 @@ export default{
               responseType: 'arraybuffer' // Set the response type to arraybuffer
             })
             .then(response => {
-              // Create a Blob object from the response data
-              const blob = new Blob([response.data], { type: 'application/pdf' });
-            
-              // Create a URL for the Blob object
-              const url = URL.createObjectURL(blob);
-            
-              // Open the URL in a new tab
-              window.open(url, '_blank');
+              this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
             })
             .catch(error => {
               console.error('Error fetching PDF:', error);

@@ -2,7 +2,7 @@ import { Form, Field, ErrorMessage } from "vee-validate";
 import { userPosition } from "../../cookies";
 import { useCookies } from "vue3-cookies";
 import axios from 'axios';
-
+import PDFViewer from 'pdf-viewer-vue'
 export default {
   
 //   mounted(){
@@ -263,32 +263,25 @@ export default {
         .post(import.meta.env.VITE_API_FETCH_PDF, {
           id: id,
           user_id: userCookies["id"],
-          responseType: 'arraybuffer' // Set the response type to arraybuffer
+          // responseType: 'arraybuffer',
         })
-        .then(response => {
-          // Create a Blob object from the response data
-          const blob = new Blob([response.data], { type: 'application/pdf' });
-        
-          // Create a URL for the Blob object
-          const url = URL.createObjectURL(blob);
-        
-          // Open the URL in a new tab
-          window.open(url, '_blank');
+        .then((response) => {
+          this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
+
         })
-        .catch(error => {
-          console.error('Error fetching PDF:', error);
+        .catch((error) => {
+          console.error('Error loading PDF:', error);
         });
  
     },
 
   },
 
-
-
   components: {
     Form,
     Field,
     ErrorMessage,
+    PDFViewer,
   },
 
   mounted() {

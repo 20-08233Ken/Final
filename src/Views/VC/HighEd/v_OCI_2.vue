@@ -31,9 +31,52 @@
 
             <template v-slot:item.graduate_files="{ item }">
                 <div class="flex flex-col gap-2">
-                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFilePDF(item.hep_two_id)">View PDF</v-btn>
+                    <!-- <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFilePDF(item.hep_two_id)">View PDF</v-btn> -->
+                    <v-dialog max-width="750">
+                        <template v-slot:activator="{ props: activatorProps }">
+                            <v-dialog max-width="500">
+                                <template v-slot:activator="{ props: activatorProps }">
+                                  <v-btn
+                                    v-bind="activatorProps"
+                                    color="surface-variant"
+                                    text="View PDF"
+                                    variant="flat"  @click="viewFilePDF(item.hep_two_id)" 
+                                  ></v-btn>
+                                </template>
+                              
+                                <template v-slot:default="{ isActive }">
+                                  <v-card title="View PDF">
+                                    <!-- <PDFViewer v-if="pdfBase64" :src="`data:application/pdf;base64,${pdfBase64}`" :show-toolbar="true" :show-pagination="true" /> -->
+                                    <PDFViewer :source="pdfBase64" > </PDFViewer>
+                                    <v-card-actions>
+                                      <v-spacer></v-spacer>
+                              
+                                      <v-btn
+                                        text="Close"
+                                        @click="isActive.value = false"
+                                      ></v-btn>
+                                    </v-card-actions>
+                                  </v-card>
+                                </template>
+                              </v-dialog>
+                        </template>
+                      
+                        <template v-slot:default="{ isActive }">
+                          <v-card title="View PDF">
+                            <!-- <PDFViewer v-if="pdfBase64" :src="`data:application/pdf;base64,${pdfBase64}`" :show-toolbar="true" :show-pagination="true" /> -->
+                            <PDFViewer :source="pdfBase64" > </PDFViewer>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                      
+                              <v-btn
+                                text="Close"
+                                @click="isActive.value = false"
+                              ></v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </template>
+                    </v-dialog>
                     <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFileXLS(item.hep_two_id, item.official_list)">View Excel</v-btn>
-
                 </div>
             </template>
 
@@ -41,10 +84,12 @@
 
                 <span class="flex w-full flex-col  gap-2 py-4">
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
-                        @click="approvedHEP(item.hep_two_id)" v-if="user != 'Chancellor'"> Approved</v-btn>
-                    <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
-                        @click="rejectedHEP(item.hep_two_id)"> Reject</v-btn>
+                    @click="approvedHEP(item.hep_two_id)"
+                    :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCRDES' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator')"> Approved</v-btn>
 
+                    <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
+                    @click="rejectedHEP(item.hep_two_id)"
+                    :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCRDES' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator') "> Reject</v-btn>
 
                     <v-dialog max-width="700">
                         <template v-slot:activator="{ props: activatorProps }">

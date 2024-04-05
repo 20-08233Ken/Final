@@ -23,9 +23,51 @@
 
 
             <template v-slot:item.supported_file="{item}">
-                <span class="flex w-full  gap-2 py-4">
-                    <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.hep_one_id)">View PDF</v-btn>
-
+                <span class="flex w-full gap-2 py-4">
+                    <v-dialog max-width="750">
+                        <template v-slot:activator="{ props: activatorProps }">
+                            <v-dialog max-width="500">
+                                <template v-slot:activator="{ props: activatorProps }">
+                                  <v-btn
+                                    v-bind="activatorProps"
+                                    color="surface-variant"
+                                    text="View PDF"
+                                    variant="flat"  @click="viewFile(item.hep_one_id)" 
+                                  ></v-btn>
+                                </template>
+                              
+                                <template v-slot:default="{ isActive }">
+                                  <v-card title="View PDF">
+                                    <!-- <PDFViewer v-if="pdfBase64" :src="`data:application/pdf;base64,${pdfBase64}`" :show-toolbar="true" :show-pagination="true" /> -->
+                                    <PDFViewer :source="pdfBase64" > </PDFViewer>
+                                    <v-card-actions>
+                                      <v-spacer></v-spacer>
+                              
+                                      <v-btn
+                                        text="Close"
+                                        @click="isActive.value = false"
+                                      ></v-btn>
+                                    </v-card-actions>
+                                  </v-card>
+                                </template>
+                              </v-dialog>
+                        </template>
+                      
+                        <template v-slot:default="{ isActive }">
+                          <v-card title="View PDF">
+                            <!-- <PDFViewer v-if="pdfBase64" :src="`data:application/pdf;base64,${pdfBase64}`" :show-toolbar="true" :show-pagination="true" /> -->
+                            <PDFViewer :source="pdfBase64" > </PDFViewer>
+                            <v-card-actions>
+                              <v-spacer></v-spacer>
+                      
+                              <v-btn
+                                text="Close Dialog"
+                                @click="isActive.value = false"
+                              ></v-btn>
+                            </v-card-actions>
+                          </v-card>
+                        </template>
+                    </v-dialog>
                 </span>
             </template>
             <template v-slot:item.actions="{item}">

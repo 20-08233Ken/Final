@@ -30,31 +30,111 @@
             </template>
          
             <template v-slot:item.copy_of_enrollment_form="{ item }">
-                <span class="flex w-full  gap-2 py-4">
-                        <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewEnrollmentFormPDF(item.advance_ed_id)">View PDF</v-btn>
-                </span>
+                <v-dialog max-width="1700">
+                    <template v-slot:activator="{ props: activatorProps }">
+                        <v-btn size="x-small" class="bg-light-blue-darken-3" v-bind="activatorProps"
+                            text="View PDF" variant="flat"
+                            @click="viewEnrollmentFormPDF(item.advance_ed_id)"></v-btn>
+                    </template>
+
+                    <template v-slot:default="{ isActive }">
+                        <v-card title="View PDF">
+
+                            <div>
+                                <!-- <pdf-viewer :src="pdfUrl" :show-toolbar="true"></pdf-viewer> -->
+                                <PDFViewer :source="pdfBase64" style="height: 100vh; width: 100vw">
+                                </PDFViewer>
+                            </div>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+
+                                <v-btn text="Close " @click="isActive.value = false"></v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </template>
+                </v-dialog>
             </template>
             <template v-slot:item.research_conducted="{ item }">
-                <span class="flex w-full  gap-2 py-4">
-                        <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewResearchPDF(item.advance_ed_id)">View PDF</v-btn>
-                </span>
+                <v-dialog max-width="1700">
+                    <template v-slot:activator="{ props: activatorProps }">
+                        <v-btn size="x-small" class="bg-light-blue-darken-3" v-bind="activatorProps"
+                            text="View PDF" variant="flat"
+                            @click="viewResearchPDF(item.advance_ed_id)"></v-btn>
+                    </template>
+
+                    <template v-slot:default="{ isActive }">
+                        <v-card title="View PDF">
+
+                            <div>
+                                <!-- <pdf-viewer :src="pdfUrl" :show-toolbar="true"></pdf-viewer> -->
+                                <PDFViewer :source="pdfBase64" style="height: 100vh; width: 100vw">
+                                </PDFViewer>
+                            </div>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+
+                                <v-btn text="Close " @click="isActive.value = false"></v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </template>
+                </v-dialog>
             </template>
             <template v-slot:item.utilized_technology="{ item }">
-                <span class="flex w-full  gap-2 py-4">
-                        <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewUtilizedTechPDF(item.advance_ed_id)">View PDF</v-btn>
-                </span>
+                <v-dialog max-width="1700">
+                    <template v-slot:activator="{ props: activatorProps }">
+                        <v-btn size="x-small" class="bg-light-blue-darken-3" v-bind="activatorProps"
+                            text="View PDF" variant="flat"
+                            @click="viewUtilizedTechPDF(item.advance_ed_id)"></v-btn>
+                    </template>
+
+                    <template v-slot:default="{ isActive }">
+                        <v-card title="View PDF">
+
+                            <div>
+                                <!-- <pdf-viewer :src="pdfUrl" :show-toolbar="true"></pdf-viewer> -->
+                                <PDFViewer :source="pdfBase64" style="height: 100vh; width: 100vw">
+                                </PDFViewer>
+                            </div>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+
+                                <v-btn text="Close " @click="isActive.value = false"></v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </template>
+                </v-dialog>
             </template>
             <template v-slot:item.report_of_extension_program="{ item }">
-                <span class="flex w-full  gap-2 py-4">
-                        <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewDisplayExtensionProgram(item.advance_ed_id)">View PDF</v-btn>
-                </span>
+                <v-dialog max-width="1700">
+                    <template v-slot:activator="{ props: activatorProps }">
+                        <v-btn size="x-small" class="bg-light-blue-darken-3" v-bind="activatorProps"
+                            text="View PDF" variant="flat"
+                            @click="viewDisplayExtensionProgram(item.advance_ed_id)"></v-btn>
+                    </template>
+
+                    <template v-slot:default="{ isActive }">
+                        <v-card title="View PDF">
+
+                            <div>
+                                <!-- <pdf-viewer :src="pdfUrl" :show-toolbar="true"></pdf-viewer> -->
+                                <PDFViewer :source="pdfBase64" style="height: 100vh; width: 100vw">
+                                </PDFViewer>
+                            </div>
+                            <v-card-actions>
+                                <v-spacer></v-spacer>
+
+                                <v-btn text="Close " @click="isActive.value = false"></v-btn>
+                            </v-card-actions>
+                        </v-card>
+                    </template>
+                </v-dialog>
             </template>
             <template v-slot:item.actions="{ item }">
                 <span class="flex w-full flex-col  gap-2 py-4">
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
                         @click="approvedAE(item.advance_ed_id)" v-if="user != 'Chancellor'"> Approved</v-btn>
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
-                        @click="rejectedAE(item.advance_ed_id)"> Reject</v-btn>
+                        @click="rejectedAE(item.advance_ed_id)" v-if="user != 'Chancellor'"> Reject</v-btn>
 
                     <v-dialog max-width="700">
                         <template v-slot:activator="{ props: activatorProps }">

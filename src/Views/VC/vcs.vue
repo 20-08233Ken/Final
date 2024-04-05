@@ -2,6 +2,8 @@
     import VCs from '../../components/Others/Navigation/VCs_nav.vue'
     import VCAA_nav from '../../components/Others/Navigation/VCAA_nav.vue'
     import vpaa_nav from '../../components/Others/Navigation/vpaa_nav.vue'
+    import vprdes_nav from '../../components/Others/Navigation/vprdes_nav.vue'
+    import VCRDES_nav from '../../components/Others/Navigation/VCRDES_nav.vue'
     import Planning_navVue from '../../components/Others/Navigation/Planning_nav.vue'
 
     // VCAA
@@ -62,7 +64,9 @@ export default{
         OC,
         OPI_2,
         Research,
+        vprdes_nav,
         vpaa_nav,
+        VCRDES_nav,
         VCAA_nav
     },
     data(){
@@ -87,6 +91,8 @@ export default{
     <main class="w-full">
         <VCAA_nav v-if="user === 'VCAA'"/>
         <vpaa_nav v-if="user === 'VPAA'"/>
+        <VCRDES_nav v-if="user === 'VCRDES'"/>
+        <vprdes_nav v-if="user === 'VPRDES'"/>
         <Planning_navVue v-if="user === 'Planning'" />
         <Planning_navVue v-if="user === 'IPDO'" />
         

@@ -2,6 +2,7 @@ import {Form, Field, ErrorMessage} from 'vee-validate'
 import { userPosition } from '../../cookies'
 import { useCookies } from "vue3-cookies";
 import axios from 'axios';
+import PDFViewer from 'pdf-viewer-vue'
 export default {
   setup() {
     const { cookies } = useCookies();
@@ -9,183 +10,6 @@ export default {
   },
   data() {
     return {
-      sampleData: [
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-        {
-          campus: "Alangilan Campus",
-          department: "College of Engineering",
-          program: "Bachelor of Science in Civil Engineering",
-          year_io: "2012",
-          status: "status",
-          pov_from: "pov_from",
-          pov_to: "pov to",
-          sup_doc: "",
-          v_status: "Not validated",
-        },
-      ],
-
-      // headers: [
-      //   {
-      //     title: "HEP Code",
-      //     key: "hep_code",
-      //   },
-      //   {
-      //     title: "Campus",
-      //     value: "campus",
-      //   },
-      //   {
-      //     title: "Department",
-      //     value: "college",
-      //   },
-      //   {
-      //     title: "Undergraduate Program",
-      //     value: "program",
-      //   },
-      //   {
-      //     title: "Name",
-      //     value: "student_fullname",
-      //   },
-      //   {
-      //     title: "Status",
-      //     value: "graduate_tracer_status",
-      //   },
-      //   {
-      //     title: "Companys Business / Type of Business",
-      //     value: "business",
-      //   },
-      //   {
-      //     title:'Supported Documents',
-      //     align:'center',
-      //     children:[
-      //       {
-      //         title: "Graduate Tracer Study",
-      //         value: "graduate_files",
-      //       },
-      //       {
-      //         title: "Official List of Graduate",
-      //         value: "official_list",
-      //       },
-      //     ]
-      //   },
-
-      //   {
-      //     title: "Validation Status",
-      //     value: "status",
-      //   },
-      //   {
-      //     title: "Actions",
-      //     value: "actions",
-      //   },
-      // ],
 
       headersDean: [
         {
@@ -246,12 +70,14 @@ export default {
       selectedIds: [],
       approvedLogs: [],
       myLoading: false,
+      pdfBase64 : null,
     };
   },
   components: {
     Form,
     Field,
     ErrorMessage,
+    PDFViewer,
   },
 
   methods: {
@@ -369,14 +195,8 @@ export default {
           responseType: "arraybuffer", // Set the response type to arraybuffer
         })
         .then((response) => {
-          // Create a Blob object from the response data
-          const blob = new Blob([response.data], { type: "application/pdf" });
+          this.pdfBase64 = `data:application/pdf;base64,${response.data.pdfBase64}`;
 
-          // Create a URL for the Blob object
-          const url = URL.createObjectURL(blob);
-
-          // Open the URL in a new tab
-          window.open(url, "_blank");
         })
         .catch((error) => {
           console.error("Error fetching PDF:", error);

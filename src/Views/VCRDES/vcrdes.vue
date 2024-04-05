@@ -87,21 +87,22 @@ export default {
           value: "actions",
         },
       ],
-      sampleData: [
-        {
-          advanced_ed_code: "1",
-          campus: "1",
-          college: "1",
-          fullname: "1",
-          research_position: "1",
-          copy_of_enrollment_form: "1",
-          research_conducted: "1",
-          utilized_technology: "1",
-          report_of_extension_program: "1",
-          status: "1",
-          actions: "1",
-        },
-      ],
+      // sampleData: [
+      //   {
+      //     advanced_ed_code: "1",
+      //     campus: "1",
+      //     college: "1",
+      //     fullname: "1",
+      //     research_position: "1",
+      //     copy_of_enrollment_form: "1",
+      //     research_conducted: "1",
+      //     utilized_technology: "1",
+      //     report_of_extension_program: "1",
+      //     status: "1",
+      //     actions: "1",
+      //   },
+      // ],
+      AdvanceEducationData: [],
       data: [
         {
           in_campus: "",
@@ -177,7 +178,28 @@ export default {
       this.isDataActive = isActive;
     },
 
-    addData() {},
+    // Fetch Data
+    async FetchData(position, campus, user_id) {
+      try {
+        await axios.post(import.meta.env.VITE_API_DISPLAY_ADVANCED_EDUCATION, {
+          position: position,
+          campus_id: campus,
+          user_id: user_id,
+        })
+        .then((response) => {
+          // console.log("advance education:",response.data);
+          // this.myLoading = true;
+            this.AdvanceEducationData = response.data;
+        })
+        .catch((error) => {
+          console.error("Error fetching AE data", error);
+        })
+
+        .finally(() => {
+          this.myLoading = false;
+        });
+      } catch (error) {}
+    },
 
     async addData() {
       const headers = {
@@ -254,6 +276,10 @@ export default {
     if (this.user == null && this.userCookies == null) {
       this.$router.push("/");
     }
+
+    
+    this.FetchData(userCookies["position"],userCookies["campus_id"],userCookies["id"]);
+
   },
 };
 </script>
@@ -301,7 +327,7 @@ export default {
         <div class="table-cont w-full flex flex-col" v-if="isDataActive === 1">
           <v-data-table
             :headers="headers"
-            :items="sampleData"
+            :items="AdvEdData"
             class="elevation-1"
             items-per-page="10"
             loading-text="Loading... Please wait"

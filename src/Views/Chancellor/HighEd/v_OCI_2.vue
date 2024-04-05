@@ -43,7 +43,7 @@
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
                         @click="approvedHEP(item.hep_two_id)" v-if="user != 'Chancellor'"> Approved</v-btn>
                     <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
-                        @click="rejectedHEP(item.hep_two_id)"> Reject</v-btn>
+                        @click="rejectedHEP(item.hep_two_id)" v-if="user != 'Chancellor'"> Reject</v-btn>
 
 
                     <v-dialog max-width="700">
