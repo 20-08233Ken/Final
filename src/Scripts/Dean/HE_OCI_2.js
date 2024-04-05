@@ -291,7 +291,6 @@ async ViewHistory(id) {
                 icon: 'error',
                 confirmButtonText: 'OK'
               })
-              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }else if(response.data == "Existing Data Already"){
 
                 Swal.fire({
@@ -390,7 +389,7 @@ async ViewHistory(id) {
     // FETCHING DEANS DATA
     async FetchData(position, campus, user_id) {
       try {
-        const response = await axios
+          await axios
           .post(import.meta.env.VITE_API_APPROVE_DISPLAY_TWO_HEP, {
             position: position,
             campus_id: campus,
@@ -398,11 +397,9 @@ async ViewHistory(id) {
           })
           .then((response) => {
             this.myLoading2 = true;
+            // console.log("FETCH:", response.data);
             this.deansData = response.data;
-            
-            // if (response.data == "Successfully HEP added!"){
-            //     this.isDataActive = false;
-            // }
+
           })
           .catch((error) => {
             console.error("Error fetching hep data", error);
@@ -606,8 +603,6 @@ async ViewHistory(id) {
                 confirmButtonText: 'OK'
                 
               })
-              
-              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
             else if (response.data == "Successfully HEP updated!") {
               Swal.fire({
@@ -617,12 +612,7 @@ async ViewHistory(id) {
               })
               
                 this.isDataActive = 3;
-              // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
             }
-            // if (response.data == "Successfully HEP updated!") {
-            //   location.reload();
-            //   // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);
-            // }
           })
           .catch((error) => {
             console.error("Error fetching campus", error);

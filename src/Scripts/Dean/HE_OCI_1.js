@@ -185,15 +185,11 @@ export default {
 
     // Sample Data Entry that will display in table
     async addData() {
-      const headers = {
-        "Content-Type": "multipart/form-data",
-      };
+      // const
       let userCookies = this.cookies.get("userCookies");
       // Form Data
       const formData = new FormData();
       formData.append("supported_file", this.selectedFile);
-      // formData.append('campus_id', this.data[0].in_campus);
-      // formData.append('college_id',this.data[0].in_department);
       formData.append("program_id", this.in_program);
       formData.append("exam_date", this.in_examDate);
       formData.append("number_of_takers", this.in_takers);
@@ -205,7 +201,9 @@ export default {
       try {
         const response = await axios
           .post(import.meta.env.VITE_API_CREATE_HEP, formData, {
-            headers,
+            headers : {
+              "Content-Type": "multipart/form-data",
+            }
           })
           .then((response) => {
             // this.collegeProgram = response.data;
@@ -220,7 +218,7 @@ export default {
                 text: "Data added successfully. Please reload the table",
                 icon: "success",
                 confirmButtonText: "OK",
-              });
+              })
           
        
               // this.FetchData(userCookies["userPosition"],userCookies['campus_id'],userCookies['id']);

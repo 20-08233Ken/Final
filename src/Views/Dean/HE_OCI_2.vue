@@ -14,7 +14,7 @@
             <p class="w-full text-sm text-gray-400">
                 Higher Education Program: Outcome Indicator 2
             </p>
-            <p class="w-full text-sm text-gray-400">College of Engineering</p>
+            <!-- <p class="w-full text-sm text-gray-400">College of Engineering</p> -->
         </span>
 
         <span class="flex w-3/12 items-center justify-end gap-3">
@@ -157,7 +157,7 @@
                             <td class="w-7/12 py-2  px-3 border-2 text-0.9 text-Subheader text-gray-700">
                                 Graduate Tracer Study <span class="text-Red-Rose font-Header">(.pdf)</span></td>
                             <td class="w-3/12 py-2  border-2 text-0.9 text-Subheader text-gray-700 ">
-                                <input type="file" class="ml-5" @change="handleFileUpload">
+                                <input type="file" class="ml-5" @change="handleFileUpload"  accept=".pdf">
                             </td>
                         </tr>
                         <tr>

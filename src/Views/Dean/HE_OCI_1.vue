@@ -13,7 +13,7 @@
       <p class="w-full text-sm text-gray-400">
         Higher Education Program: Outcome Indicator 1
       </p>
-      <p class="w-full text-sm text-gray-400">College of Engineering</p>
+      <!-- <p class="w-full text-sm text-gray-400">College of Engineering</p> -->
     </span>
 
     <span class="flex w-3/12 items-center justify-end gap-3">

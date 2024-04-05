@@ -30,45 +30,6 @@ use([
 ]);
 
 
-const sampleData=[]
-const position=0;
-const campus=0;
-const user_id=0;
-
-// For Calling
-async function  FetchData(position, campus, user_id) {
-      try {
-        const response = await axios
-          .post(import.meta.env.VITE_API_HEPLIST, {
-            position: position,
-            campus_id: campus,
-            user_id: user_id,
-
-
-          })
-          .then((response) => {
-        
-            sampleData = response.data;
-       
-            // if (response.data == "Successfully HEP added!"){
-            //     this.isDataActive = false;
-            // }
-          })
-          .catch((error) => {
-            console.error("Error fetching hep data", error);
-          })
-
-          .finally(() => {
-       
-          });
-      } catch (error) {}
-    }
-
-
-
-
-
-
 // Update data property of yAxis with unique program values
 // const programs = [...new Set(reportData.map(item => item.program))];
 
@@ -172,9 +133,6 @@ export default{
                         this.programs = [...new Set(this.reportData.map(item => item.program))];
                         this.takers = [...new Set(this.reportData.map(item => item.number_of_takers))];
                         this.passers = [...new Set(this.reportData.map(item => item.number_of_passers))];
-                        console.log(JSON.stringify(this.programs))
-                        console.log(JSON.stringify(this.takers))
-                        console.log(JSON.stringify(this.passers))
                         // console.log( JSON.stringify(this.reportData))
 
                         // if (response.data == "Successfully HEP added!"){
@@ -183,7 +141,7 @@ export default{
 
                         this.option.yAxis.data = this.programs
                         this.option.series[0].data = this.takers
-                        this.option.series[1].data = this.takers
+                        this.option.series[1].data = this.passers
                     })
                     .catch((error) => {
                         console.error("Error fetching hep data", error);

@@ -6,13 +6,13 @@
     <div class="w-full flex shadow-card2 py-5 px-8 gap-4 bg-gray-700 mt-8">
         <span class="flex flex-col justify-center w-9/12">
             <h1 class="w-full font-Header text-white">
-                Percentage of graduates (2 years prior) that are employed
+                Percentage of graduate school faculty engaged in research work
             </h1>
 
             <p class="w-full text-sm text-gray-400">
-                Higher Education Program: Outcome Indicator 2
+                Advanced Education Program: Outcome Indicator 1
             </p>
-            <p class="w-full text-sm text-gray-400">College of Engineering</p>
+            <!-- <p class="w-full text-sm text-gray-400">College of Engineering</p> -->
         </span>
 
         <span class="flex w-3/12 items-center justify-end gap-3">
