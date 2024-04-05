@@ -501,7 +501,7 @@ export default {
                 <v-icon>mdi-table</v-icon>Table
             </button>
             <button class="btn btn-sm w-4/12 font-Subheader text-xs" @click="changeData(2)" 
-            v-if="(this.userCampus < 6 && this.userCampus >=1)"
+              :disabled="(this.userCampus < 6 && this.userCampus >=1)"
                 :class="{ isBtnActive: isDataActive === 1 }" >
                 <v-icon>mdi-form-select</v-icon> Form
             </button>

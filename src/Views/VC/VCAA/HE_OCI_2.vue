@@ -33,7 +33,7 @@ export default {
             up_selectedFile2: null,
             selectedFile1: null,
             selectedFile2: null,
-
+            userCampus: null,
 
             headersDean: [
                 {
@@ -609,8 +609,8 @@ export default {
                 <v-icon>mdi-table</v-icon>Table
             </button>
             <button class="btn btn-sm w-5/12 font-Subheader text-xs" @click="changeData(2)"
-                :class="{ isBtnActive: isDataActive === 2,notBtnActive:isDataActive !=2}">
-                <v-icon>mdi-form-select</v-icon> Form
+                :class="{ isBtnActive: isDataActive === 2,notBtnActive:isDataActive !=2}"  :disabled="(this.userCampus < 6 && this.userCampus > 0 )">
+                <v-icon>mdi-form-select</v-icon>Form
             </button>
         </span>
     </span>
