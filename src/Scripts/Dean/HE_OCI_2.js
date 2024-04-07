@@ -350,7 +350,7 @@ async ViewHistory(id) {
       this.in_lname = "";
       this.in_status = "";
       this.in_business = "";
-      this.selecteofficial_list_filedFile = null;
+      this.selecteofficial_list_file = null;
       this.graduate_tracer_study_file = null;
     },
 
