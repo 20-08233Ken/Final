@@ -3,7 +3,7 @@
     import VCAA_nav from '../../components/Others/Navigation/VCAA_nav.vue'
     import vpaa_nav from '../../components/Others/Navigation/vpaa_nav.vue'
     import vprdes_nav from '../../components/Others/Navigation/vprdes_nav.vue'
-    import vcrdes_nav from '../../components/Others/Navigation/vcrdes_nav.vue'
+    import vcrdes_nav from '../../components/Others/Navigation/VCRDES_nav.vue'
     import Planning_navVue from '../../components/Others/Navigation/Planning_nav.vue'
 
     // VCAA

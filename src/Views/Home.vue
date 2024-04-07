@@ -18,7 +18,7 @@
             <VCAA_navVue v-if="user === 'VCAA'"/>
             <Chancellor_navVue v-if="user === 'Chancellor'"/> 
             <vpaa_nav v-if="user === 'VPAA'"/>
-            <vcrdes_nav v-if="user === 'VCRDES'"/>
+            <VCRDES_nav v-if="user === 'VCRDES'"/>
             <VPRDES_nav v-if="user === 'VPRDES'"/>
   
                
