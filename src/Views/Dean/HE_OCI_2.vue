@@ -167,7 +167,7 @@
                                 Official list of FY 2021 Graduates <span
                                     class="text-Red-Rose font-Header">(.xlsx)</span></td>
                             <td class="w-3/12 py-2  border-2 text-0.9 text-Subheader text-gray-700 ">
-                                <input type="file" class="ml-5" @change="handleFileUpload2">
+                                <input type="file" class="ml-5" @change="handleFileUpload2"  accept=".xlsx" >
                             </td>
                         </tr>
 

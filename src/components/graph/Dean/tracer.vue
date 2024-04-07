@@ -15,7 +15,8 @@ import {
 } from 'echarts/components';
 import VChart, { THEME_KEY } from 'vue-echarts';
 import { ref, provide } from 'vue';
-
+import axios from 'axios';
+import { useCookies } from "vue3-cookies";
 use([
     CanvasRenderer,
     PieChart,
@@ -110,9 +111,32 @@ export default{
 
                         this.reportData = response.data;
 
+                            // const  option = {
+                            //   legend: {},
+                            //   tooltip: {},
+                            //      orient: 'horizontal',
+                            //   dataset: {
+                            //     // program: ['BS Ed' ,'BS Eng', 'BS Acc'],
+                            //     // datalist:[{'Employed':32,'Unemployed':32,'Not Tracked':'32'}],
+                            //     dimensions: ['program', 'Employed', 'Unemployed', 'Not Tracked'],
+                            //     source: [
+                            //       { program: 'BS Ed', 'Employed': 43.3, 'Unemployed': 85.8, 'Not Tracked': 93.7 },
+                            //       { program: 'BS Eng', 'Employed': 83.1, 'Unemployed': 73.4, 'Not Tracked': 55.1 },
+                            //       { program: 'BS Acc', 'Employed': 86.4, 'Unemployed': 65.2, 'Not Tracked': 82.5 },
+                            //       { program: 'Walnut Brownie', 'BS Ed': 72.4, 'Unemployed': 53.9, 'Not Tracked': 39.1 }
+                            //     ]
+                            //   },
+                            //   xAxis: { type: 'category' },
+                            //   yAxis: {},
+                            //   // Declare several bar series, each will be mapped
+                            //   // to a column of dataset.source by default.
+                            //   series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
+                            // };
+
+
                         this.programs = [...new Set(this.reportData.map(item => item.program))];
-                        this.takers = [...new Set(this.reportData.map(item => item.number_of_takers))];
-                        this.passers = [...new Set(this.reportData.map(item => item.number_of_passers))];
+                        this.status = [...new Set(this.reportData.map(item => item.graduate_tracer_status))];
+                        this.count = [...new Set(this.reportData.map(item => item.graduate_tracer_status_count))];
                         // console.log( JSON.stringify(this.reportData))
 
                         // if (response.data == "Successfully HEP added!"){
@@ -120,8 +144,8 @@ export default{
                         // }
 
                         this.option.yAxis.data = this.programs
-                        this.option.series[0].data = this.takers
-                        this.option.series[1].data = this.passers
+                        this.option.series[0].data = this.status
+                        this.option.series[1].data = this.count
                     })
                     .catch((error) => {
                         console.error("Error fetching hep data", error);
@@ -159,27 +183,6 @@ export default{
 }
 
 
-// const  option = {
-//   legend: {},
-//   tooltip: {},
-//      orient: 'horizontal',
-//   dataset: {
-//     // program: ['BS Ed' ,'BS Eng', 'BS Acc'],
-//     // datalist:[{'Employed':32,'Unemployed':32,'Not Tracked':'32'}],
-//     dimensions: ['program', 'Employed', 'Unemployed', 'Not Tracked'],
-//     source: [
-//       { program: 'BS Ed', 'Employed': 43.3, 'Unemployed': 85.8, 'Not Tracked': 93.7 },
-//       { program: 'BS Eng', 'Employed': 83.1, 'Unemployed': 73.4, 'Not Tracked': 55.1 },
-//       { program: 'BS Acc', 'Employed': 86.4, 'Unemployed': 65.2, 'Not Tracked': 82.5 },
-//       { program: 'Walnut Brownie', 'BS Ed': 72.4, 'Unemployed': 53.9, 'Not Tracked': 39.1 }
-//     ]
-//   },
-//   xAxis: { type: 'category' },
-//   yAxis: {},
-//   // Declare several bar series, each will be mapped
-//   // to a column of dataset.source by default.
-//   series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
-// };
 
 
 
