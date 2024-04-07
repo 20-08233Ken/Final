@@ -22,7 +22,7 @@ import Research_nav from '../components/Others/Navigation/Research_nav.vue'
 import vpaa_nav from '../components/Others/Navigation/vpaa_nav.vue'
 import VCs_nav from '../components/Others/Navigation/VCs_nav.vue'
 import Chancellor_navVue from '../components/Others/Navigation/Chancellor_nav.vue'
-import VCRDES_nav from '../components/Others/Navigation/VCRDES_nav.vue'
+import vcrdes_nav from '../components/Others/Navigation/vcrdes_nav.vue'
 import VPRDES_nav from '../components/Others/Navigation/vprdes_nav.vue'
 
 
@@ -68,7 +68,7 @@ export default{
         VCs_nav,
         Chancellor_navVue,
         vpaa_nav,
-        VCRDES_nav,
+        vcrdes_nav,
         VPRDES_nav
     },  
       methods:{

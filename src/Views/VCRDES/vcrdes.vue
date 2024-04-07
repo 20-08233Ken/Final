@@ -1,5 +1,5 @@
 <script>
-import VCRDES_vue from "../../components/Others/Navigation/VCRDES_nav.vue";
+// import VCRDES_vue from "../../components/Others/Navigation/VCRDES_nav.vue";
 import activityList from "../../components/Others/activityList.vue";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import axios from "axios";
@@ -14,7 +14,7 @@ export default {
     Form,
     Field,
     ErrorMessage,
-    VCRDES_vue,
+    // VCRDES_vue,
     activityList,
   },
 
