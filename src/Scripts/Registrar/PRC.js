@@ -180,10 +180,11 @@ export default {
       const formData = new FormData();
       formData.append("file", this.uploadedFile);
       formData.append("user_id", userCookies["id"]);
+      formData.append("campus_id", userCookies["campus_id"]);
 
       try {
         const response = await axios
-          .post(import.meta.env.VITE_API_UPLOAD_PDF, formData, {
+          .post(import.meta.env.VITE_API_UPLOAD_REGISTRAR_DATA, formData, {
             headers,
           })
           .then((response) => {
