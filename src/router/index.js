@@ -11,26 +11,18 @@ import PBB from '../Views/Planning/PBB.vue'
 
 import PPB_Higher from '../Views/Planning/PBB/PPB_Higher.vue'
 import PPB_Adv from '../Views/Planning/PBB/PPB_Adv.vue'
-// import PBB_Summary from '../Views/Planning/PBB/PBB_Summary.vue'
-// import PBB3 from '../Views/Planning/PBB3.vue'
+import PBB_Summary from '../Views/Planning/PBB/PBB_Summary.vue'
+import PBB3 from '../Views/Planning/PBB3.vue'
 import PBB_Research from '../Views/Planning/PBB/PBB_Research.vue'
 
 
 import Login from '../Views/Login.vue'
 
 import Offices from '../Views/Planning/Offices.vue'
-
-// Deans
 import Dean from '../Views/Dean/Dean.vue'
-import deanDashboard from '../Views/Dean/dashboard.vue'
-
-
 import Profile from '../Views/Planning//Profile/Profile.vue'
-// import FormA from '../components/Form/ModifiedFormA.vue'
-// import FormA_1 from '../components/Form/ModifiedFormA_1.vue'
-
-import FormA_1 from '../Views/VC/Form_A1.vue'
-import FormA from '../Views/VC/Form_A.vue'
+import FormA from '../components/Form/ModifiedFormA.vue'
+import FormA_1 from '../components/Form/ModifiedFormA_1.vue'
 
 import fydp from '../Views/FYDP/fydp.vue'
 import fydp_ques from '../Views/FYDP/questionnaire.vue'
@@ -38,19 +30,12 @@ import Registrar from '../Views/Registrar/registrar.vue'
 import Qam from '../Views/QAM/Qam.vue'
 import TechnicalExtension from '../Views/Extension/extension.vue'
 
-import Research from "../Views/Research/Research.vue";
-// import Advanced from '../Views/Planning/Indicators/AdvanceEd.vue'
-// import Higher from '../Views/Planning/Indicators/HigherEd.vue'
-// import ResearchServices from '../Views/Planning/Indicators/ResearchServices.vue'
+import Research from "../Views/Dean/Research.vue";
+import Advanced from '../Views/Planning/Indicators/AdvanceEd.vue'
+import Higher from '../Views/Planning/Indicators/HigherEd.vue'
+import ResearchServices from '../Views/Planning/Indicators/ResearchServices.vue'
 
-import VCs from '../Views/VC/vcs.vue'
-import v_FormA from '../Views/VC/Form_A.vue'
-import v_FormA1 from '../Views/VC/Form_A1.vue'
-import VCAA from '../Views/VC/VCAA/vcaa.vue'
-
-import Chancellor from '../Views/Chancellor/chancellor_vue.vue'
-
-import VCRDES from '../Views/VCRDES/vcrdes.vue'
+import validateMain from '../Views/Planning/Validate/validate_main.vue'
 
 const router = createRouter ({
 
@@ -73,18 +58,10 @@ const router = createRouter ({
 
 
         },  
-
-        // Dean
         {
             path:'/dean',
             name:'dean',
             component:Dean
-
-        },
-        {
-            path:'/deanDashboard',
-            name:'deanDashboard',
-            component:deanDashboard
 
         },
         {
@@ -138,32 +115,31 @@ const router = createRouter ({
                     name:'PPB_Adv',
                     component:PPB_Adv
 
-                }
-                ,
-                // {
-                //     path:'/PBB_Summary',
-                //     name:'PBB_Summary',
-                //     component:PBB_Summary
+                },
+                {
+                    path:'/PBB_Summary',
+                    name:'PBB_Summary',
+                    component:PBB_Summary
 
-                // },
-                // {
-                //     path:'/pbb3',
-                //     name:'pbb3',
-                //     component:PBB3
+                },
+                {
+                    path:'/pbb3',
+                    name:'pbb3',
+                    component:PBB3
 
-                // },
+                },
                 {
                     path:'/PBB_Research',
                     name:'PBB_Research',
                     component:PBB_Research
 
                 },
-                // {
-                //     path:'/ResearchServices',
-                //     name:'ResearchServices',
-                //     component:ResearchServices
+                {
+                    path:'/ResearchServices',
+                    name:'ResearchServices',
+                    component:ResearchServices
 
-                // },
+                },
         {
             path:'/offices',
             name:'offices',
@@ -202,53 +178,23 @@ const router = createRouter ({
         },
 
 
-        // {
-        //     path:'/advancedEd',
-        //     name:'advancedEd',
-        //     component:Advanced
-
-        // },
-        // {
-        //     path:'/higherEd',
-        //     name:'higherEd',
-        //     component:Higher
-
-        // },
-       
         {
-            path:'/VCs',
-            name:'VCs',
-            component:VCs
+            path:'/advancedEd',
+            name:'advancedEd',
+            component:Advanced
+
         },
         {
-            path:'/Chancellor',
-            name:'Chancellor',
-            component:Chancellor
+            path:'/higherEd',
+            name:'higherEd',
+            component:Higher
+
         },
-        
         {
-            path:'/v_FormA',
-            name:'v_FormA',
-            component:v_FormA
+            path:'/validateMain',
+            name:'validateMain',
+            component:validateMain
         }
-        ,
-        {
-            path:'/v_FormA1',
-            name:'v_FormA1',
-            component:v_FormA1
-        },
-        {
-            path:'/vcaa',
-            name:'vcaa',
-            component:VCAA
-        },
-
-        {
-            path:'/vcrdes',
-            name:'vcrdes',
-            component:VCRDES
-        }
-     
      
 
         

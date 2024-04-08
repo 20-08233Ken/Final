@@ -10,7 +10,6 @@ const attrs = ref([
   {
     key: 'today',
     highlight: 'red',
-
     dates: new Date(),
   },
 ]);

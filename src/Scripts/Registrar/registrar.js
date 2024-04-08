@@ -11,10 +11,7 @@ import Registrar_nav from '../../components/Others/Navigation/Registrar_nav.vue'
     import { useCookies } from 'vue3-cookies';
 
 export default{
-    mounted(){
-        const holdCookies = userPosition()
-        this.user = holdCookies()
-    },
+
     components:{
         Registrar_nav,
         HE_OPI_1,
@@ -28,9 +25,7 @@ export default{
         return{
             currentComponent:HE_OPI_1,
             activeBtn:1,
-            user:null,
-
-
+            user:userPosition,
         }
     },
     methods:{

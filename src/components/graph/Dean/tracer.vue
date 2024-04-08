@@ -134,9 +134,9 @@ export default{
                             // };
 
 
-                        this.programs = [...new Set(this.reportData.map(item => item.program))];
-                        this.status = [...new Set(this.reportData.map(item => item.graduate_tracer_status))];
+                        this.college = [...new Set(this.reportData.map(item => item.college))]; 
                         this.count = [...new Set(this.reportData.map(item => item.graduate_tracer_status_count))];
+                        this.status = [...new Set(this.reportData.map(item => item.graduate_tracer_status))];
                         // console.log( JSON.stringify(this.reportData))
 
                         // if (response.data == "Successfully HEP added!"){

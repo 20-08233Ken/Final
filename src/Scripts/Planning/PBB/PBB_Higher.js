@@ -4,22 +4,17 @@
     // import HigherEd from '../Indicators/AdvanceEd.vue';
 
     import PBB_sideNav from '../../../components/Others/PBB_sideNav.vue';
+
     import Planning_nav from '../../../components/Others/Navigation/Planning_nav.vue'
-    import Logs from '../../../Views/Planning/PBB/HighEd/logs.vue'
-    import Target from '../../../Views/Planning/PBB/HighEd/target.vue'
-    import Indicators from '../../../Views/Planning/PBB/HighEd/indicators.vue'
+
     import {markRaw} from 'vue'
 
     const raw_Planning_nav = markRaw(Planning_nav)
-    const raw_Logs = markRaw(Logs)
-    const raw_Target = markRaw(Target)
-    const raw_Indicators = markRaw(Indicators)
 
     export default{
         data(){
             return{
-                currentComponent:Logs,
-                myBtn :1,
+                currentComponent:null,
                 OCI_1:[
                     {
                         status:"submitted",
@@ -132,23 +127,16 @@
         },
         components:{
             Planning_nav,
-            PBB_sideNav,
-            Logs,
-            Target,
-            Indicators
-            
+            PBB_sideNav
 
         },
         methods:{
-            // showComponent(componentName){
-            //     this.currentComponent = componentName
-            // },
+            showComponent(componentName){
+                this.currentComponent = componentName
+            },
+
             getStatusColor(status){
                 return status === "submitted" ? "green":"red";
-            },
-            showComponent(btn, myComponent){
-                this.currentComponent = myComponent
-                this.myBtn = btn
             }
         }
     }

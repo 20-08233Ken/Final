@@ -1,8 +1,113 @@
-<script src="../../Scripts/Registrar/PRC.js">
+<script>
+import { Form, Field, ErrorMessage } from 'vee-validate'
+import notification from '../../components/Others/notification.vue';
+
+export default {
+
+    components: {
+        Form,
+        Field,
+        ErrorMessage,
+        notification
+    },
+
+    data() {
+        return {
+            // in_campus:'',
+            // in_department:'',
+            in_program: '',
+            in_thesis: '',
+            in_noThesis: '',
+            count: true,
+            isActive: false,
+            isIcon: false,
+            isAdd: false,
+            id: 0,
+
+            // Data base from the Account Info of Dean
+            data: [
+                {
+                    in_campus: "Alangilan Campus",
+                    in_department: "College of Engineering"
+                }
+            ],
+
+            // Options of Select Program Input
+            collegeProgram: [
+                {
+                    program: "Bachelor of Science in Computer Engineer",
+                }, {
+                    program: "Bachelor of Science in Civil Engineer",
+                }, {
+                    program: "Bachelor of Science in Chemical Engineer",
+                }, {
+                    program: "Bachelor of Science in Electrical Engineer",
+                }
+            ],
+            sampleData: [
+
+            ]
+
+        }
+    },
+    methods: {
+        validateData(value) {
+            if (!value) {
+                return 'This field is required';
+            }
+
+            return true
+
+        },
+        addData() {
+
+
+            this.sampleData.push(
+                {
+
+                    tb_id: this.id,
+                    tb_campus: this.data[0].in_campus,
+                    tb_department: this.data[0].in_department,
+                    tb_program: this.in_program,
+                    tb_reqThesis: this.in_thesis,
+                    tb_notReqThesis: this.in_noThesis,
+                }
+            )
+            this.id++;
+
+            this.data[0].in_campus = ''
+            this.data[0].in_department = ''
+            this.in_program = ''
+            this.in_thesis = ''
+            this.in_noThesis = ''
+
+
+            this.isAdd = true;
+            setTimeout(() => {
+                this.isAdd = false;
+            }, 2000)
+
+        },
+        submitData() {
+            if (this.count === true) {
+                this.isActive = true
+                this.count = false
+                this.isIcon = true
+            } else {
+                this.isActive = false
+            }
+
+        },
+        onClose() {
+            this.isActive = false
+        }
+    }
+}
+
+
 </script>
 
 <template>
-
     <div v-if="isAdd" role="alert" class="alert alert-success w-5/12 text-white fixed top-20 z-50 transition-transform">
         <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -10,6 +115,12 @@
         </svg>
         <span class="text-white">Data Addedd Successfully!</span>
     </div>
+
+    <!-- 
+    <h1 class="w-9/12 self-center text-center font-Header text-xl text-Red-Rose"> Percentage of graduate students enrolled in research degree programs</h1>
+    <p class="w-full text-center text-gray-400">Advanced Education Program: Output Indicator 1</p>
+    <p class="w-full text-center text-gray-400">College of Engineering</p> -->
+
 
     <div class="flex  shadow-card2 py-8 px-8 rounded-lg gap-4 bg-gray-700">
         <i class="mt-4" style="color: #BEFFF7;">
@@ -32,69 +143,62 @@
 
     <div class="w-full overflow-x-auto shadow-card2 mt-4 px-4 py-4 rounded-lg">
 
-        <div class="w-full flex justify-center gap-2 mt-4">
-            <button class="btn font-Subheader w-6/12" :class="{ 'isDataActive': isDataActive === true }"
-                @click="changeData(true)">
-                Table
-            </button>
 
-            <button class="btn font-Subheader  w-6/12" :class="{ 'isDataNotActive': isDataActive === false }"
-                @click="changeData(false)">
-                Form
-            </button>
-        </div>
+        <div role="tablist" class="tabs tabs-lifted">
+            <input type="radio" name="my_tabs_2" role="tab" class="tab font-Subheader text-base text-Red-Rose"
+                aria-label="Form" checked />
+            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
-        <div class="w-full flex flex-col mt-8 overflow-x-auto " v-if="isDataActive === true">
-            <v-data-table :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10"
-                style="width:100%; overflow-x: scroll;">
-            </v-data-table>
+                <span class="w-full flex ">
 
-        </div>
-        <div class="w-full flex flex-col mt-8" v-if="isDataActive === false">
-            <span class="w-full flex ">
-
-                <button class="flex items-center gap-3 bg-cyan-50 px-4 py-1 rounded-lg">
-                    <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30" viewBox="0 0 48 48">
-                        <path fill="#169154" d="M29,6H15.744C14.781,6,14,6.781,14,7.744v7.259h15V6z"></path>
-                        <path fill="#18482a" d="M14,33.054v7.202C14,41.219,14.781,42,15.743,42H29v-8.946H14z">
-                        </path>
-                        <path fill="#0c8045" d="M14 15.003H29V24.005000000000003H14z"></path>
-                        <path fill="#17472a" d="M14 24.005H29V33.055H14z"></path>
-                        <g>
-                            <path fill="#29c27f" d="M42.256,6H29v9.003h15V7.744C44,6.781,43.219,6,42.256,6z"></path>
-                            <path fill="#27663f" d="M29,33.054V42h13.257C43.219,42,44,41.219,44,40.257v-7.202H29z">
+                    <button class="flex items-center gap-3 bg-cyan-50 px-4 py-1 rounded-lg">
+                        <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="30" height="30"
+                            viewBox="0 0 48 48">
+                            <path fill="#169154" d="M29,6H15.744C14.781,6,14,6.781,14,7.744v7.259h15V6z"></path>
+                            <path fill="#18482a" d="M14,33.054v7.202C14,41.219,14.781,42,15.743,42H29v-8.946H14z">
                             </path>
-                            <path fill="#19ac65" d="M29 15.003H44V24.005000000000003H29z"></path>
-                            <path fill="#129652" d="M29 24.005H44V33.055H29z"></path>
-                        </g>
-                        <path fill="#0c7238"
-                            d="M22.319,34H5.681C4.753,34,4,33.247,4,32.319V15.681C4,14.753,4.753,14,5.681,14h16.638 C23.247,14,24,14.753,24,15.681v16.638C24,33.247,23.247,34,22.319,34z">
-                        </path>
-                        <path fill="#fff"
-                            d="M9.807 19L12.193 19 14.129 22.754 16.175 19 18.404 19 15.333 24 18.474 29 16.123 29 14.013 25.07 11.912 29 9.526 29 12.719 23.982z">
-                        </path>
-                    </svg>
-                    <a class="font-Subheader text-sm"
-                        href=".././../assets/files/UII_Name-of-HEI_PRC-List-of-Graduates_2023.xlsx" download="">Download
-                        Form
-                    </a>
-                </button>
-            </span>
-            <Form class="mt-4" @submit="SaveRecord">
+                            <path fill="#0c8045" d="M14 15.003H29V24.005000000000003H14z"></path>
+                            <path fill="#17472a" d="M14 24.005H29V33.055H14z"></path>
+                            <g>
+                                <path fill="#29c27f" d="M42.256,6H29v9.003h15V7.744C44,6.781,43.219,6,42.256,6z"></path>
+                                <path fill="#27663f" d="M29,33.054V42h13.257C43.219,42,44,41.219,44,40.257v-7.202H29z">
+                                </path>
+                                <path fill="#19ac65" d="M29 15.003H44V24.005000000000003H29z"></path>
+                                <path fill="#129652" d="M29 24.005H44V33.055H29z"></path>
+                            </g>
+                            <path fill="#0c7238"
+                                d="M22.319,34H5.681C4.753,34,4,33.247,4,32.319V15.681C4,14.753,4.753,14,5.681,14h16.638 C23.247,14,24,14.753,24,15.681v16.638C24,33.247,23.247,34,22.319,34z">
+                            </path>
+                            <path fill="#fff"
+                                d="M9.807 19L12.193 19 14.129 22.754 16.175 19 18.404 19 15.333 24 18.474 29 16.123 29 14.013 25.07 11.912 29 9.526 29 12.719 23.982z">
+                            </path>
+                        </svg>
+                        <a class="font-Subheader text-sm" href=".././../assets/files/sample.xlsx" download="">Download
+                            Form
+                        </a>
+                    </button>
+               
+
+                </span>
+                <form class="mt-4">
                     <input type="file" class="file-input file-input-bordered w-full "
-                        style="border: 1px solid #d2d2d2;"  @change ='fileHandlePdf'/>
+                        style="border: 1px solid #d2d2d2;" />
+                </form>
+            </div>
 
-                    <span class="flex w-full justify-end mt-4">
+            <input type="radio" name="my_tabs_2" role="tab" class="tab font-Subheader text-base text-Red-Rose"
+                aria-label="Table" />
+            <div role="tabpanel" class="tab-content bg-base-100 border-base-300 rounded-box p-6">
 
-                        <v-btn class="bg-teal-darken-3"  type="submit"> Submit</v-btn>
-                    </span>
-                </Form>
+
+            </div>
+
+
         </div>
 
     </div>
 </template>
-<style scoped>
-.active {
+<style scoped>.active {
     display: flex;
     flex-direction: column;
 }
@@ -115,26 +219,4 @@
 .error_message {
     color: red;
     font-size: .9rem;
-}
-:deep thead {
-    background-color:	rgb(55 65 81);
-    border: 1px solid white;
-
-}
-:deep th{
-    color: white;
-    border: 1px solid white;
-}
-
-.isDataNotActive{
-    background-color: #94080D;
-    color: white;
-}
-
-
-.isDataActive{
-    background-color: #94080D;
-    color: white;
-}
-
-</style>
+}</style>

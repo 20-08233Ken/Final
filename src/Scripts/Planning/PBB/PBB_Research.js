@@ -1,12 +1,7 @@
 
     import PBB_sideNav from '../../../components/Others/PBB_sideNav.vue';
     import Planning_nav from '../../../components/Others/Navigation/Planning_nav.vue';
-    import Logs from '../../../Views/Planning/PBB/Research/logs.vue'
-    import Target from '../../../Views/Planning/PBB/Research/target.vue'
-    import Indicators from '../../../Views/Planning/PBB/Research/indicators.vue'
-    import {markRaw} from 'vue'
 
-    const raw_Logs = markRaw(Logs)
     export default{
         data(){
             return{
@@ -92,25 +87,18 @@
                         date:"07-12-2023"
                     }
                     
-                ],
-                currentComponent:Logs,
-                myBtn :1,
+                ]
 
             }
         },
         methods:{
             getStatusColor(status){
                 return status === "submitted" ? "green":"red";
-            },
-            showComponent(btn, myComponent){
-                this.currentComponent = myComponent
-                this.myBtn = btn
-            },
+            }
         },
         components:{
             PBB_sideNav,
-            Planning_nav,
-            Logs
+            Planning_nav
 
         }
     }

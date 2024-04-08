@@ -4,9 +4,6 @@ import notification from '../../components/Profile/notification.vue'
 import activities from '../../components/Profile/activities.vue'
 import MainProfile from '../../Views/Planning/Profile/main.vue'
 import user_management from '../../Views/Planning/Profile/user_management.vue'
-import addUser from '../../Views/Planning/Profile/addUser.vue';
-import Maintain from '../../Views/Planning/Profile/maintain.vue'
-
 import { ref,markRaw } from 'vue';
 import { useCookies } from 'vue3-cookies';
 
@@ -23,10 +20,7 @@ const markRaw_userManagement= markRaw(user_management)
 const markRaw_MainProfile= markRaw(MainProfile)
 export default{
     
-    mounted(){
-        const holdCookies = userPosition();
-        this.user = holdCookies();
-    },
+
     data(){
         return{
             user:userPosition,
@@ -38,15 +32,12 @@ export default{
                 },
               ]),
 
-            currentComponent:MainProfile,
-            user:null,
-            isActive:0
+            currentComponent:MainProfile
         }
     },
     methods:{
-        showComponent(getComponent,myBtn){
+        showComponent(getComponent){
             this.currentComponent =getComponent
-            this.isActive = myBtn
         }
     },
     components:{
@@ -55,9 +46,7 @@ export default{
         notification,
         activities,
         MainProfile,
-        user_management,
-        addUser,
-        Maintain
+        user_management
     },
 
 }
