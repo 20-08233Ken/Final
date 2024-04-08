@@ -4,8 +4,12 @@
     import activityList from '../../components/Others/activityList.vue';
     import { userPosition } from '../../Scripts/cookies';
     import { useCookies } from 'vue3-cookies';
-    export default{
 
+    export default{
+        mounted(){
+            const holdCookies = userPosition();
+            this.user = holdCookies();
+        },
         components:{
             Form,
             Field,
@@ -15,7 +19,7 @@
         },
         data(){
             return{
-                user:userPosition,
+                user:null,
                 count:true,
                 isActive:false,
                 sampleData:[

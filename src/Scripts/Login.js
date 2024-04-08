@@ -1,16 +1,21 @@
 import AuthenticationModal from '../components/Others/AuthenticationModal.vue'
-
 import {Form, Field, ErrorMessage} from 'vee-validate'
 import axios from 'axios';
-
+import { useCookies } from 'vue3-cookies';
+import Swal from 'sweetalert2'
 export default{
+    setup(){
+        const {cookies} =useCookies();
+        return {cookies}
+    },
     data(){
         return{
             form:{
                 username:'',
                 password:''
             },
-            loginError:true
+            loginError:true,
+            myErrorMessage:null
 
            
 
@@ -18,9 +23,18 @@ export default{
     },
     components:{
         Form, Field, ErrorMessage,
-        AuthenticationModal
+        AuthenticationModal,
+        Swal
     },  
     methods:{
+        showAlert() {
+            Swal.fire({
+              title: 'Hello!',
+              text: 'This is a SweetAlert dialog.',
+              icon: 'success',
+              confirmButtonText: 'OK'
+            })
+          },
         validateData(value){
             if(!value){
                return 'This field is required';
@@ -30,35 +44,28 @@ export default{
             
         },
 
-        // Get Login Data
-        // getLoginData(){
-        //     console.log(this.form.username);
-        //     console.log(this.form.password);
-        //     this.form.username=''
-        //     this.form.password=''
-        //     this.loginError= false
-        //     this.addTimeout();
-
-        //     // else
-
-        // },
-
         addTimeout(){
             setTimeout( ()=>{
                 this.loginError =true
             },1500)
         },
 
-
         // Modify this Part for API callback
         async submitData(){
-            const {userData} = (await axios.post('',this.form)).
+
+            await axios.post(import.meta.env.VITE_API_LOGIN,this.form).
+
             then(response =>{
 
                 // Handle the response data and cookies from the server
-                console.log(response.data);
+                this.cookies.set('userCookies',response.data.user,'1hr');
+                localStorage.setItem('token', response.data.access_token);
+                this.cookies.set('userPosition',response.data.position[0].role,'1hr');
+                this.cookies.set('userCampus',response.data.campus[0].campus,'1hr');
 
-
+                if (response.data.college.length !== 0){
+                    this.cookies.set('userCollege',response.data.college[0].college,'1hr');
+                }
                 // if there is cookies push the user to home
                 
                 this.$router.push('/home');
@@ -74,6 +81,15 @@ export default{
                        //  this.loginError =false
                        //  this.addTimeout()
                        //  $("errorMessage").val();
+                      
+                    //    alert(JSON.stringify(error.response.data.message))
+                    
+                       Swal.fire({
+                        title: 'Error ',
+                        text: JSON.stringify(error.response.data.message),
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                      })
                     }
                     // called modal
                     //this.login =false'

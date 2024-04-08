@@ -33,3 +33,8 @@ td:last-child{
 #HE_OCI_1 tr:nth-child(even){
     background-color: #f2f2f2;
 }
+
+.isActive{
+    background-color: #212121;
+    color: white;
+}

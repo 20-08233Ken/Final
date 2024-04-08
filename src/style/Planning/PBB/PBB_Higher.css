@@ -35,3 +35,8 @@ td:last-child{
         margin-left: 50%;
         background-color: red;
 }
+
+.isActive{
+    background-color: #212121;
+    color: white;
+}

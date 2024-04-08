@@ -14,11 +14,20 @@ const hold_oc_1 = markRaw(HE_OCI_1);
 
 export default{
 
+    mounted(){
+        const holdCookies = userPosition();
+        this.user = holdCookies();
+
+        if (this.user == null && this.userCookies == null){
+            this.$router.push('/');
+        }
+    },
     data(){
         return{
             currentComponent:HE_OCI_1,
             activeBtn:1,
-            user:userPosition, 
+            user:null, 
+
             sampleData:[
                 {
                     id:1,
@@ -78,7 +87,11 @@ export default{
         showComponent(componentName, btnNumber){
             this.currentComponent = componentName
             this.activeBtn = btnNumber
-        }
+        },
+
+        changeData(isActive) {
+            this.isDataActive = isActive;
+          },
     },
 
     

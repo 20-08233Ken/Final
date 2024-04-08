@@ -9,13 +9,18 @@
 
                 
             <Planning_nav  v-if="user === 'Planning'"/>
+            <Planning_nav  v-if="user === 'IPDO'"/>
             <Dean_nav  v-if="user == 'Dean'"/>
             <Registrar_nav  v-if="user === 'Registrar'"/>
             <QAM_nav  v-if="user === 'QAM'"/>
             <Extension_nav  v-if="user === 'Extension'"/>
             <Research_nav v-if="user === 'Research'"/>
-                
-
+            <VCAA_navVue v-if="user === 'VCAA'"/>
+            <Chancellor_navVue v-if="user === 'Chancellor'"/> 
+            <vpaa_nav v-if="user === 'VPAA'"/>
+            <VCRDES_nav v-if="user === 'VCRDES'"/>
+            <VPRDES_nav v-if="user === 'VPRDES'"/>
+  
                
             <section class="flex flex-col justify-center w-full bg-wave-bg bg-bottom bg-no-repeat bg-cover pb-3vw ">
             

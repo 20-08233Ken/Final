@@ -17,11 +17,11 @@
 
         <table>
             <tr class="bg-Red-Rose text-white " sty>
-                <th>FY 2022 PREXC Performace Indicators</th>
-                <th>Responsible Bureaus / Delivery Units</th>
-                <th>FY 2023 Target</th>
-                <th>FY 2023 Actual Accomplishment</th>
-                <th style="padding: 0 2em;">Remarks</th>
+                <th class="text-white text-sm">FY 2022 PREXC Performace Indicators</th>
+                <th class="text-white text-sm">Responsible Bureaus / Delivery Units</th>
+                <th class="text-white text-sm">FY 2023 Target</th>
+                <th class="text-white text-sm">FY 2023 Actual Accomplishment</th>
+                <th class="text-white text-sm" style="padding: 0 2em;">Remarks</th>
             </tr>
 
             <tr>
@@ -244,6 +244,8 @@
     }
     td{
         padding: 1rem 0;
+        text-align: left;
+        font-size: 0.9em;
     }
 
     td:first-child{

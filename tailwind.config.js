@@ -12,7 +12,9 @@ export default {
         },
         padding:{
           '6vw':'6vw',
-          '3vw':'3vw'
+          '3vw':'3vw',
+          '2vw':'2vw',
+          '1vw':'1vw'
         },
         spacing:{
           '8vw':'8vw',
@@ -26,7 +28,9 @@ export default {
         },
         fontSize:{
             '0.9':'.9rem',
-            '0.8':'.8rem'
+            '0.8':'.8rem',
+            '0.7':'.7rem',
+            '0.6':'.6rem'
         },
         colors:{
             'Red-Darken':"#94080D",

@@ -27,3 +27,51 @@
     font-size: .9rem;
 }
 
+.isDataNotActive{
+    background-color: #94080D;
+    color: white;
+}
+
+
+.isDataActive{
+    background-color: #94080D;
+    color: white;
+}
+
+/* td:last-child{
+    display:flex;
+    align-items:center
+} */
+
+
+:deep thead {
+    background-color:	rgb(55 65 81);
+    border: 1px solid white;
+
+}
+:deep th{
+    color: white;
+    border: 1px solid white;
+     
+}
+
+:deep td{
+
+}
+
+.isActive{
+    background-color:rgb(255, 240, 221);
+}
+
+.isApproved{
+    color: rgb(21 128 61);
+}
+
+.isReject{
+    color: red;
+
+}
+
+
+.view-table >tr:nth-child(even) {background-color: #f2f2f2;}
+

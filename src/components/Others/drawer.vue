@@ -1,13 +1,10 @@
 <script >
+import { userPosition } from '../../Scripts/cookies';
+import {userCampus }from '../../Scripts/cookies';
+import {userCollege }from '../../Scripts/cookies';
 import {Form, Field, ErrorMessage} from 'vee-validate'
 import { ref } from 'vue';
-
-
 import { useCookies } from 'vue3-cookies';
-
-
-
-
 export default {
     setup() {
         const { cookies } = useCookies();
@@ -28,17 +25,20 @@ export default {
             ph_time:null,
             ph_convention:null,
 
-            change_hour:null
-
+            change_hour:null,
+            user:null,
+            campus:'',
+            college:''
         }
     },
     mounted(){
         setInterval(() => {
                 this.currentDateTime = new Date();
-                this.ph_date = this.currentDateTime.getMonth();
+                this.ph_month = this.currentDateTime.getMonth();
                 this.ph_date = this.currentDateTime.getDate();
-                this.ph_year = this.currentDateTime.getFullYear()
-                this.ph_fullDate = this.months[this.ph_date+1]+ " " +this.ph_date+" "+this.ph_year
+                this.ph_year = this.currentDateTime.getFullYear() 
+                
+                this.ph_fullDate = this.months[this.ph_month]+ " " +this.ph_date+" "+this.ph_year
 
                 this.ph_hour = this.currentDateTime.getHours();
                 this.change_hour = this.ph_hour
@@ -55,6 +55,16 @@ export default {
                 this.ph_time  = this.change_hour+":"+this.ph_minutes+":"+this.ph_seconds+" "+this.ph_convention
 
     }, 1000);
+
+        const holdCookies = userPosition();
+        this.user = holdCookies();
+
+        const holdcampus = userCampus();
+        this.campus = holdcampus();
+
+        const holdCollege = userCollege();
+        this.college = holdCollege();
+       
     },
 
     components:{
@@ -67,6 +77,9 @@ export default {
             this.cookies.remove('userCookies')
             this.cookies.remove('userPosition')
             this.$router.push('/')
+
+        console.log(this.cookies.get('userPosition'))
+            
         },
 
         validateData(value){
@@ -87,20 +100,19 @@ export default {
 
 
     <div class="drawer">
-        <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+        <input id="myDrawer" type="checkbox" class="drawer-toggle" />
         <div class="drawer-content">
-            <!-- Page content here -->
-            <label for="my-drawer" class="btn drawer-button bg-red-700 text-white border-0">
+          
+            <label for="myDrawer" class="btn drawer-button bg-red-700 text-white border-0">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                     stroke="currentColor" class="w-6 h-6">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
                 </svg>
             </label>
         </div>
+        
         <div class="drawer-side">
-
-
-            <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+            <label for="myDrawer" aria-label="close sidebar" class="drawer-overlay"></label>
 
             <ul class="menu w-96 min-h-full bg-base-200 text-base-content">
 
@@ -113,7 +125,7 @@ export default {
 
                     <span class="flex flex-col w-7/12 text-white">
                         <h2>Name of User</h2>
-                        <p>Position</p>
+                        <p>{{user}}</p>
                     </span>
 
                     <button class="  p-4 text-white" onclick="my_modal_3.showModal()">
@@ -127,7 +139,7 @@ export default {
 
               
                     <dialog id="my_modal_3" class="modal ">
-                        <div class="modal-box w-full w-dvw h-dvh ">
+                        <div class="modal-box w-full  h-dvh ">
                             <form method="dialog">
                             <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
                             </form>
@@ -163,7 +175,7 @@ export default {
                     </svg>
 
                     </i>
-                    {{ ph_fullDate  }}
+                    {{ ph_fullDate }}
                     {{ ph_time }}
                 </span>
 
@@ -177,7 +189,7 @@ export default {
                         </svg>
                     </i>
 
-                    <p class="text-gray-500"> Alangilan Campus I - TNEU</p>
+                    <p class="text-gray-500"> {{ campus }}</p>
                 </span>
 
                 <span class="flex w-full items-center mt-2 gap-4 px-4 ">
@@ -190,7 +202,7 @@ export default {
                         </svg>
                     </i>
 
-                    <p class="text-gray-500">College of Engineering</p>
+                    <p class="text-gray-500">{{ college }}</p>
                 </span>
 
                 <span class="flex w-full items-center mt-2 gap-4 px-4 ">
@@ -221,7 +233,7 @@ export default {
                     Logout
                 </button>
 
-                <!-- Sidebar content here -->
+              
                 <li class="flex items-center justify-center w-1/12  "><img src="../../assets/img/school.png"
                         style="width: 4rem;" alt=""></li>
 

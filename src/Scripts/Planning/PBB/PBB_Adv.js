@@ -2,11 +2,19 @@
 
     import Planning_nav from '../../../components/Others/Navigation/Planning_nav.vue';
     import PBB_sideNav from '../../../components/Others/PBB_sideNav.vue';
+
+    import Logs from '../../../Views/Planning/PBB/AdvEd/logs.vue'
+    import Target from '../../../Views/Planning/PBB/AdvEd/target.vue'
+    import Indicators from '../../../Views/Planning/PBB/AdvEd/indicators.vue'
+    import {markRaw} from 'vue'
+    const raw_Logs = markRaw(Logs)
+    const raw_Target = markRaw(Target)
+    const raw_Indicators = markRaw(Indicators)
     export default{
         data(){
             return{
-                currentComponent:null,
-
+                currentComponent:Logs,
+                myBtn :1,
                 AE_OCI_1:[
                     {
                     status:"submitted",
@@ -78,7 +86,8 @@
                     },
             ],
 
-            AE_OPI_2:[             {
+            AE_OPI_2:[
+                {
                     status:"submitted",
                     title:"	Summary of Completed Accreditation Survey 2020",
                     date:"07-12-2023"
@@ -109,12 +118,16 @@
         components:{
             Planning_nav,
             PBB_sideNav,
+            Logs,
+            Target,
+            Indicators
 
 
         },
         methods:{
-            showComponent(componentName){
-                this.currentComponent = componentName
+            showComponent(btn, myComponent){
+                this.currentComponent = myComponent
+                this.myBtn = btn
             },
 
             getStatusColor(status){
