@@ -162,11 +162,6 @@
 </template>
 
 <style scoped>
-.isApproved{
-    color: rgb(21 128 61);
-}
-
-.isReject{
-    color: red;
-
-}</style>
+ @import url('../../../style/Chancellor/HighEd/v_OCI_2.css');
+ 
+ </style>

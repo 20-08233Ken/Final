@@ -23,7 +23,8 @@ export default{
             isAdd:false,
             isActive:false,
             isIcon:false,
-            isDataActive:true,
+            isDataActive:1,
+            activeBtn:1,
             // Data base from the Account Info of Dean
             data:[
                 {

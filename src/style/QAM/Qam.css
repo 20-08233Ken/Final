@@ -1,0 +1,18 @@
+.indicator_title{
+    max-width: 13rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.active {
+    /* background-color: rgb(207 250 254); */
+    background-color:rgb(255, 240, 221);
+
+}
+
+.nav-list > li:hover{
+    background-color:rgb(255, 240, 221);
+    
+
+}

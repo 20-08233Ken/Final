@@ -204,30 +204,8 @@ const attrs = ref([
 </script> -->
 
 <style scoped>
-#mis_table > tr > td {
-  border-width: 2px;
-  border-color: red;
-}
 
-td:first-child,
 
-th:first-child {
-  border-width: 0 2px 0 0;
-  border-color: rgb(66, 66, 66);
-}
+@import url('../../../style/Planning/Profile/profile.css');
 
-:deep(.v-table .v-table__wrapper > table > thead > tr > th) {
-    border: 1px solid white;
-}
-
-.active {
-  background-color: #00695c;
-  color: white;
-}
-.activeBtn {
-  color: white;
-}
-.isNotActiveBtn {
-  color: #00695c;
-}
 </style>

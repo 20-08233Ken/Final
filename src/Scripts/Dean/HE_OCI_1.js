@@ -398,7 +398,6 @@ export default {
         });
     },
 
-
     removeFiles() {
       this.selectedFile = null;
       console.log(this.selectedFile);

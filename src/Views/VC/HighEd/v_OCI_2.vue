@@ -38,7 +38,7 @@
                                 <template v-slot:activator="{ props: activatorProps }">
                                   <v-btn
                                     v-bind="activatorProps"
-                                    color="surface-variant"
+                                    size="x-small" class="bg-light-blue-darken-3"
                                     text="View PDF"
                                     variant="flat"  @click="viewFilePDF(item.hep_two_id)" 
                                   ></v-btn>
@@ -207,11 +207,8 @@
 </template>
 
 <style scoped>
-.isApproved{
-    color: rgb(21 128 61);
-}
+    @import url('../../../style/VC/HighEd/v_OCI_2.css');
 
-.isReject{
-    color: red;
 
-}</style>
+
+</style>

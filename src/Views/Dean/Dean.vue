@@ -1,7 +1,7 @@
 <script src="../../Scripts/Dean/Dean.js"></script>
 
 <style scoped>
-@import url("../../style//Dean/dean_style.css");
+@import url("../../style/Dean/dean_style.css");
 </style>
 
 <template>
@@ -58,7 +58,5 @@
 </template>
 
 <style scoped>
-    .isBtnActive{
-        background-color: #e5e7eb;
-    }
+
 </style>
