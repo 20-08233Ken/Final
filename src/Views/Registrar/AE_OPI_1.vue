@@ -384,51 +384,8 @@
 
     </div>
 </template>
+
 <style scoped>
-.active {
-    display: flex;
-    flex-direction: column;
-}
 
-.inActive {
-    display: none;
-}
-
-.iconActive {
-    display: flex;
-
-}
-
-.iconInActive {
-    display: none;
-}
-
-.error_message {
-    color: red;
-    font-size: .9rem;
-}
-
-.isDataNotActive {
-    background-color: #94080D;
-    color: white;
-}
-
-
-.isDataActive {
-    background-color: #94080D;
-    color: white;
-}
-
-:deep thead {
-    background-color: rgb(55 65 81);
-    border: 1px solid white;
-
-}
-
-:deep th {
-    color: white;
-    border: 1px solid white;
-   
-}
-
+    @import url('../../style/Registrar/AE_OPI_1.css');
 </style>

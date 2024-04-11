@@ -24,7 +24,7 @@ export default{
             isIcon:false,
             isAdd:false,
             id:0,
-            isDataActive:true,
+            isDataActive:1,
             selectedFile:null,
 
             // Data base from the Account Info of Dean

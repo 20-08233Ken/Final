@@ -1,40 +1,5 @@
-<script>
-    import campus from './maintainance/campus.vue';
-    import office from './maintainance/office.vue'
-    import program from './maintainance/program.vue'
-    import college from './maintainance/college.vue'
+<script src = '../../../Scripts/Planning/Profile/maintain.js' >
 
-    export default {
-    data() {
-        return {
-        headers: [
-            {
-            title: "Campus Name",
-            },
-            {
-            title: "Action",
-            },
-        ],
-        
-            currentComponent:campus,
-            isActive:1
-        };
-    },
-
-    components:{
-        campus,
-        office,
-        program,
-        college
-    },
-    
-    methods:{
-        showComponent(getComponent,myBtn){
-            this.currentComponent =getComponent
-            this.isActive = myBtn
-        }
-    }
-    };
 </script>
 
 <template>
@@ -61,25 +26,5 @@
 
 
 <style scoped>
-    :deep(.v-table .v-table__wrapper > table > thead > tr > th) {
-        background-color: rgb(55 65 81);
-        border: 1px solid white;
-        color: white;
-        font-size: 13px;
-    
-    }
-    :deep(.v-table > .v-table__wrapper > table){
-        border: 1px solid #e5e7eb;
-    }
-    .activeBtn{
-        background-color: #e5e7eb;
-    }
-
-    :deep(.v-table .v-table__wrapper > table > thead > tr > th:last-child){
-        width: 13%;
-    }
-
-    :deep(.v-data-table-header__content){
-        justify-content: center;
-    }
+  @import url('../../../style/Planning/Profile/maintain.css');
 </style>

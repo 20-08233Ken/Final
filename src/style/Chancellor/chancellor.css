@@ -1,0 +1,18 @@
+td:last-child{
+    display:flex;
+    align-items:center
+}
+
+:deep thead {
+    background-color:	rgb(55 65 81);
+    border: 1px solid white;
+
+}
+:deep th{
+    color: white;
+    border: 1px solid white;
+}
+
+.isActive{
+    background-color:rgb(255, 240, 221);
+}

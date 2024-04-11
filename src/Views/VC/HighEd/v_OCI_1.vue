@@ -6,20 +6,21 @@
 <template>
     <h1 class="font-Header text-2xl text-Red-Rose">Higher Education Program</h1>
     <h2 class="font-Subheader text-lg text-Red-Rose">Outcome Indicator 1</h2>
-    <h2 class="font-Subheader text-gray-700 text-0.9">Percentage of first-time licensure exam takers that pass the licensure
+    <h2 class="font-Subheader text-gray-700 text-0.9">Percentage of first-time licensure exam takers that pass the
+        licensure
         exams</h2>
 
 
 
     <span class=" w-full overflow-x-auto mt-4">
         <span class="w-full flex items-center justify-end my-4 gap-2">
-            <v-btn size="small"  elevation="0" class="bg-teal-darken-3">
+            <v-btn size="small" elevation="0" class="bg-teal-darken-3">
                 <v-icon>mdi-refresh</v-icon>
                 <p class="ml-3">Reload Table</p>
             </v-btn>
         </span>
-        <v-data-table   loading-text="Loading... Please wait" :loading="myLoading" :headers="headers" :items="hepData" class="elevation-1 " items-per-page="10"
-            style="width:100%; overflow-x: scroll;">
+        <v-data-table loading-text="Loading... Please wait" :loading="myLoading" :headers="headers" :items="hepData"
+            class="elevation-1 " items-per-page="10" style="width:100%; overflow-x: scroll;">
 
 
             <template v-slot:item.supported_file="{item}">
@@ -28,44 +29,43 @@
                         <template v-slot:activator="{ props: activatorProps }">
                             <v-dialog max-width="500">
                                 <template v-slot:activator="{ props: activatorProps }">
-                                  <v-btn
+                                    <!-- <v-btn
                                     v-bind="activatorProps"
                                     color="surface-variant"
                                     text="View PDF"
                                     variant="flat"  @click="viewFile(item.hep_one_id)" 
-                                  ></v-btn>
+                                  ></v-btn> -->
+
+                                    <v-btn size="x-small" class="bg-light-blue-darken-3"
+                                        @click="viewFile(item.hep_one_id)">
+                                        View PDF
+                                    </v-btn>
                                 </template>
-                              
+
                                 <template v-slot:default="{ isActive }">
-                                  <v-card title="View PDF">
-                                    <!-- <PDFViewer v-if="pdfBase64" :src="`data:application/pdf;base64,${pdfBase64}`" :show-toolbar="true" :show-pagination="true" /> -->
-                                    <PDFViewer :source="pdfBase64" > </PDFViewer>
-                                    <v-card-actions>
-                                      <v-spacer></v-spacer>
-                              
-                                      <v-btn
-                                        text="Close"
-                                        @click="isActive.value = false"
-                                      ></v-btn>
-                                    </v-card-actions>
-                                  </v-card>
+                                    <v-card title="View PDF">
+                                        <!-- <PDFViewer v-if="pdfBase64" :src="`data:application/pdf;base64,${pdfBase64}`" :show-toolbar="true" :show-pagination="true" /> -->
+                                        <PDFViewer :source="pdfBase64"> </PDFViewer>
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+
+                                            <v-btn text="Close" @click="isActive.value = false"></v-btn>
+                                        </v-card-actions>
+                                    </v-card>
                                 </template>
-                              </v-dialog>
+                            </v-dialog>
                         </template>
-                      
+
                         <template v-slot:default="{ isActive }">
-                          <v-card title="View PDF">
-                            <!-- <PDFViewer v-if="pdfBase64" :src="`data:application/pdf;base64,${pdfBase64}`" :show-toolbar="true" :show-pagination="true" /> -->
-                            <PDFViewer :source="pdfBase64" > </PDFViewer>
-                            <v-card-actions>
-                              <v-spacer></v-spacer>
-                      
-                              <v-btn
-                                text="Close Dialog"
-                                @click="isActive.value = false"
-                              ></v-btn>
-                            </v-card-actions>
-                          </v-card>
+                            <v-card title="View PDF">
+                                <!-- <PDFViewer v-if="pdfBase64" :src="`data:application/pdf;base64,${pdfBase64}`" :show-toolbar="true" :show-pagination="true" /> -->
+                                <PDFViewer :source="pdfBase64"> </PDFViewer>
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+
+                                    <v-btn text="Close Dialog" @click="isActive.value = false"></v-btn>
+                                </v-card-actions>
+                            </v-card>
                         </template>
                     </v-dialog>
                 </span>
@@ -74,15 +74,17 @@
                 <span class="flex w-full flex-col  gap-2 py-4">
                     <v-btn size="x-small" class="bg-teal-darken-3" onclick="showApproval.showModal()"
                         @click="approvedHEP(item.hep_one_id)"
-                        :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCRDES' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator')"> Approved</v-btn>
+                        :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCRDES' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator')">
+                        Approved</v-btn>
 
-                        <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
+                    <v-btn size="x-small" class="bg-red-darken-3" onclick="showRejection.showModal()"
                         @click="rejectedHEP(item.hep_one_id)"
-                        :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCRDES' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator') "> Reject</v-btn>
+                        :disabled="(item.status != 'For IPDO Approval' && this.user == 'IPDO') || (this.user == 'VPRDES' || this.user == 'VCRDES' || this.user == 'VPDEA' || this.user == 'OUP' || this.user == 'System Administrator') ">
+                        Reject</v-btn>
 
                     <v-dialog max-width="700">
                         <template v-slot:activator="{ props: activatorProps }">
-                            <v-btn  block size="x-small" v-bind="activatorProps" color="surface-variant" text="View"
+                            <v-btn block size="x-small" v-bind="activatorProps" color="surface-variant" text="View"
                                 variant="flat" @click="ViewHistory(item.hep_one_id)"></v-btn>
                         </template>
 
@@ -175,8 +177,8 @@
                 <ErrorMessage name="reason" class="error_message" />
 
                 <p class="py-4 text-0.9">If others, please specify </p>
-                <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full" v-model="remarks"
-                    style="border:  1px solid #d2d2d2;" :rules="validateInput" />
+                <Field type="text" placeholder="Type here" name="otherReason" class="input  input-bordered w-full"
+                    v-model="remarks" style="border:  1px solid #d2d2d2;" :rules="validateInput" />
                 <ErrorMessage name="otherReason" class="error_message" />
                 <span class="w-full flex justify-end gap-4 mt-4">
                     <form method="dialog">
@@ -204,17 +206,7 @@
 
 <style scoped>
 
-.error_message{
-    color: red;
-    font-size: .9rem;
-}
-.isApproved{
-    color: rgb(21 128 61);
-}
+    @import url('../../../style/VC/HighEd/v_OCI_1.css');
 
-.isReject{
-    color: red;
-
-}
 
 </style>

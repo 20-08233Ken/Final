@@ -39,40 +39,27 @@ export default{
                 color: [
                     "#124076",
                     "#7F9F80",
+                    '#FFC374'
                 ],
-                tooltip: {
-                    trigger: 'axis',
-                    axisPointer: {
-                        type: 'shadow'
-                    }
-                },
                 legend: {},
-                grid: {
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
+                tooltip: {},
+                orient: 'horizontal',
+                dataset: {
+                    // program: ['BS Ed' ,'BS Eng', 'BS Acc'],
+                    // datalist:[{'Employed':32,'Unemployed':32,'Not Tracked':'32'}],
+                    dimensions: ['program', 'Employed', 'Unemployed', 'Not Tracked'],
+                    source: [
+                        // { program: 'BS Ed', 'Employed': 43.3, 'Unemployed': 85.8, 'Not Tracked': 93.7 },
+                        // { program: 'BS Eng', 'Employed': 83.1, 'Unemployed': 73.4, 'Not Tracked': 55.1 },
+                        // { program: 'BS Acc', 'Employed': 86.4, 'Unemployed': 65.2, 'Not Tracked': 82.5 },
+                        // { program: 'Walnut Brownie', 'BS Ed': 72.4, 'Unemployed': 53.9, 'Not Tracked': 39.1 }
+                    ]
                 },
-                xAxis: {
-                    type: 'category',
-                    boundaryGap: [0, 0.01]
-                },
-                yAxis: {
-                    // type: 'category',
-                    // data: []
-                },
-                series: [
-                    {
-                        name: 'Takers',
-                        type: 'bar',
-                        data: [18203, 23489, 29034, 104970, 131744, 630230]
-                    },
-                    {
-                        name: 'Passers',
-                        type: 'bar',
-                        data: [19325, 23438, 31000, 121594, 134141, 681807]
-                    }
-                ]
+                xAxis: { type: 'category' },
+                yAxis: {},
+                // Declare several bar series, each will be mapped
+                // to a column of dataset.source by default.
+                series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
             },
 
             data: [
@@ -81,8 +68,11 @@ export default{
                     in_department: "",
                 },
             ],
-            
             reportData:[],
+            newData:[],
+            finalData:[],
+            
+      
             programs:[],
             takers:[],
             passers:[],
@@ -111,41 +101,66 @@ export default{
 
                         this.reportData = response.data;
 
-                            // const  option = {
-                            //   legend: {},
-                            //   tooltip: {},
-                            //      orient: 'horizontal',
-                            //   dataset: {
-                            //     // program: ['BS Ed' ,'BS Eng', 'BS Acc'],
-                            //     // datalist:[{'Employed':32,'Unemployed':32,'Not Tracked':'32'}],
-                            //     dimensions: ['program', 'Employed', 'Unemployed', 'Not Tracked'],
-                            //     source: [
-                            //       { program: 'BS Ed', 'Employed': 43.3, 'Unemployed': 85.8, 'Not Tracked': 93.7 },
-                            //       { program: 'BS Eng', 'Employed': 83.1, 'Unemployed': 73.4, 'Not Tracked': 55.1 },
-                            //       { program: 'BS Acc', 'Employed': 86.4, 'Unemployed': 65.2, 'Not Tracked': 82.5 },
-                            //       { program: 'Walnut Brownie', 'BS Ed': 72.4, 'Unemployed': 53.9, 'Not Tracked': 39.1 }
-                            //     ]
-                            //   },
-                            //   xAxis: { type: 'category' },
-                            //   yAxis: {},
-                            //   // Declare several bar series, each will be mapped
-                            //   // to a column of dataset.source by default.
-                            //   series: [{ type: 'bar' }, { type: 'bar' }, { type: 'bar' }]
-                            // };
+                        // Remove the Identifier 
+                        this.reportData.forEach( item => {
+                            let tranformedObj = Object.values(item).filter(obj => typeof obj === 'object');
+                            tranformedObj.push({'college':item.college})
+                            this.newData.push(tranformedObj)
+                        })
+               
+                        
+                        console.log(JSON.stringify(this.newData))
+                        var college = []
+                        var Unemployed = []
+                        var Employed =[]
+                        var notTracked = []
+                    
+
+                        this.newData.forEach(item => {
+
+                            item.forEach(collegeData =>{
+                                
+                                if(collegeData.college != undefined ){
+                                 
+                                 
+                                    college.push({"program":collegeData.college})
+                                    console.log(JSON.stringify(college))
+
+                                }else if( collegeData.status != undefined){
+
+                            
+                                     if(collegeData.status === 'Employed'){
+                                        Employed.push({"Employed":collegeData.count})
+                                        console.log(JSON.stringify(Employed))
+
+                                    }
+                                    else if(collegeData.status === 'Unemployed'){
+                                        Unemployed.push({"Unemployed":collegeData.count})
+                                        console.log(JSON.stringify(Unemployed))
+
+                                    }
+                                    else if(collegeData.status === 'Not Tracked'){
+                                        notTracked.push({"Not Tracked":collegeData.count})
+                                        console.log(JSON.stringify(notTracked))
+
+                                    }                                          
+                                }
+                             
+                            })
+                        })
+
+                        this.finalData = [...college, ...Unemployed,...Employed, ...notTracked]
+                        const flattenedObject = {};
+                        this.finalData.forEach( item =>{
+                            Object.keys(item).forEach(key =>{
+                                flattenedObject[key] = item[key]
+                            })
+                        })
+            
+                        this.option.dataset.source.push(flattenedObject)
+                       
 
 
-                        this.programs = [...new Set(this.reportData.map(item => item.program))];
-                        this.status = [...new Set(this.reportData.map(item => item.graduate_tracer_status))];
-                        this.count = [...new Set(this.reportData.map(item => item.graduate_tracer_status_count))];
-                        // console.log( JSON.stringify(this.reportData))
-
-                        // if (response.data == "Successfully HEP added!"){
-                        //     this.isDataActive = false;
-                        // }
-
-                        this.option.yAxis.data = this.programs
-                        this.option.series[0].data = this.status
-                        this.option.series[1].data = this.count
                     })
                     .catch((error) => {
                         console.error("Error fetching hep data", error);

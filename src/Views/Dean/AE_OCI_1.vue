@@ -596,17 +596,7 @@
 
 <style scoped>
 
-    @import url('../../style//Dean/AE_OCI_1_style.css');
+    @import url('../../style/Dean/AE_OCI_1_style.css');
 
-        :deep(.v-table .v-table__wrapper > table > thead > tr > th){
-            border: 1px solid white;   
 
-        }
-
-        .isBtnActive {
-        background-color: #6b7280;
-        color: white;
-    }
-
-    .view-table >tr:nth-child(even) {background-color: #f2f2f2;}
 </style>

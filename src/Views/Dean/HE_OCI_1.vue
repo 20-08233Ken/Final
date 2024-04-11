@@ -3,6 +3,8 @@
 <template>
   <!-- Header -->
 
+  
+
   <div class="w-full flex shadow-card2 py-5 px-8 gap-4 bg-gray-700 mt-8">
 
     <span class="flex flex-col justify-center w-9/12">
@@ -65,12 +67,15 @@
             <span class="flex w-full gap-2 py-4">
               <v-dialog max-width="500">
                 <template v-slot:activator="{ props: activatorProps }">
-                  <v-btn
+                  <!-- <v-btn
                     v-bind="activatorProps"
                     color="surface-variant"
                     text="View PDF"
                     variant="flat"  @click="viewFile(item.hep_one_id)" 
-                  ></v-btn>
+                  ></v-btn> -->
+                  <v-btn size="x-small" class="bg-light-blue-darken-3" @click="viewFile(item.hep_one_id)">
+                                    View PDF
+                  </v-btn> 
                 </template>
               
                 <template v-slot:default="{ isActive }">
@@ -602,8 +607,5 @@
 
 <style scoped>
 @import url("../../style/Dean/HE_OCI_1_style.css");
-.isBtnActive {
-  background-color: #6b7280;
-  color: white;
-}
+
 </style>

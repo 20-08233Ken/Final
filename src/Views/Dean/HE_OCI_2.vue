@@ -214,7 +214,7 @@
                             <v-dialog max-width="1700">
                                 <template v-slot:activator="{ props: activatorProps }">
                                     <v-btn size="x-small" class="bg-light-blue-darken-3" v-bind="activatorProps"
-                                        text="View PDF" variant="flat" @click="viewFile(item.hep_two_id)"></v-btn>
+                                        text="View PDFs" variant="flat" @click="viewFile(item.hep_two_id)"></v-btn>
                                 </template>
 
                                 <template v-slot:default="{ isActive }">
@@ -523,30 +523,6 @@
 <style scoped>
     @import url('../../style/Dean/HE_OCI_2_style.css');
 
-    :deep(.v-table > .v-table__wrapper > table > tbody > tr > th, .v-table > .v-table__wrapper > table > thead > tr > th, .v-table > .v-table__wrapper > table > tfoot > tr > th){
-        border: 1px solid white;
-    }
 
-    .isBtnActive {
-        background-color: #6b7280;
-        color: white;
-    }
-
-    .isBtnActive {
-        background-color: white;
-        color: #111827;
-    }
-
-    .notBtnActive{
-        background-color: #6b7280;
-        color: white;
-    }
-
-    .table_cont ::v-deep(.v-table .v-table__wrapper > table > thead > tr > th){
-            border: 1px solid white;
-    }
-
-    
-    .view-table >tr:nth-child(even) {background-color: #f2f2f2;}
 
 </style>

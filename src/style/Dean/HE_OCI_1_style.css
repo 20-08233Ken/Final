@@ -75,3 +75,8 @@
 
 .view-table >tr:nth-child(even) {background-color: #f2f2f2;}
 
+.isBtnActive {
+    background-color: #6b7280;
+    color: white;
+  }
+

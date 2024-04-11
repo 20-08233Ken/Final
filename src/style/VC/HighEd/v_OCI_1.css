@@ -1,0 +1,12 @@
+.error_message{
+    color: red;
+    font-size: .9rem;
+}
+.isApproved{
+    color: rgb(21 128 61);
+}
+
+.isReject{
+    color: red;
+
+}
